@@ -1,1 +1,3 @@
 # DineOutBuddy
+
+Finding the perfect restaurant to accommodate your dietary needs or a group's preferences can be like finding a needle in a haystack. But fear no more with DineOutBuddy! This innovative app takes the hassle out of finding the perfect restaurant and makes it easier to search for you. Just tell our smart recommendation engine what you love, what you avoid, and what you're craving. DineOutBuddy will serve up the perfect restaurant options and menu items tailored to you. Do you have a quirky dietary restriction or burning food question? Ask our AI assistant for advice anytime, anywhere. With DineOutBuddy, you can finally stop stressing and have fun savoring every bite!
