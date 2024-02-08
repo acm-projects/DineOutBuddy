@@ -1,3 +1,7 @@
+<p align="center">
+<img src='https://www.sbmarketingtools.com/wp-content/uploads/2020/02/How-to-Open-Restaurant.jpg' width='700'>
+</p>
+
 # <h1 align="center">DineOutBuddy</h1>
 
 <p align="center">
