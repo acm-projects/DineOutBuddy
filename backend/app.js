@@ -1,9 +1,9 @@
-
 const express = require('express');
 require('dotenv').config();
-require('./models/db');
+const mongoose = require('mongoose');
 
 const app = express();
+
 const User = require('./models/user')
 
 app.get("/", (req,res)=>{
@@ -24,6 +24,10 @@ app.post('/create-user', async (req,res) => {
   res.json(user);
 })
 
-app.listen(8000, ()=>{
-  console.log("Port is now listening to 8000");
-});
+mongoose.connect(process.env.MONGO_URI).then(()=>{
+  console.log("App is connect to Database");
+  app.listen(8000, ()=>{
+    console.log("Port is now listening to 8000");
+  });
+}).catch(err => console.log(err.message));
+
