@@ -8,7 +8,6 @@ export const createUser = async (req,res) => {
       message: "This email is already in use, try sign-in",
     });
   }
-    console.log(req);
     const user = await User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
