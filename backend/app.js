@@ -1,15 +1,13 @@
-const express = require('express');
-require('dotenv').config();
-const mongoose = require('mongoose');
-const userRouter = require('./routes/user')
+import express from 'express';
+import {} from 'dotenv/config';
+import mongoose from 'mongoose';
+import userRoute from './routes/user.js';
 
 const app = express();
 
-const User = require('./models/user');
-
 // Middleware
 app.use(express.json());
-app.use(userRouter)
+app.use(userRoute)
 
 app.get("/", (req,res)=>{
   res.send("<h1>Hello World</h1>");

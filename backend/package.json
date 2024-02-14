@@ -2,6 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "DineOutBuddy BackEnd!",
+  "type": "module",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js"
@@ -9,8 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.4.3",
+    "dotenv": "^16.4.4",
     "express": "^4.18.2",
+    "express-validator": "^7.0.1",
     "mongoose": "^8.1.2",
     "nodemon": "^3.0.3"
   }

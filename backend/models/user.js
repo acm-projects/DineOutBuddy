@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from"mongoose";
 
 const userSchema = mongoose.Schema(
   {
@@ -50,7 +50,4 @@ userSchema.statics.isThisEmailInUse = async function(email){
   }
 }
 
-
-  
-
-module.exports = mongoose.model('User', userSchema);
+export const User = mongoose.model('User', userSchema);

@@ -1,6 +1,6 @@
-const User = require('../models/user')
+import { User } from '../models/user.js';
 
-exports.createUser = async (req,res) => {
+export const createUser = async (req,res) => {
   const isNewUser = !(await User.isThisEmailInUse(req.body.email))
   if (!isNewUser){
     return res.json({

@@ -1,7 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const { createUser } = require("../controllers/user");
+import express from 'express';
 
-router.post('/create-user', createUser);
+export const router = express.Router();
 
-module.exports = router;
+import { createUser } from "../controllers/user.js";
+import { validateUserSignUp, userValidation } from "../middlewares/validation/user.js";
+
+router.post('/create-user', validateUserSignUp, userValidation, createUser);
+
+export default router;
