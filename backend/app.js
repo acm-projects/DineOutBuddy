@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import {} from 'dotenv/config';
 import axios from 'axios';
 import userRoute from './routes/user.js';
 
