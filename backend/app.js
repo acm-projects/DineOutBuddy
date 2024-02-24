@@ -2,6 +2,7 @@ import express from 'express';
 import {} from 'dotenv/config';
 import mongoose from 'mongoose';
 import userRoute from './routes/user.js';
+import { chats } from './data/data.js';
 
 const app = express();
 
@@ -12,6 +13,18 @@ app.use(userRoute)
 app.get("/", (req,res)=>{
   res.send("<h1>DineOutBuddy On Top</h1>");
 });
+
+app.get("/api/chat", (req, res) =>{
+  res.send(chats);
+})
+
+app.get("/api/chat/:id", (req, res) =>{
+  const { id } = req.params
+  const singleChat = chats.find(chat => chat._id === id)
+  res.send(singleChat);
+})
+
+
 
 mongoose.connect(process.env.MONGO_URI).then(()=>{
   console.log("App is connect to Database");
