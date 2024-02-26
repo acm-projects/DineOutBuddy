@@ -2,13 +2,15 @@ import express from 'express';
 import {} from 'dotenv/config';
 import mongoose from 'mongoose';
 import userRoute from './routes/user.js';
+import chatRoute from './routes/chat.js';
 import { chats } from './data/data.js';
 
 const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(userRoute)
+app.use('/api/user',userRoute);
+app.use('/api/chat',chatRoute);
 
 app.get("/", (req,res)=>{
   res.send("<h1>DineOutBuddy On Top</h1>");
