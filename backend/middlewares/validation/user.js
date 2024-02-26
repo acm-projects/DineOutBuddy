@@ -16,6 +16,6 @@ export const userValidation = (req, res, next) =>{
 }
 
 export const validateUserSignIn = [
-  check('username').trim().isEmail().withMessage("Username and password is required!"),
+  check('username').trim().notEmpty().withMessage("Username and password is required!"),
   check('password').trim().notEmpty().withMessage("Username and password is required!")
 ]
