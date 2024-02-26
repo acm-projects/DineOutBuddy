@@ -25,7 +25,8 @@ const chatSchema = mongoose.Schema(
       ref: "User"
     }
   },
-  {timestamps: true}
+  {timestamps: true,
+    toJSON: {virtuals: true}}
 )
 
 export const Chat = mongoose.model('Chat', chatSchema);

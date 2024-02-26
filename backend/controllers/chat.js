@@ -42,9 +42,6 @@ export const accessChat = asyncHandler(async (req, res) =>{
       throw new Error(error.message);
     }
   }
-
-
-
 });
 
 export const fetchChats = asyncHandler(async (req,res) =>{

@@ -13,7 +13,8 @@ const messageSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Chat"
     },
-  }
+  },
+  {toJSON: {virtuals: true}}
 )
 
 export const Message = mongoose.model('Message', messageSchema);
