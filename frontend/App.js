@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View, Dimensions} from 'react-native';
+import { ScrollView, StyleSheet, Text, View} from 'react-native';
 import FormHeader from './app/components/FormHeader';
 import FormSelectorBtn from './app/components/FormSelectorBtn';
+import LoginForm from './app/components/LoginForm';
+import SignupForm from './app/components/SignupForm';
 
 export default function App() {
   return (
@@ -10,28 +12,14 @@ export default function App() {
         <FormHeader leftHeading='Welcome' rightHeading='Back' subHeading='DineOutBuddy'/>
       </View>
 
-      <View style={{flexDirection: 'row', paddingHorizontal: 20}}>
+      <View style={{flexDirection: 'row', paddingHorizontal: 20, marginBottom: 20}}>
         <FormSelectorBtn backgroundColor='rgba(27,27,51,1)' title='Log In' style={styles.borderLeft}/>
         <FormSelectorBtn backgroundColor='rgba(27,27,51,0.4)' title='Sign Up' style={styles.borderRight}/>
       </View>
 
       <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
-        <View 
-        style={{
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          backgroundColor: 'black',
-          width: Dimensions.get('window').width}}>
-          <Text style={{ fontSize: 50, color: 'white', fontWeight: 'bold'}}>Login </Text>
-        </View>
-        <View 
-        style={{
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          width: Dimensions.get('window').width
-         }}>
-          <Text style={{ fontSize: 50,fontWeight: 'bold'}}>Sign Up </Text>
-        </View>
+        <LoginForm/>
+        <SignupForm/>
       </ScrollView>
     </View>
   );
