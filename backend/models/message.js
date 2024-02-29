@@ -1,20 +1,20 @@
-import mongoose from"mongoose";
+import mongoose from "mongoose";
 
 const messageSchema = mongoose.Schema(
   {
-    sender:{
+    sender: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    content:{
+    content: {
       type: String,
     },
-    chat:{
+    chat: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Chat"
+      ref: "Chat",
     },
   },
-  {toJSON: {virtuals: true}}
-)
+  { toJSON: { virtuals: true } }
+);
 
-export const Message = mongoose.model('Message', messageSchema);
+export const Message = mongoose.model("Message", messageSchema);
