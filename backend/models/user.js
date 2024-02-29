@@ -3,11 +3,11 @@ import bcrypt from 'bcrypt';
 
 const userSchema = mongoose.Schema(
   {
-    firstName:{
+    username:{
       type: String,
       required: true,
     },
-    lastName:{
+    fullname:{
       type: String,
       required: true,
     },
@@ -61,6 +61,20 @@ userSchema.statics.isThisEmailInUse = async function(email){
   if (!email) throw new Error("Invalid Email")
   try{
     const user = await this.findOne({email: email})
+    if (user){
+      return true
+    }
+    return false;
+  }catch(err){
+    console.log("error in isThisEmailInUse method", err.message)
+    return false
+  }
+}
+
+userSchema.statics.isThisUserName = async function(username){
+  if (!username) throw new Error("Invalid Username")
+  try{
+    const user = await this.findOne({username: username})
     if (user){
       return true
     }

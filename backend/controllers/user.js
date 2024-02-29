@@ -3,16 +3,16 @@ import jwt from "jsonwebtoken";
 import {} from 'dotenv/config';
 
 export const createUser = async (req,res) => {
-  const isNewUser = !(await User.isThisEmailInUse(req.body.email))
+  const isNewUser = !(await User.isThisEmailInUse(req.body.email) || await User.isThisUserName(req.body.username))
   if (!isNewUser){
     return res.json({
       success: false,
-      message: "This email is already in use, try sign-in",
+      message: "This email or username is already in use, try sign-in",
     });
   }
     const user = await User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
+      fullname: req.body.fullname,
+      username: req.body.username,
       email: req.body.email,
       password: req.body.password,
       avatar: req.body.avatar,
@@ -25,9 +25,9 @@ export const createUser = async (req,res) => {
 }
 
 export const userSignIn = async (req, res)=>{
-  const {email, password} = req.body;
+  const {username, password} = req.body;
 
-  const user = await User.findOne({email: email})
+  const user = await User.findOne({username: username})
   if(!user) return res.json({success: false, message: "user not found with given email"});
 
   const isMatch = await user.comparePassword(password);
