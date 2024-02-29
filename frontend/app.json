@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "frontend",
+    "slug": "frontend",
+    "version": "1.0.0",
+    "description": "",
+    "sdkVersion": "50.0.0",
+    "platforms": [],
+    "android": {
+      "package": "com.anonymous.frontend"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
+    
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "expo": "~50.0.8",
+    "react": "18.2.0",
+    "react-native": "0.73.4",
+    "react-navigation": "^5.0.0",
+    "react-router-dom": "^6.22.1"
+  },
+  "devDependencies": {
+    "metro": "^0.80.6"
+  },
+  "description": ""
+}
