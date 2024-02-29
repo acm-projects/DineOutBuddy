@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React from 'react'
 
-export default function FormInput({title, placeholder}) {
+export default function FormInput(props) {
+  const { placeholder, label} = props;
   return (
     <>
-      <Text style={styles.label}> {title}</Text>
-      <TextInput style={styles.input} placeholder={placeholder}/>
+      <Text style={styles.label}>{label}</Text>
+      <TextInput {...props} style={styles.input} placeholder={placeholder}/>
     </>
   )
 }

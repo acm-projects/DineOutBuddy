@@ -13,11 +13,11 @@ export default function App() {
       </View>
 
       <View style={{flexDirection: 'row', paddingHorizontal: 20, marginBottom: 20}}>
-        <FormSelectorBtn backgroundColor='rgba(27,27,51,1)' title='Log In' style={styles.borderLeft}/>
+        <FormSelectorBtn backgroundColor='#0093ED' title='Log In' style={styles.borderLeft}/>
         <FormSelectorBtn backgroundColor='rgba(27,27,51,0.4)' title='Sign Up' style={styles.borderRight}/>
       </View>
 
-      <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
+      <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false} style={{backgroundColor: 'white'}}>
         <LoginForm/>
         <SignupForm/>
       </ScrollView>
