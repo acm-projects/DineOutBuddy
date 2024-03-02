@@ -3,9 +3,24 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import FormHeader from "./app/components/FormHeader";
 import FormSelectorBtn from "./app/components/FormSelectorBtn";
 import LoginForm from "./app/components/LoginForm";
+import axios from "axios";
 import SignupForm from "./app/components/SignupForm";
+import { useEffect } from "react";
 
 export default function App() {
+  const fetchApi = async () => {
+    try {
+      const res = await axios.get("http://192.168.50.21:8000/"); // my IP address
+      console.log(res);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchApi();
+  }, []);
+
   return (
     <View style={{ flex: 2, paddingTop: 60 }}>
       <View style={{ height: 80 }}>

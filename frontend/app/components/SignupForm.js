@@ -4,76 +4,105 @@ import FormContainer from "./FormContainer";
 import FormInput from "./FormInput";
 import FormSubmitBtn from "./FormSubmitBtn";
 import { isValidObjField, updateError, isValidEmail } from "../utils/methods";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import client from "../api/client";
+
+const validationSchema = Yup.object({
+  fullname: Yup.string()
+    .trim()
+    .min(3, "Invalid name")
+    .required("Name is required"),
+  username: Yup.string()
+    .trim()
+    .min(3, "Invalid username")
+    .required("Username is required"),
+  email: Yup.string().email("Invalid email!").required("Email is required"),
+  password: Yup.string()
+    .trim()
+    .min(8, "Password must be at least 8 characters")
+    .required("Password is required"),
+});
 
 const SignupForm = () => {
-  const [userInfo, setUserInfo] = useState({
-    fullName: "",
-    userName: "",
+  const userInfo = {
+    fullname: "",
+    username: "",
     email: "",
     password: "",
-  });
-
-  const { fullName, userName, email, password } = userInfo;
-
-  const [error, setError] = useState("");
-
-  const handleOnChange = (value, fieldName) => {
-    setUserInfo({ ...userInfo, [fieldName]: value });
   };
 
-  const isValidForm = () => {
-    if (!isValidObjField(userInfo))
-      return updateError("Required all field", setError);
+  const signUp = async (values, formikActions) => {
+    const res = await client.post("/api/user/create-user", {
+      ...values,
+    });
 
-    if (!fullName.trim() || fullName.length < 3)
-      return updateError("Name is too short", setError);
-
-    if (!isValidEmail(email)) return updateError("Invalid Email", setError);
-
-    if (!password.trim() || password.length < 8)
-      return updateError("password is less than 8 characters", setError);
-  };
-
-  const submitForm = () => {
-    if (isValidForm()) {
-      // submit form
-      console.log(userInfo);
-    }
+    console.log(res.data);
+    formikActions.resetForm();
+    formikActions.setSubmitting(false);
   };
 
   return (
     <FormContainer>
-      {error ? (
-        <Text style={{ color: "red", fontSize: 18, textAlign: "center" }}>
-          {error}
-        </Text>
-      ) : null}
-      <FormInput
-        value={fullName}
-        onChangeText={(value) => handleOnChange(value, "fullName")}
-        label="Full name"
-        placeholder="Sponge Bobby Bob"
-      />
-      <FormInput
-        value={userName}
-        onChangeText={(value) => handleOnChange(value, "userName")}
-        label="Username"
-        placeholder="Spongebob123"
-      />
-      <FormInput
-        value={email}
-        onChangeText={(value) => handleOnChange(value, "email")}
-        label="Email"
-        placeholder="potato123@gmail.com"
-      />
-      <FormInput
-        value={password}
-        onChangeText={(value) => handleOnChange(value, "password")}
-        secureTextEntry
-        label="Password"
-        placeholder="********"
-      />
-      <FormSubmitBtn onPress={submitForm} title="SignUp" />
+      <Formik
+        initialValues={userInfo}
+        validationSchema={validationSchema}
+        onSubmit={signUp}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          isSubmitting,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+        }) => {
+          const { fullname, username, email, password } = values;
+          return (
+            <>
+              <FormInput
+                value={fullname}
+                error={touched.fullname && errors.fullname}
+                onChangeText={handleChange("fullname")}
+                onBlur={handleBlur("fullname")}
+                label="Full name"
+                placeholder="Sponge Bobby Bob"
+              />
+              <FormInput
+                value={username}
+                error={touched.username && errors.username}
+                onChangeText={handleChange("username")}
+                onBlur={handleBlur("username")}
+                label="Username"
+                placeholder="Spongebob123"
+              />
+              <FormInput
+                value={email}
+                error={touched.email && errors.email}
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                label="Email"
+                placeholder="potato123@gmail.com"
+              />
+              <FormInput
+                value={password}
+                error={touched.password && errors.password}
+                onChangeText={handleChange("password")}
+                onBlur={handleBlur("password")}
+                secureTextEntry
+                label="Password"
+                placeholder="********"
+              />
+              <FormSubmitBtn
+                submitting={isSubmitting}
+                onPress={handleSubmit}
+                title="SignUp"
+              />
+            </>
+          );
+        }}
+      </Formik>
     </FormContainer>
   );
 };
