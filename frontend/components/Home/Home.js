@@ -5,9 +5,7 @@ function Home() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Welcome to My App</Text>
-        {/* Navigation in React Native would typically be handled differently */}
-        {/* You might use React Navigation or another navigation library */}
+        <Text style={styles.title}>Dine Out Buddy</Text>
       </View>
       
       <View style={styles.footer}>
@@ -24,7 +22,7 @@ const styles = StyleSheet.create({
   },
   header: {
     padding: 20,
-    backgroundColor: 'lightblue',
+    backgroundColor: 'lightbrown',
   },
   title: {
     fontSize: 24,
