@@ -34,7 +34,9 @@ const userSchema = mongoose.Schema(
       ],
       required: true,
     },
-  }
+  },
+  {toJSON: {virtuals: true}}
+  
 )
 
 userSchema.pre('save', function(next){
