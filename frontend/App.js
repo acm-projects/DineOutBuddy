@@ -10,7 +10,7 @@ import { useEffect } from "react";
 export default function App() {
   const fetchApi = async () => {
     try {
-      const res = await axios.get("http://192.168.50.21:8000/"); // my IP address
+      const res = await axios.get("http://127.0.0.1:8000/");
       console.log(res);
     } catch (error) {
       console.log(error.message);
