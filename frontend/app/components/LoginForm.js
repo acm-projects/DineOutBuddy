@@ -35,9 +35,9 @@ const LoginForm = () => {
     formikActions.setSubmitting(false);
   };
 
-  return (
+return (
     <FormContainer>
-      <View style={{ height: 100 }} />
+      <View style={{ height: 120 }} />
       <Formik
         initialValues={userInfo}
         validationSchema={validationSchema}
@@ -52,7 +52,7 @@ const LoginForm = () => {
           handleBlur,
           handleSubmit,
         }) => {
-          const { fullname, username, email, password } = values;
+          const { email, password } = values;
           return (
             <>
               <FormInput
@@ -72,14 +72,12 @@ const LoginForm = () => {
                 label=""
                 placeholder="Password"
               />
-            <View style={{ height: 30 }} />
-              <View style={{ height: 50, justifyContent: 'right', alignItems: 'right' }}>
-               {
-                  <Text>
-                         Forgot Password?
-                        </Text>
-                  }
-                </View>
+              <View style={{ height: 30 }} />
+              <View style={{ height: 50, justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ color: 'blue', fontSize: 16, fontWeight: 'bold' }}>
+                  Forgot Password?
+                </Text>
+              </View>
 
               <FormSubmitBtn
                 submitting={isSubmitting}
@@ -90,18 +88,15 @@ const LoginForm = () => {
           );
         }}
       </Formik>
-      <View style={{ height: 50 }} />
+      <View style={{ height: 30 }} />
       <View style={{ height: 50, justifyContent: 'center', alignItems: 'center' }}>
-    {
-      <Text>
-        Don't have an account? Sign up
-      </Text>
-    }
-  </View>
+        <Text>
+          Don't have an account? Sign up
+        </Text>
+      </View>
     </FormContainer>
   );
 };
 
 export default LoginForm;
-
 const styles = StyleSheet.create({});
