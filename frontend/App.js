@@ -47,6 +47,7 @@ export default function App() {
         style={{ backgroundColor: "white" }}
       >
         <LoginForm />
+        
         <SignupForm />
       </ScrollView>
       <StatusBar style="auto" />
