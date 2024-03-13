@@ -1,11 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { ScrollView, StyleSheet, View } from "react-native";
-import FormHeader from "./app/components/FormHeader";
-import FormSelectorBtn from "./app/components/FormSelectorBtn";
-import LoginForm from "./app/components/LoginForm";
-import SignupForm from "./app/components/SignupForm";
+import AppForm from "./app/screens/AppForm";
 import axios from "axios";
+import { NavigationContainer, } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useEffect } from "react";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const fetchApi = async () => {
@@ -22,35 +23,11 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={{ height: 140 }}>
-        <FormHeader
-          leftHeading="Welcome!"
-          rightHeading=""
-          subHeading="Dine Out Buddy"
-        />
-      </View>
-
-      <View
-        style={{
-          flexDirection: "row",
-          paddingHorizontal: 20,
-          marginBottom: 20,
-        }}
-      >
-      </View>
-
-      <ScrollView
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        style={{ backgroundColor: "white" }}
-      >
-        <LoginForm />
-        <SignupForm />
-      </ScrollView>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen component={AppForm} name="AppForm" />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

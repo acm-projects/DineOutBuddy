@@ -22,12 +22,12 @@ export default function AppForm() {
   }, []);
 
   return (
-    <View style={{ flex: 2, paddingTop: 60 }}>
-      <View style={{ height: 80 }}>
+    <View style={styles.container}>
+      <View style={{ height: 140 }}>
         <FormHeader
-          leftHeading="Welcome"
-          rightHeading="Back"
-          subHeading="DineOutBuddy"
+          leftHeading="Welcome!"
+          rightHeading=""
+          subHeading="Dine Out Buddy"
         />
       </View>
 
@@ -38,16 +38,6 @@ export default function AppForm() {
           marginBottom: 20,
         }}
       >
-        <FormSelectorBtn
-          backgroundColor="#0093ED"
-          title="Log In"
-          style={styles.borderLeft}
-        />
-        <FormSelectorBtn
-          backgroundColor="rgba(27,27,51,0.4)"
-          title="Sign Up"
-          style={styles.borderRight}
-        />
       </View>
 
       <ScrollView
@@ -59,15 +49,17 @@ export default function AppForm() {
         <LoginForm />
         <SignupForm />
       </ScrollView>
+      <StatusBar style="auto" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    flex: 1,
+    paddingTop: 60,
+    backgroundColor: '#1E90FF', // Set the background color to blue
+    marginBottom: 50,
   },
   borderLeft: {
     borderTopLeftRadius: 8,
