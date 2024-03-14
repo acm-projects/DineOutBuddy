@@ -21,7 +21,7 @@ export default function useCustomFonts(fontsLoaded, fontError) {
     'Metropolis-SemiBoldItalic': require('../../assets/fonts/Metropolis-SemiBoldItalic.ttf'),
     'Metropolis-Thin': require('../../assets/fonts/Metropolis-Thin.ttf'),
     'Metropolis-ThinItalic': require('../../assets/fonts/Metropolis-ThinItalic.ttf'),
-    'Hey-Comic': require('../../assets/fonts/Hey Comic.ttf'),
+    'HeyComic': require('../../assets/fonts/HeyComic.ttf'),
   });
 
     /*

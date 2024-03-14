@@ -2,6 +2,10 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "assets/fonts/HeyComic.ttf",
+      "sha1": "59e1ba5017f7c9cc5cf0e7ae7e678ca253b25832"
+    },
+    {
       "path": "assets/fonts/Metropolis-Black.ttf",
       "sha1": "10906b45ccf43cfad3a72d8c351b3c574d4c615b"
     },

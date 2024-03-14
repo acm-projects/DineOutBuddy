@@ -74,7 +74,7 @@ return (
               />
               <View style={{ height: 30 }} />
               <View style={{ height: 50, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ color: 'blue', fontSize: 16, fontFamily: 'Hey Comic'}}>
+                <Text style={{ color: 'blue', fontSize: 16, fontFamily: 'HeyComic'}}>
                   Forgot Password?
                 </Text>
               </View>
