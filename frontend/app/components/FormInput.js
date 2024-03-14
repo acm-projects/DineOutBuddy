@@ -23,10 +23,11 @@ export default function FormInput(props) {
 const styles = StyleSheet.create({
   label: {
     fontWeight: "bold",
+    fontFamily: "Metropolis-Black",
   },
   input: {
   borderWidth: 1,
-  borderColor: "blue",
+  borderColor: "red",
   backgroundColor: "lightblue",  // Added line for background color
   height: 35,
   borderRadius: 8,

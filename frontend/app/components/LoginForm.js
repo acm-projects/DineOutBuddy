@@ -12,11 +12,11 @@ const validationSchema = Yup.object({
   username: Yup.string()
     .trim()
     .min(3, "Invalid email")
-    .required("email is required"),
+    .required("Required"),
   password: Yup.string()
     .trim()
     .min(8, "Password must be at least 8 characters")
-    .required("Password is required"),
+    .required("Required"),
 });
 
 const LoginForm = () => {
@@ -74,7 +74,7 @@ return (
               />
               <View style={{ height: 30 }} />
               <View style={{ height: 50, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ color: 'blue', fontSize: 16, fontWeight: 'bold' }}>
+                <Text style={{ color: 'blue', fontSize: 16, fontFamily: 'Hey Comic'}}>
                   Forgot Password?
                 </Text>
               </View>
