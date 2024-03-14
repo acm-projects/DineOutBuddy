@@ -11,9 +11,9 @@ export default function AppForm({ navigation }) {
   const fetchApi = async () => {
     try {
       const res = await axios.get("http://127.0.0.1:8000/");
-      console.log(res);
+      // console.log(res);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 
@@ -56,12 +56,12 @@ export default function AppForm({ navigation }) {
         showsHorizontalScrollIndicator={false}
         style={{ backgroundColor: "white" }}
       >
-        <LoginForm />
-        <Button
+        <LoginForm navigation={navigation} />
+        {/*<Button
           title="Go to Details"
           onPress={() => navigation.navigate("test")}
-        />
-        <SignupForm />
+      /> */}
+        <SignupForm navigation={navigation} />
       </ScrollView>
     </View>
   );

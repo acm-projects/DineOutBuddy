@@ -1,102 +1,111 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { View, ScrollView, Text, Button, StyleSheet } from "react-native";
-import { Bubble, GiftedChat, Send } from "react-native-gifted-chat";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useContext, useEffect } from "react";
+import {
+  FlatList,
+  Pressable,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { GlobalContext } from "../../context";
+import { AntDesign } from "@expo/vector-icons";
+import Chatcomponent from "../components/ChatComponent";
+import NewGroupModal from "../components/Modal";
 
-const ChatScreen = () => {
-  const [messages, setMessages] = useState([]);
+export default function Chatscreen({ navigation }) {
+  const {
+    currentUser,
+    allChatRooms,
+    setAllChatRooms,
+    modalVisible,
+    setModalVisible,
+    setCurrentUser,
+    setShowLoginView,
+  } = useContext(GlobalContext);
+
+  function handleLogout() {
+    setCurrentUser("");
+    setShowLoginView(false);
+  }
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: "Hello developer",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-      {
-        _id: 2,
-        text: "Hello world",
-        createdAt: new Date(),
-        user: {
-          _id: 1,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-    ]);
-  }, []);
-
-  const onSend = useCallback((messages = []) => {
-    setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, messages)
-    );
-  }, []);
-
-  const renderSend = (props) => {
-    return (
-      <Send {...props}>
-        <View>
-          <MaterialCommunityIcons
-            name="send-circle"
-            style={{ marginBottom: 5, marginRight: 5 }}
-            size={32}
-            color="#2e64e5"
-          />
-        </View>
-      </Send>
-    );
-  };
-
-  const renderBubble = (props) => {
-    return (
-      <Bubble
-        {...props}
-        wrapperStyle={{
-          right: {
-            backgroundColor: "#2e64e5",
-          },
-        }}
-        textStyle={{
-          right: {
-            color: "#fff",
-          },
-        }}
-      />
-    );
-  };
-
-  const scrollToBottomComponent = () => {
-    return <FontAwesome name="angle-double-down" size={22} color="#333" />;
-  };
+    if (currentUser.trim() === "") navigation.navigate("Homescreen");
+  }, [currentUser]);
 
   return (
-    <GiftedChat
-      messages={messages}
-      onSend={(messages) => onSend(messages)}
-      user={{
-        _id: 1,
-      }}
-      renderBubble={renderBubble}
-      alwaysShowSend
-      renderSend={renderSend}
-      scrollToBottom
-      scrollToBottomComponent={scrollToBottomComponent}
-    />
+    <View style={styles.mainWrapper}>
+      <View style={styles.topContainer}>
+        <View style={styles.header}>
+          <Text style={styles.heading}>Welcome {currentUser}!</Text>
+          <Pressable onPress={handleLogout}>
+            <AntDesign name="logout" size={30} color={"black"} />
+          </Pressable>
+        </View>
+      </View>
+      <View style={styles.listContainer}>
+        {allChatRooms && allChatRooms.length > 0 ? (
+          <FlatList
+            data={allChatRooms}
+            renderItem={({ item }) => <Chatcomponent item={item} />}
+            keyExtractor={(item) => item.id}
+          />
+        ) : null}
+      </View>
+      <View style={styles.bottomContainer}>
+        <Pressable onPress={() => setModalVisible(true)} style={styles.button}>
+          <View>
+            <Text style={styles.buttonText}>Create New Group</Text>
+          </View>
+        </Pressable>
+      </View>
+      {modalVisible && <NewGroupModal />}
+    </View>
   );
-};
-
-export default ChatScreen;
+}
 
 const styles = StyleSheet.create({
-  container: {
+  mainWrapper: {
+    backgroundColor: "#eee",
     flex: 1,
+  },
+  topContainer: {
+    backgroundColor: "#fff",
+    height: 70,
+    width: "100%",
+    padding: 20,
+    justifyContent: "center",
+    marginBottom: 15,
+    flex: 0.3,
+  },
+  header: {
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+  },
+  heading: {
+    fontSize: 30,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+  },
+  listContainer: {
+    flex: 3.4,
+    paddingHorizontal: 10,
+  },
+  bottomContainer: {
+    flex: 0.3,
+    padding: 10,
+  },
+  button: {
+    backgroundColor: "#703efe",
+    padding: 12,
+    width: "100%",
+    elevation: 1,
+    borderRadius: 50,
+  },
+  buttonText: {
+    textAlign: "center",
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 20,
   },
 });

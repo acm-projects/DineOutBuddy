@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text, Button, StyleSheet, FlatList } from "react-native";
+import { useContext } from "react";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  FlatList,
+  Pressable,
+} from "react-native";
 import {
   Container,
   Card,
@@ -12,11 +20,13 @@ import {
   MessageText,
   TextSection,
 } from "../styles/MessageStyles";
+import { GlobalContext } from "../../context";
+import NewGroupModal from "../components/Modal";
 
 const Messages = [
   {
     id: "1",
-    userName: "Jenny Doe",
+    userName: "Joe Doe",
     userImg: require("../../assets/users/user-3.jpg"),
     messageTime: "4 mins ago",
     messageText:
@@ -57,6 +67,7 @@ const Messages = [
 ];
 
 const MessagesScreen = ({ navigation }) => {
+  const { modalVisible, setModalVisible } = useContext(GlobalContext);
   return (
     <Container>
       <FlatList
@@ -83,6 +94,15 @@ const MessagesScreen = ({ navigation }) => {
           </Card>
         )}
       />
+      <View style={styles.bottomContainer}>
+        <Pressable onPress={() => setModalVisible(true)} style={styles.button}>
+          <View>
+            <Text style={styles.buttonText}>Create New Group</Text>
+          </View>
+        </Pressable>
+      </View>
+      {modalVisible && <NewGroupModal />}
+
       <Button
         title="Go to ChatScreen"
         onPress={() => navigation.navigate("ChatScreen")}
@@ -98,5 +118,22 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  bottomContainer: {
+    flex: 0.3,
+    padding: 10,
+  },
+  button: {
+    backgroundColor: "#703efe",
+    padding: 12,
+    width: "100%",
+    elevation: 1,
+    borderRadius: 50,
+  },
+  buttonText: {
+    textAlign: "center",
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 20,
   },
 });

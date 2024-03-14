@@ -7,6 +7,9 @@ import { isValidObjField, updateError, isValidEmail } from "../utils/methods";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import client from "../api/client";
+import { StackActions } from "@react-navigation/native";
+import { useLogin } from "../../context/LoginProvider";
+import { signIn } from "../api/user";
 
 const validationSchema = Yup.object({
   fullname: Yup.string()
@@ -24,7 +27,9 @@ const validationSchema = Yup.object({
     .required("Password is required"),
 });
 
-const SignupForm = () => {
+const SignupForm = ({ navigation }) => {
+  const { setIsLoggedIn, setProfile } = useLogin();
+
   const userInfo = {
     fullname: "",
     username: "",
@@ -37,7 +42,16 @@ const SignupForm = () => {
       ...values,
     });
 
-    console.log(res.data);
+    console.log(res.data.success);
+    if (res.data.success) {
+      const signInRes = await signIn(values.username, values.password);
+
+      if (signInRes.data.success) {
+        setProfile(res.data.user);
+        setIsLoggedIn(true);
+      }
+    }
+
     formikActions.resetForm();
     formikActions.setSubmitting(false);
   };

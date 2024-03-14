@@ -7,6 +7,8 @@ import { isValidObjField, updateError, isValidEmail } from "../utils/methods";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import client from "../api/client";
+import { useLogin } from "../../context/LoginProvider";
+import { signIn } from "../api/user";
 
 const validationSchema = Yup.object({
   username: Yup.string()
@@ -20,17 +22,20 @@ const validationSchema = Yup.object({
 });
 
 const LoginForm = () => {
+  const { setIsLoggedIn, setProfile } = useLogin();
+
   const userInfo = {
     username: "",
     password: "",
   };
 
   const logIn = async (values, formikActions) => {
-    const res = await client.post("/api/user/sign-in", {
-      ...values,
-    });
+    const res = await signIn(values.username, values.password);
 
-    console.log(res.data);
+    if (res.data.success) {
+      setProfile(res.data.user);
+      setIsLoggedIn(true);
+    }
     formikActions.resetForm();
     formikActions.setSubmitting(false);
   };
