@@ -11,7 +11,7 @@ const HomePage = () => {
         <Text style={styles.categoryText}>For You</Text>
         <Image
           style={styles.image}
-          source={require('/Users/pigeon/Dropbox/My Mac (Kousthub’s MacBook Pro)/Desktop/DineOutBuddy/frontend/app/components/Osaka.png')}
+          source={require('Osaka.png')}
         />
         
       </View>
