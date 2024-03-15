@@ -54,6 +54,7 @@ export const userSignIn = async (req, res) => {
     email: user.email,
     allergies: user.allergies,
     preferences: user.preferences,
+    token: token,
   };
 
   res.json({ success: true, user: userInfo, token });

@@ -9,14 +9,22 @@ import {
   TextInput,
   StatusBar,
   Keyboard,
+  Touchable,
+  TouchableOpacity,
+  Button,
 } from "react-native";
 import { GlobalContext } from "../../context";
+import { useLogin } from "../../context/LoginProvider";
+import axios from "axios";
+import client from "../api/client";
 
 const NewGroupModal = () => {
+  const { profile, chats, setChats } = useLogin();
+
   const [groupChatName, SetGroupChatName] = useState();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [search, setSearch] = useState("");
-  const [searcHResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
   const {
     currentGroupName,
     setCurrentGroupName,
@@ -37,16 +45,55 @@ const NewGroupModal = () => {
       return;
     }
     try {
-      const config = {
+      const { data } = await client.get(`api/user?search=${search}`, {
         headers: {
-          Authorization: `JWT  ${user.token}`,
+          authorization: `JWT ${profile.token}`,
+          accept: "application/json",
         },
-      };
-
-      const { data } = await axios.get(`/api/user?search${search}`, config);
-      console.log(data);
+      });
+      setSearchResult(data);
     } catch (error) {
-      console.log(error.messsage);
+      console.log(error.message);
+    }
+  };
+
+  const handleGroup = (userToAdd) => {
+    if (selectedUsers.includes(userToAdd)) {
+      console.log("User already added");
+      return;
+    }
+    setSelectedUsers([...selectedUsers, userToAdd]);
+  };
+
+  const handleDelete = (deleted) => {
+    setSelectedUsers(selectedUsers.filter((sel) => sel._id != deleted._id));
+  };
+
+  const handleSubmit = async () => {
+    if (!groupChatName || !selectedUsers) {
+      console.log("please fill out alll of the fields");
+      return;
+    }
+    try {
+      const { data } = await client.post(
+        "/api/chat/group",
+        {
+          name: groupChatName,
+          users: JSON.stringify(selectedUsers.map((user) => user._id)),
+        },
+        {
+          headers: {
+            authorization: `JWT ${profile.token}`,
+            accept: "application/json",
+          },
+        }
+      );
+      // console.log(data);
+      setChats([data, ...chats]);
+
+      setModalVisible(false);
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -67,8 +114,8 @@ const NewGroupModal = () => {
             autoCorrect={false}
             placeholder="Enter group name"
             style={styles.loginInput}
-            onChangeText={(value) => setCurrentGroupName(value)}
-            value={currentGroupName}
+            onChangeText={(value) => SetGroupChatName(value)}
+            value={groupChatName}
           />
           <TextInput
             autoCorrect={false}
@@ -77,10 +124,30 @@ const NewGroupModal = () => {
             onChangeText={(value) => handleSearch(value)}
             value={search}
           />
-          {/*Selected users*/}
-          {/*render searched  users*/}
+          {selectedUsers.map((user) => (
+            <TouchableOpacity
+              key={user._id}
+              style={{ backgroundColor: "red", marginBottom: 10, color: "red" }}
+              onPress={() => {
+                handleDelete(user);
+              }}
+            >
+              <Text>{user.fullname}</Text>
+            </TouchableOpacity>
+          ))}
+          {searchResult?.slice(0, 4).map((user) => (
+            <TouchableOpacity
+              key={user._id}
+              style={{ backgroundColor: "lightblue", marginBottom: 10 }}
+              onPress={() => {
+                handleGroup(user);
+              }}
+            >
+              <Text>{user.fullname}</Text>
+            </TouchableOpacity>
+          ))}
           <View style={styles.buttonWrapper}>
-            <Pressable onPress={handleCreateNewRoom} style={styles.button}>
+            <Pressable onPress={handleSubmit} style={styles.button}>
               <View>
                 <Text style={styles.buttonText}>Add</Text>
               </View>
@@ -135,7 +202,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 8,
     color: "black",
-    placeholderTextColor: "blue",
     marginBottom: 10,
   },
 

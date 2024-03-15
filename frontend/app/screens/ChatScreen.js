@@ -1,111 +1,72 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useLayoutEffect } from "react";
 import {
   FlatList,
+  Keyboard,
   Pressable,
-  StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
-import { GlobalContext } from "../../context";
-import { AntDesign } from "@expo/vector-icons";
-import Chatcomponent from "../components/ChatComponent";
-import NewGroupModal from "../components/Modal";
+import ChatHeader from "../components/ChatHeader";
 
-export default function Chatscreen({ navigation }) {
-  const {
-    currentUser,
-    allChatRooms,
-    setAllChatRooms,
-    modalVisible,
-    setModalVisible,
-    setCurrentUser,
-    setShowLoginView,
-  } = useContext(GlobalContext);
-
-  function handleLogout() {
-    setCurrentUser("");
-    setShowLoginView(false);
-  }
-
-  useEffect(() => {
-    if (currentUser.trim() === "") navigation.navigate("Homescreen");
-  }, [currentUser]);
-
+export default function Messagescreen({ navigation, route }) {
   return (
-    <View style={styles.mainWrapper}>
-      <View style={styles.topContainer}>
-        <View style={styles.header}>
-          <Text style={styles.heading}>Welcome {currentUser}!</Text>
-          <Pressable onPress={handleLogout}>
-            <AntDesign name="logout" size={30} color={"black"} />
+    <>
+      <ChatHeader />
+      <View style={styles.wrapper}>
+        <View
+          style={[
+            styles.wrapper,
+            { paddingVertical: 15, paddingHorizontal: 10 },
+          ]}
+        ></View>
+        <View style={styles.messageInputContainer}>
+          <TextInput
+            style={styles.messageInput}
+            placeholder="Enter your message"
+          />
+
+          <Pressable style={styles.button}>
+            <View>
+              <Text style={styles.buttonText}>SEND</Text>
+            </View>
           </Pressable>
         </View>
       </View>
-      <View style={styles.listContainer}>
-        {allChatRooms && allChatRooms.length > 0 ? (
-          <FlatList
-            data={allChatRooms}
-            renderItem={({ item }) => <Chatcomponent item={item} />}
-            keyExtractor={(item) => item.id}
-          />
-        ) : null}
-      </View>
-      <View style={styles.bottomContainer}>
-        <Pressable onPress={() => setModalVisible(true)} style={styles.button}>
-          <View>
-            <Text style={styles.buttonText}>Create New Group</Text>
-          </View>
-        </Pressable>
-      </View>
-      {modalVisible && <NewGroupModal />}
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  mainWrapper: {
-    backgroundColor: "#eee",
+  wrapper: {
     flex: 1,
+    backgroundColor: "#eee",
   },
-  topContainer: {
-    backgroundColor: "#fff",
-    height: 70,
+  messageInputContainer: {
     width: "100%",
-    padding: 20,
+    backgroundColor: "#fff",
+    paddingVertical: 30,
+    paddingHorizontal: 15,
     justifyContent: "center",
-    marginBottom: 15,
-    flex: 0.3,
-  },
-  header: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
   },
-  heading: {
-    fontSize: 30,
-    fontWeight: "bold",
-    textDecorationLine: "underline",
-  },
-  listContainer: {
-    flex: 3.4,
-    paddingHorizontal: 10,
-  },
-  bottomContainer: {
-    flex: 0.3,
-    padding: 10,
+  messageInput: {
+    borderWidth: 1,
+    padding: 15,
+    flex: 1,
+    borderRadius: 50,
+    marginRight: 10,
   },
   button: {
+    width: "30%",
     backgroundColor: "#703efe",
-    padding: 12,
-    width: "100%",
-    elevation: 1,
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 50,
   },
   buttonText: {
-    textAlign: "center",
     color: "#fff",
-    fontWeight: "bold",
     fontSize: 20,
   },
 });
