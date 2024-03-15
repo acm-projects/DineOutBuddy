@@ -1,13 +1,17 @@
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView, StyleSheet, View } from "react-native";
 import FormHeader from "./app/components/FormHeader";
 import FormSelectorBtn from "./app/components/FormSelectorBtn";
 import LoginForm from "./app/components/LoginForm";
 import SignupForm from "./app/components/SignupForm";
+import HomePage from "./app/components/HomePage";
 import axios from "axios";
 import { useEffect } from "react";
 
 export default function App() {
+  const [activePage, setActivePage] = useState("LoginForm");
+
   const fetchApi = async () => {
     try {
       const res = await axios.get("http://127.0.0.1:8000/");
@@ -21,15 +25,24 @@ export default function App() {
     fetchApi();
   }, []);
 
+  const renderHeader = () => {
+    if (activePage != "HomePage") {
+      return (
+        <View style={{ height: 140 }}>
+          <FormHeader
+            leftHeading="Welcome!"
+            rightHeading=""
+            subHeading="Dine Out Buddy"
+          />
+        </View>
+      );
+    }
+    return null; // No header for HomePage
+  };
+
   return (
     <View style={styles.container}>
-      <View style={{ height: 140 }}>
-        <FormHeader
-          leftHeading="Welcome!"
-          rightHeading=""
-          subHeading="Dine Out Buddy"
-        />
-      </View>
+      {renderHeader()}
 
       <View
         style={{
@@ -45,10 +58,17 @@ export default function App() {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         style={{ backgroundColor: "white" }}
+        onMomentumScrollEnd={(event) => {
+          // Determine the active page based on the scroll position
+          const currentPage = Math.round(
+            event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width
+          );
+          setActivePage(currentPage === 0 ? "LoginForm" : "SignupForm");
+        }}
       >
         <LoginForm />
-        
         <SignupForm />
+        <HomePage />
       </ScrollView>
       <StatusBar style="auto" />
     </View>
