@@ -9,6 +9,7 @@ import ChatScreen from "../screens/ChatScreen";
 import { useLogin } from "../../context/LoginProvider";
 import LoginProvider from "../../context/LoginProvider";
 import { createStackNavigator } from "@react-navigation/stack";
+import GroupProfileScreen from "../screens/GroupProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ const DrawerNavigator = () => {
       <Stack.Screen component={Test} name="Test" />
       <Stack.Screen component={MessagesScreen} name="MessagesScreen" />
       <Stack.Screen component={ChatScreen} name="ChatScreen" />
+      <Stack.Screen component={GroupProfileScreen} name="GroupProfileScreen" />
     </Stack.Navigator>
   );
 };

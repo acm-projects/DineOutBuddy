@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "@expo/vector-icons/FontAwesome";
 
-const ChatHeader = () => {
+const ChatHeader = ({ chat }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -30,7 +30,14 @@ const ChatHeader = () => {
           >
             <Icon name="phone" size={30} color={"white"} />
           </TouchableOpacity>
-          <TouchableOpacity style={{ paddingHorizontal: 20 }}>
+          <TouchableOpacity
+            style={{ paddingHorizontal: 20 }}
+            onPress={() =>
+              navigation.navigate("GroupProfileScreen", {
+                chat: chat,
+              })
+            }
+          >
             <Icon name="ellipsis-v" size={30} color={"white"} />
           </TouchableOpacity>
         </View>

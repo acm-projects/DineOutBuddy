@@ -23,15 +23,24 @@ import {
 } from "../styles/MessageStyles";
 import { GlobalContext } from "../../context";
 import NewGroupModal from "../components/Modal";
+import client from "../api/client";
 import { useLogin } from "../../context/LoginProvider";
 
 const MessagesScreen = ({ navigation }) => {
   const { modalVisible, setModalVisible } = useContext(GlobalContext);
-  const { chats } = useLogin();
+  const { chats, fetchChats } = useLogin();
+  fetchChats();
   return (
     <Container style={styles.container}>
       {chats.map((chat) => (
-        <Card key={chat._id} onPress={() => navigation.navigate("ChatScreen")}>
+        <Card
+          key={chat._id}
+          onPress={() =>
+            navigation.navigate("ChatScreen", {
+              chat: chat,
+            })
+          }
+        >
           <UserInfo>
             <UserImgWrapper>
               <UserImg source={require("../../assets/users/user-1.jpg")} />
