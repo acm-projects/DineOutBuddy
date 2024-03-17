@@ -1,16 +1,17 @@
-import { StatusBar } from "expo-status-bar";
-import { ScrollView, StyleSheet, View } from "react-native";
-import FormHeader from "./app/components/FormHeader";
-import FormSelectorBtn from "./app/components/FormSelectorBtn";
-import LoginForm from "./app/components/LoginForm";
-import SignupForm from "./app/components/SignupForm";
-import axios from "axios";
-import { useEffect } from "react";
+import React from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import FormHeader from './app/components/FormHeader';
+import LoginForm from './app/components/LoginForm';
+import SignupForm from './app/components/SignupForm';
+import Home from './app/components/Home';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 export default function App() {
   const fetchApi = async () => {
     try {
-      const res = await axios.get("http://127.0.0.1:8000/");
+      const res = await axios.get('http://127.0.0.1:8000/');
       console.log(res);
     } catch (error) {
       console.log(error.message);
@@ -33,21 +34,21 @@ export default function App() {
 
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: 'row',
           paddingHorizontal: 20,
           marginBottom: 20,
         }}
-      >
-      </View>
+      ></View>
 
       <ScrollView
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        style={{ backgroundColor: "white" }}
+        style={{ backgroundColor: 'white' }}
       >
         <LoginForm />
         <SignupForm />
+        <Home />
       </ScrollView>
       <StatusBar style="auto" />
     </View>

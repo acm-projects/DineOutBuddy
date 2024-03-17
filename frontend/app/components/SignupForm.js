@@ -1,39 +1,38 @@
-import { StyleSheet, Text, View, Dimensions } from "react-native";
-import React, { isValidElement, useState } from "react";
-import FormContainer from "./FormContainer";
-import FormInput from "./FormInput";
-import FormSubmitBtn from "./FormSubmitBtn";
-import { isValidObjField, updateError, isValidEmail } from "../utils/methods";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import client from "../api/client";
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import FormContainer from './FormContainer';
+import FormInput from './FormInput';
+import FormSubmitBtn from './FormSubmitBtn';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import client from '../api/client';
 
 const validationSchema = Yup.object({
   fullname: Yup.string()
     .trim()
-    .min(3, "Invalid name")
-    .required("Name is required"),
+    .min(3, 'Invalid name')
+    .required('Name is required'),
   username: Yup.string()
     .trim()
-    .min(3, "Invalid username")
-    .required("Username is required"),
-  email: Yup.string().email("Invalid email!").required("Email is required"),
+    .min(3, 'Invalid username')
+    .required('Username is required'),
+  email: Yup.string().email('Invalid email!').required('Email is required'),
   password: Yup.string()
     .trim()
-    .min(8, "Password must be at least 8 characters")
-    .required("Password is required"),
+    .min(8, 'Password must be at least 8 characters')
+    .required('Password is required'),
 });
 
 const SignupForm = () => {
   const userInfo = {
-    fullname: "",
-    username: "",
-    email: "",
-    password: "",
+    fullname: '',
+    username: '',
+    email: '',
+    password: '',
   };
 
   const signUp = async (values, formikActions) => {
-    const res = await client.post("/api/user/create-user", {
+    const res = await client.post('/api/user/create-user', {
       ...values,
     });
 
@@ -64,32 +63,32 @@ const SignupForm = () => {
               <FormInput
                 value={fullname}
                 error={touched.fullname && errors.fullname}
-                onChangeText={handleChange("fullname")}
-                onBlur={handleBlur("fullname")}
+                onChangeText={handleChange('fullname')}
+                onBlur={handleBlur('fullname')}
                 label="Full name"
                 placeholder="Sponge Bobby Bob"
               />
               <FormInput
                 value={username}
                 error={touched.username && errors.username}
-                onChangeText={handleChange("username")}
-                onBlur={handleBlur("username")}
+                onChangeText={handleChange('username')}
+                onBlur={handleBlur('username')}
                 label="Username"
                 placeholder="Spongebob123"
               />
               <FormInput
                 value={email}
                 error={touched.email && errors.email}
-                onChangeText={handleChange("email")}
-                onBlur={handleBlur("email")}
+                onChangeText={handleChange('email')}
+                onBlur={handleBlur('email')}
                 label="Email"
                 placeholder="potato123@gmail.com"
               />
               <FormInput
                 value={password}
                 error={touched.password && errors.password}
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
+                onChangeText={handleChange('password')}
+                onBlur={handleBlur('password')}
                 secureTextEntry
                 label="Password"
                 placeholder="********"
