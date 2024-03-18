@@ -74,3 +74,22 @@ export const allUsers = asyncHandler(async (req, res) => {
   const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
   res.send(users);
 });
+
+export const updateAllergies = asyncHandler(async (req, res) => {
+  const { userId, allergies } = req.body;
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    {
+      allergies: allergies,
+    },
+    {
+      new: true,
+    }
+  );
+  if (!updatedUser) {
+    res.status(404);
+    throw new Error("User not found");
+  } else {
+    res.json(updatedUser);
+  }
+});

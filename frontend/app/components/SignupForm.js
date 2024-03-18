@@ -49,6 +49,7 @@ const SignupForm = ({ navigation }) => {
       if (signInRes.data.success) {
         setProfile(res.data.user);
         setIsLoggedIn(true);
+        navigation.navigate("AllergyScreen");
       }
     }
 

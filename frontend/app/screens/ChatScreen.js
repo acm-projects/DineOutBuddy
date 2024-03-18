@@ -20,7 +20,14 @@ export default function Messagescreen({ route }) {
   return (
     <>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.backButton}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() =>
+            navigation.navigate("ChatScreen", {
+              chat: chat,
+            })
+          }
+        >
           <Icon name="angle-left" size={30} color={"white"} />
         </TouchableOpacity>
         <View style={styles.profileOptions}>

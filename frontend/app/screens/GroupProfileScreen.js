@@ -168,7 +168,7 @@ const GroupProfileScreen = ({ route, navigation }) => {
       ))}
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("MessagesScreen", {
+          navigation.navigate("ChatScreen", {
             chat: chat,
           });
         }}

@@ -15,6 +15,10 @@ const Test = ({ navigation }) => {
         title="Go to GroupPage"
         onPress={() => navigation.navigate("MessagesScreen")}
       />
+      <Button
+        title="Go to AllergyScreen"
+        onPress={() => navigation.navigate("AllergyScreen")}
+      />
       <TouchableOpacity onPress={() => setIsLoggedIn(false)}>
         <Text style={{ fontSize: 18, color: "white" }}>Log Out</Text>
       </TouchableOpacity>
