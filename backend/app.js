@@ -1,53 +1,45 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import {} from 'dotenv/config';
-import axios from 'axios';
+import { } from 'dotenv/config';
 import userRoute from './routes/user.js';
+import chatRoute from './routes/chat.js';
+import googleRoute from './routes/google.js';
+import travelRoute from './routes/travel.js'
+
 
 const app = express();
 
-let locationId;
+let menuIDs;
 
-let restrictions = ["10665", "Vegan"]
 
 app.use(express.json());
 app.use(userRoute);
+app.use(chatRoute);
+app.use(googleRoute);
+app.use(travelRoute)
 
-app.get("/", (req, res) => {
+app.get("/", async(req, res) => {
   res.send("<h1>DineOutBuddy On Top</h1>");
+  
 });
 
 
+// Define the .get route for searching the closest match
+// app.get('/findClosestMatch', async (req, res) => {
+//   const { name, lat, lng } = req.query;
 
-
-app.get('/restaurants', async (req, res) => {
-  const options = {
-    method: 'GET',
-    url: 'https://travel-advisor.p.rapidapi.com/restaurants/list-by-latlng',
-    params: {
-      latitude: '32.98628371775638',
-      longitude: '-96.74978670141907',
-      limit: '30',
-      currency: 'USD',
-      distance: '10',
-      open_now: 'true',
-      lunit: 'km',
-      lang: 'en_US'
-    },
-    headers: {
-      'X-RapidAPI-Key': 'bdc36472b6mshfdfcd79ed24e568p155518jsna1f270bf8fe0',
-      'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
-    }
-  };
-
-  try {
-    const response = await axios.request(options);
-    res.json(response.data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+//   try {
+//     const closestMatch = await searchClosestMatch(name, parseFloat(lat), parseFloat(lng));
+//     if (closestMatch) {
+//       res.json(closestMatch);
+//     } else {
+//       res.status(404).json({ message: "No close match found." });
+//     }
+//   } catch (error) {
+//     console.error('Search Error:', error);
+//     res.status(500).json({ message: "An error occurred during the search process." });
+//   }
+// });
 
 
 
@@ -57,6 +49,16 @@ mongoose.connect(process.env.MONGO_URI)
     app.listen(8000, () => {
       console.log("Port is now listening to 8000");
     });
+    
   })
   .catch(err => console.log(err.message));
+
+
+
+
+
+
+
+
+
 

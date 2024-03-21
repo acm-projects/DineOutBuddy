@@ -38,3 +38,18 @@ export const userSignIn = async (req, res)=>{
 
   res.json({success: true, user: user, token });
 }
+
+
+export const getUserPreferencesByUsername = async (req, res) => {
+  try {
+    const username = req.params.username; // Get username from the request parameters
+    const user = await UserModel.findOne({ username: username }); // Use findOne to find a user by username
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    res.send(user.preferences); // Send back the user's preferences
+  } catch (error) {
+    res.status(500).send({ error: "Server error" });
+  }
+};
+

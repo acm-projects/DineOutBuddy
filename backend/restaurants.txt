@@ -1,0 +1,182 @@
+[
+  {
+    "name": "Five Guys",
+    "address": "2021 North MacArthur Boulevard, Dallas, TX",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Wendy's",
+    "address": "821 S MacArthur Blvd, Coppell, TX 75019",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Domino's Pizza",
+    "address": "10045 N MacArthur Blvd Ste 109, Irving, TX 75063-5022",
+    "dietary_restrictions": "",
+    "cuisine": "Pizza"
+  },
+  {
+    "name": "Wingstop",
+    "address": "10009 N Macarthur Blvd Ste 117, Irving, TX 75063",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Empress Of China",
+    "address": "10045 North MacArthur Boulevard, Irving, TX 75063",
+    "dietary_restrictions": "",
+    "cuisine": "Chinese, Asian"
+  },
+  {
+    "name": "Wu Asian Bistro",
+    "address": "817 S MacArthur Blvd Ste 145, Coppell, TX 75019-4222",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Kebabs to Go!",
+    "address": "10025 N Macarthur Blvd, Irving, TX 75063-5002",
+    "dietary_restrictions": "Vegetarian Friendly, Halal",
+    "cuisine": "Fast Food, Mediterranean, Grill, Middle Eastern, Afghan, Vegetarian Friendly, Halal"
+  },
+  {
+    "name": "7-Eleven",
+    "address": "10025 N MacArthur Blvd, Irving, TX 75063-5002",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "New York Pizza Pasta",
+    "address": "10009 N Macarthur Blvd, Irving, TX 75063-5082",
+    "dietary_restrictions": "Vegetarian Friendly",
+    "cuisine": "Italian, Pizza, Vegetarian Friendly"
+  },
+  {
+    "name": "Pizza Hut-Wing street",
+    "address": "820 S MacArthur Blvd Ste 102, Coppell, TX 75019-4216",
+    "dietary_restrictions": "",
+    "cuisine": "Pizza"
+  },
+  {
+    "name": "Bombay Curry Pizza",
+    "address": "809 S MacArthur Blvd Suit 150, Coppell, TX",
+    "dietary_restrictions": "",
+    "cuisine": "Italian"
+  },
+  {
+    "name": "McDonald's",
+    "address": "813 Macarthur Blvd, Coppell, TX 75019",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "San Diego Tacos",
+    "address": "10000 N Macarthur Blvd, Irving, TX 75063-5001",
+    "dietary_restrictions": "",
+    "cuisine": "Mexican"
+  },
+  {
+    "name": "Kumar's Indian Food",
+    "address": "820 S MacArthur Blvd Ste 100, Coppell, TX 75019-4216",
+    "dietary_restrictions": "Vegetarian Friendly",
+    "cuisine": "Indian, Vegetarian Friendly"
+  },
+  {
+    "name": "Panacean",
+    "address": "777 S Macarthur Blvd Ste 401, Coppell, TX 75019-4256",
+    "dietary_restrictions": "Vegetarian Friendly, Vegan Options",
+    "cuisine": "Chinese, Asian, Korean, Vegetarian Friendly, Vegan Options"
+  },
+  {
+    "name": "Arunachala Indian Vegetarian Restaurant",
+    "address": "780 S MacArthur Blvd Suite 100, Coppell, TX 75019",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Italian Express",
+    "address": "751 S Macarthur Blvd Ste 501, Coppell, TX 75019-4202",
+    "dietary_restrictions": "",
+    "cuisine": "Italian, Pizza"
+  },
+  {
+    "name": "I Fratelli Pizza - Valley Ranch",
+    "address": "9400 N MacArthur Blvd 134, Irving, TX 75063-4705",
+    "dietary_restrictions": "",
+    "cuisine": "Italian, American, Pizza"
+  },
+  {
+    "name": "Rajwadi Food",
+    "address": "9400 N MacArthur Blvd, Irving, TX 75063-4705",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Ascension",
+    "address": "3121 Olympus Blvd, Dallas, TX 75019-4518",
+    "dietary_restrictions": "",
+    "cuisine": "American"
+  },
+  {
+    "name": "Eno's Pizza Tavern",
+    "address": "3111 Olympus Blvd, Coppell, TX 75019-4518",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Fun Pizza Kitchen",
+    "address": "8505 Walton Blvd, Irving, TX 75063-8037",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Royal Sweets",
+    "address": "8600 N MacArthur Blvd Ste 138, Irving, TX 75063-3198",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Swagath Biryanis",
+    "address": "8600 N MacArthur Blvd Ste 144, Irving, TX 75063-3198",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "I Luv Pho",
+    "address": "8350 N Macarthur Blvd Ste 100, Irving, TX 75063-4318",
+    "dietary_restrictions": "",
+    "cuisine": "Asian, Vietnamese, Soups"
+  },
+  {
+    "name": "Domino's Pizza",
+    "address": "920 S Belt Line Rd Ste 100, Coppell, TX 75019",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "The Port of Peri Peri",
+    "address": "1800 Markeplace Blvd Ste 100, Irving, TX 75063-3903",
+    "dietary_restrictions": "",
+    "cuisine": "European, Portuguese"
+  },
+  {
+    "name": "Maacs Grill",
+    "address": "8150 N Macarthur Blvd Ste 140, Irving, TX 75063-4325",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Our Place Indian Cuisine",
+    "address": "8150 N Macarthur Blvd Ste 150, Irving, TX 75063-4313",
+    "dietary_restrictions": "Vegan Options, Vegetarian Friendly",
+    "cuisine": "Indian, Vegan Options, Vegetarian Friendly"
+  },
+  {
+    "name": "Papa Johns Pizza",
+    "address": "8150 N Macarthur Blvd. Suite 170, Irving, TX 75063",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  }
+]
