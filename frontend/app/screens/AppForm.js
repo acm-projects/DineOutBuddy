@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View, Button } from "react-native";
 import FormHeader from "../components/FormHeader";
 import FormSelectorBtn from "../components/FormSelectorBtn";
 import LoginForm from "../components/LoginForm";
@@ -7,13 +7,13 @@ import axios from "axios";
 import SignupForm from "../components/SignupForm";
 import { useEffect } from "react";
 
-export default function AppForm() {
+export default function AppForm({ navigation }) {
   const fetchApi = async () => {
     try {
       const res = await axios.get("http://127.0.0.1:8000/");
-      console.log(res);
+      // console.log(res);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 
@@ -56,8 +56,12 @@ export default function AppForm() {
         showsHorizontalScrollIndicator={false}
         style={{ backgroundColor: "white" }}
       >
-        <LoginForm />
-        <SignupForm />
+        <LoginForm navigation={navigation} />
+        {/*<Button
+          title="Go to Details"
+          onPress={() => navigation.navigate("test")}
+      /> */}
+        <SignupForm navigation={navigation} />
       </ScrollView>
     </View>
   );

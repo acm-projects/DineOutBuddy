@@ -1,73 +1,25 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import FormHeader from './app/components/FormHeader';
-import LoginForm from './app/components/LoginForm';
-import SignupForm from './app/components/SignupForm';
-import Home from './app/components/Home';
-import axios from 'axios';
-import { useEffect } from 'react';
+import React from "react";
+
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import AppForm from "./app/screens/AppForm";
+import Test from "./app/screens/Test";
+import MessagesScreen from "./app/screens/MessageScreen";
+import ChatScreen from "./app/screens/ChatScreen";
+import GlobalState from "./context";
+import LoginProvider from "./context/LoginProvider";
+import MainNavigator from "./app/utils/MainNavigator";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const fetchApi = async () => {
-    try {
-      const res = await axios.get('http://127.0.0.1:8000/');
-      console.log(res);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchApi();
-  }, []);
-
   return (
-    <View style={styles.container}>
-      <View style={{ height: 140 }}>
-        <FormHeader
-          leftHeading="Welcome!"
-          rightHeading=""
-          subHeading="Dine Out Buddy"
-        />
-      </View>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          paddingHorizontal: 20,
-          marginBottom: 20,
-        }}
-      ></View>
-
-      <ScrollView
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        style={{ backgroundColor: 'white' }}
-      >
-        <LoginForm />
-        <SignupForm />
-        <Home />
-      </ScrollView>
-      <StatusBar style="auto" />
-    </View>
+    <GlobalState>
+      <LoginProvider>
+        <NavigationContainer>
+          <MainNavigator />
+        </NavigationContainer>
+      </LoginProvider>
+    </GlobalState>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 60,
-    backgroundColor: '#1E90FF', // Set the background color to blue
-    marginBottom: 50,
-  },
-  borderLeft: {
-    borderTopLeftRadius: 8,
-    borderBottomLeftRadius: 8,
-  },
-  borderRight: {
-    borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
-  },
-});

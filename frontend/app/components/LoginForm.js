@@ -1,41 +1,49 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import FormContainer from './FormContainer';
-import FormInput from './FormInput';
-import FormSubmitBtn from './FormSubmitBtn';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import client from '../api/client';
+import { StyleSheet, Text, View, Dimensions } from "react-native";
+import React, { isValidElement, useState } from "react";
+import FormContainer from "./FormContainer";
+import FormInput from "./FormInput";
+import FormSubmitBtn from "./FormSubmitBtn";
+import { isValidObjField, updateError, isValidEmail } from "../utils/methods";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import client from "../api/client";
+import { useLogin } from "../../context/LoginProvider";
+import { signIn } from "../api/user";
 
 const validationSchema = Yup.object({
   username: Yup.string()
     .trim()
-    .min(3, 'Invalid email')
-    .required('Email is required'),
+    .min(3, "Invalid username")
+    .required("username is required"),
   password: Yup.string()
     .trim()
-    .min(8, 'Password must be at least 8 characters')
-    .required('Password is required'),
+    .min(8, "Password must be at least 8 characters")
+    .required("Password is required"),
 });
 
 const LoginForm = () => {
+  const { setIsLoggedIn, setProfile } = useLogin();
+
   const userInfo = {
-    email: '',
-    password: '',
+    username: "",
+    password: "",
   };
 
   const logIn = async (values, formikActions) => {
-    const res = await client.post('/api/user/sign-in', {
-      ...values,
-    });
+    console.log("Signed in");
+    const res = await signIn(values.username, values.password);
 
-    console.log(res.data);
+    if (res.data.success) {
+      setProfile(res.data.user);
+      setIsLoggedIn(true);
+    }
     formikActions.resetForm();
     formikActions.setSubmitting(false);
   };
 
   return (
     <FormContainer>
+      <View style={{ height: 100 }} />
       <Formik
         initialValues={userInfo}
         validationSchema={validationSchema}
@@ -50,31 +58,35 @@ const LoginForm = () => {
           handleBlur,
           handleSubmit,
         }) => {
-          const { email, password } = values;
+          const { fullname, username, email, password } = values;
           return (
             <>
               <FormInput
-                value={email}
-                error={touched.email && errors.username}
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
+                value={username}
+                error={touched.username && errors.username}
+                onChangeText={handleChange("username")}
+                onBlur={handleBlur("username")}
                 label=""
-                placeholder="Email"
+                placeholder="username"
               />
               <FormInput
                 value={password}
                 error={touched.password && errors.password}
-                onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
+                onChangeText={handleChange("password")}
+                onBlur={handleBlur("password")}
                 secureTextEntry
                 label=""
                 placeholder="Password"
               />
               <View style={{ height: 30 }} />
-              <View style={{ height: 50, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ color: 'blue', fontSize: 16, fontWeight: 'bold' }}>
-                  Forgot Password?
-                </Text>
+              <View
+                style={{
+                  height: 50,
+                  justifyContent: "right",
+                  alignItems: "right",
+                }}
+              >
+                {<Text>Forgot Password?</Text>}
               </View>
 
               <FormSubmitBtn
@@ -86,11 +98,11 @@ const LoginForm = () => {
           );
         }}
       </Formik>
-      <View style={{ height: 30 }} />
-      <View style={{ height: 50, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>
-          Don't have an account? Sign up
-        </Text>
+      <View style={{ height: 50 }} />
+      <View
+        style={{ height: 50, justifyContent: "center", alignItems: "center" }}
+      >
+        {<Text>Don't have an account? Sign up</Text>}
       </View>
     </FormContainer>
   );
