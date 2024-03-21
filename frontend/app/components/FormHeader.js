@@ -9,6 +9,9 @@ const FormHeader = (props) => {
         <Text style={styles.heading}>{props.rightHeading}</Text>
       </View>
       <Text style={styles.subHeading}>{props.subHeading}</Text>
+      <Text style={styles.additionalText}>
+        Food, Friends, and Fun!
+      </Text>
     </>
   );
 };
@@ -17,17 +20,24 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "center",
-    allignItems: "center",
+    alignItems: "center", // Fix the typo here
   },
   heading: {
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: "bold",
-    color: "#1b1b33",
+    color: "white",
+    textAlign: "left", // You can adjust this as needed
   },
   subHeading: {
-    fontSize: 18,
-    color: "#1b1b33",
+    fontSize: 28,
+    color: "white",
     textAlign: "center",
+  },
+  additionalText: {
+    fontSize: 18,
+    color: "white",
+    textAlign: "center",
+    marginTop: 10,
   },
 });
 

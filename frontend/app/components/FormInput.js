@@ -25,12 +25,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   input: {
-    borderWidth: 1,
-    borderColor: "#1b1b33",
-    height: 35,
-    borderRadius: 8,
-    fontSize: 16,
-    paddingLeft: 10,
-    marginBottom: 10,
-  },
+  borderWidth: 1,
+  borderColor: "blue",
+  backgroundColor: "lightblue",  // Added line for background color
+  height: 35,
+  borderRadius: 8,
+  fontSize: 16,
+  paddingLeft: 10,
+  marginBottom: 10,
+},
+
 });
