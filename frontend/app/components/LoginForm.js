@@ -71,7 +71,7 @@ const LoginForm = ({navigation}) => {
                 onChangeText={handleChange("username")}
                 onBlur={handleBlur("username")}
                 label=""
-                placeholder="username"
+                placeholder="Username"
               />
               <FormInput
                 value={password}

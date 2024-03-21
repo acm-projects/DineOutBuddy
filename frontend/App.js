@@ -2,8 +2,6 @@ import React from "react";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import AppForm from "./app/screens/AppForm";
-import Test from "./app/screens/Test";
 import MessagesScreen from "./app/screens/MessageScreen";
 import ChatScreen from "./app/screens/ChatScreen";
 import GlobalState from "./context";
@@ -16,7 +14,13 @@ import SignupForm from "./app/components/SignupForm";
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
 
+
 export default function App() {
+  let {fontsLoaded, fontError} = useCustomFonts(fontsLoaded, fontError);
+  if (!fontsLoaded && !fontError) { // This executes if fonts are still loading (ie. both fontsLoaded and fontError are both null)
+    return null;
+  }
+
   return (
     <GlobalState>
       <LoginProvider>
