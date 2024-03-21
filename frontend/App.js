@@ -9,7 +9,11 @@ import ChatScreen from "./app/screens/ChatScreen";
 import GlobalState from "./context";
 import LoginProvider from "./context/LoginProvider";
 import MainNavigator from "./app/utils/MainNavigator";
+import * as SplashScreen from 'expo-splash-screen';
+import useCustomFonts from "./app/hooks/useCustomFonts";
+import SignupForm from "./app/components/SignupForm";
 
+SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
 
 export default function App() {

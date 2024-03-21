@@ -27,7 +27,7 @@ const validationSchema = Yup.object({
     .required("Password is required"),
 });
 
-const SignupForm = ({ navigation }{navigation}) => {
+const SignupForm = ({ navigation }) => {
   const { setIsLoggedIn, setProfile } = useLogin();
 
   const userInfo = {
