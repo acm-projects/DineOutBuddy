@@ -10,14 +10,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 import DrawerNavigator from "./DrawerNavigator";
 import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
+import AppForm from "../screens/AppForm";
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen component={LoginForm} name="LoginForm" />
-      <Stack.Screen component={SignupForm} name="SignupForm" />
+      <Stack.Screen component={AppForm} name="AppForm" />
     </Stack.Navigator>
   );
 };
