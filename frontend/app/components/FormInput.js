@@ -1,38 +1,43 @@
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import React from "react";
+import {primaryColor, inputColor, accentColor} from "./ComponentColors.js"
 
 export default function FormInput(props) {
   const { placeholder, label, error } = props;
   return (
-    <>
+    <View>
       <View
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          marginBottom: 5,
         }}
       >
         <Text style={styles.label}>{label}</Text>
-        {error && <Text style={{ color: "red", fontSize: 16 }}>{error}</Text>}
+        {error && <Text style={styles.errorText}>{error}</Text>}
       </View>
-      <TextInput {...props} style={styles.input} placeholder={placeholder} />
-    </>
+      <TextInput {...props} style={styles.input} placeholder={placeholder} placeholderTextColor={primaryColor} color={primaryColor}/>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   label: {
-    fontWeight: "bold",
+    fontFamily: "Metropolis-Black",
   },
   input: {
-  borderWidth: 1,
-  borderColor: "blue",
-  backgroundColor: "lightblue",  // Added line for background color
-  height: 35,
-  borderRadius: 8,
-  fontSize: 16,
-  paddingLeft: 10,
-  marginBottom: 10,
-},
+    fontFamily: "Metropolis-Medium",
+    backgroundColor: inputColor,  // Added line for background color
+    height: "auto",
+    borderRadius: 8,
+    fontSize: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    alignContent: "center"
+  },
+  errorText: {
+    fontFamily: "Metropolis-Medium",
+    color: "red",
+    fontSize: 14
+  }
 
 });
