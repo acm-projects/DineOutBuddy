@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import LoginForm from "./app/components/LoginForm";
 import * as SplashScreen from 'expo-splash-screen';
 import useCustomFonts from "./app/hooks/useCustomFonts";
+import SignupForm from "./app/components/SignupForm";
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -30,14 +31,12 @@ export default function App() {
   if (!fontsLoaded && !fontError) { // This executes if fonts are still loading (ie. both fontsLoaded and fontError are both null)
     return null;
   }
-  else {
-    SplashScreen.hideAsync(); // Hide the splash screen once the fonts have either loaded or errored
-  }
 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen component={LoginForm} name="AppForm" />
+        <Stack.Screen component={LoginForm} name="LoginForm" />
+        <Stack.Screen component={SignupForm} name="SignupForm"/>
       </Stack.Navigator>
     </NavigationContainer>
   );

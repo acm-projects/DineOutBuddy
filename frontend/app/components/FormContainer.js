@@ -10,6 +10,6 @@ export default FormContainer;
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get("window").width,
-    paddingHorizontal: 20,
+    paddingHorizontal: 24,
   },
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from "react-native";
 import React, { isValidElement, useState } from "react";
 import FormContainer from "./FormContainer";
 import FormInput from "./FormInput";
@@ -24,7 +24,7 @@ const validationSchema = Yup.object({
     .required("Password is required"),
 });
 
-const SignupForm = () => {
+const SignupForm = ({navigation}) => {
   const userInfo = {
     fullname: "",
     username: "",
@@ -60,30 +60,30 @@ const SignupForm = () => {
         }) => {
           const { fullname, username, email, password } = values;
           return (
-            <>
+            <View styles={{gap: 22}}>
               <FormInput
                 value={fullname}
                 error={touched.fullname && errors.fullname}
                 onChangeText={handleChange("fullname")}
                 onBlur={handleBlur("fullname")}
-                label="Full name"
-                placeholder="Sponge Bobby Bob"
+                label=""
+                placeholder="Full Name"
               />
               <FormInput
                 value={username}
                 error={touched.username && errors.username}
                 onChangeText={handleChange("username")}
                 onBlur={handleBlur("username")}
-                label="Username"
-                placeholder="Spongebob123"
+                label=""
+                placeholder="Username"
               />
               <FormInput
                 value={email}
                 error={touched.email && errors.email}
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
-                label="Email"
-                placeholder="potato123@gmail.com"
+                label=""
+                placeholder="Email"
               />
               <FormInput
                 value={password}
@@ -91,15 +91,23 @@ const SignupForm = () => {
                 onChangeText={handleChange("password")}
                 onBlur={handleBlur("password")}
                 secureTextEntry
-                label="Password"
-                placeholder="********"
+                label=""
+                placeholder="Password"
               />
               <FormSubmitBtn
                 submitting={isSubmitting}
                 onPress={handleSubmit}
                 title="SignUp"
               />
-            </>
+              <View style={{ height: 50, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+                <Text>Already have an account? </Text>
+                <TouchableOpacity onPress={() => navigation.navigate("LoginForm")} underlayColor={"white"} styles={{color: "#ff0000"}} >
+                  <View styles={{backgroundColor: "#ff0000"}}>
+                    <Text styles={{fontFamily: "Metropolis-Medium"}}>Log In</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
           );
         }}
       </Formik>

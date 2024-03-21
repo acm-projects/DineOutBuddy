@@ -1,6 +1,6 @@
 import { useFonts } from "expo-font";
-//import { useCallback } from "react";
-//import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from "react";
+import * as SplashScreen from 'expo-splash-screen';
 
 export default function useCustomFonts(fontsLoaded, fontError) {
 
@@ -24,15 +24,12 @@ export default function useCustomFonts(fontsLoaded, fontError) {
     'HeyComic': require('../../assets/fonts/HeyComic.ttf'),
   });
 
-    /*
-    // Would love to make this work just to figure out how this works tbh, because the function refuses to run even after the dependencies change NO MATTER WHAT TYPE THE VARIABLES ARE 😭)
-    // Will come back and try to figure this out if I have enough time ¯\_(ツ)_/¯ for now I'm not using these diggity darn async functions
-    useCallback(async () => {
+    // IT WORKS!!!
+    useEffect(() => {
         if (fontsLoaded || fontError) {
-        await SplashScreen.hideAsync();
+          SplashScreen.hideAsync();
         }
     }, [fontsLoaded, fontError]);
-    */
-
+    
     return { fontsLoaded, fontError };
 };

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Image, Dimensions, TouchableHighlight, TouchableOpacity, Button } from "react-native";
 import React, { isValidElement, useState } from "react";
 import FormContainer from "./FormContainer";
 import FormInput from "./FormInput";
@@ -7,6 +7,11 @@ import { isValidObjField, updateError, isValidEmail } from "../utils/methods";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import client from "../api/client";
+import whiteTextmark from "../../assets/BlueTextmark.png"
+import { accentColor } from "./ComponentColors.js";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import SignupForm from "./SignupForm.js";
 
 const validationSchema = Yup.object({
   username: Yup.string()
@@ -19,7 +24,7 @@ const validationSchema = Yup.object({
     .required("Required"),
 });
 
-const LoginForm = () => {
+const LoginForm = ({navigation}) => {
   const userInfo = {
     email: "",
     password: "",
@@ -37,7 +42,6 @@ const LoginForm = () => {
 
 return (
     <FormContainer>
-      <View style={{ height: 120 }} />
       <Formik
         initialValues={userInfo}
         validationSchema={validationSchema}
@@ -52,9 +56,10 @@ return (
           handleBlur,
           handleSubmit,
         }) => {
+          // WHEN MERGING, MAKE SURE THIS IS USERNAME
           const { email, password } = values;
           return (
-            <>
+            <View style={{gap: 22}}>
               <FormInput
                 value={email}
                 error={touched.email && errors.username}
@@ -72,9 +77,8 @@ return (
                 label=""
                 placeholder="Password"
               />
-              <View style={{ height: 30 }} />
-              <View style={{ height: 50, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ color: 'blue', fontSize: 16, fontFamily: 'HeyComic'}}>
+              <View style={{justifyContent: 'center', alignItems: "flex-end" }}>
+                <Text style={{ color: accentColor, fontSize: 16, fontFamily: 'Metropolis-Medium'}}>
                   Forgot Password?
                 </Text>
               </View>
@@ -84,19 +88,33 @@ return (
                 onPress={handleSubmit}
                 title="Log In"
               />
-            </>
+            </View>
           );
         }}
       </Formik>
-      <View style={{ height: 30 }} />
-      <View style={{ height: 50, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>
-          Don't have an account? Sign up
-        </Text>
+      <View style={{ height: 50, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+        <Text>Don't have an account? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("SignupForm")} underlayColor={"white"} styles={{color: "#ff0000"}} >
+          <View styles={{backgroundColor: "#ff0000"}}>
+            <Text styles={{fontFamily: "Metropolis-Medium"}}>Sign Up</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </FormContainer>
   );
 };
 
 export default LoginForm;
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    button: {
+    marginBottom: 30,
+    width: 260,
+    alignItems: 'center',
+    backgroundColor: '#2196F3',
+  },
+  buttonText: {
+    textAlign: 'center',
+    padding: 20,
+    color: 'white',
+  },
+});
