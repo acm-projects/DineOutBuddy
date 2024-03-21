@@ -75,11 +75,23 @@ const NewGroupModal = () => {
       return;
     }
     try {
+      let allAlergies = [];
+      selectedUsers.map((user) => {
+        allAlergies = allAlergies.concat(user.allergies);
+      });
+
+      console.log(allAlergies);
+
       const { data } = await client.post(
         "/api/chat/group",
+
         {
           name: groupChatName,
           users: JSON.stringify(selectedUsers.map((user) => user._id)),
+          allergies: allAlergies,
+          preferences: JSON.stringify(
+            selectedUsers.map((user) => user.preferences)
+          ),
         },
         {
           headers: {

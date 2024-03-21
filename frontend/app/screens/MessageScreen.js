@@ -32,30 +32,31 @@ const MessagesScreen = ({ navigation }) => {
   fetchChats();
   return (
     <Container style={styles.container}>
-      {chats &&
-        chats.map((chat) => (
-          <Card
-            key={chat._id}
-            onPress={() =>
-              navigation.navigate("ChatScreen", {
-                chat: chat,
-              })
-            }
-          >
-            <UserInfo>
-              <UserImgWrapper>
-                <UserImg source={require("../../assets/users/user-1.jpg")} />
-              </UserImgWrapper>
-              <TextSection>
-                <UserInfoText>
-                  <UserName>{chat.chatName}</UserName>
-                  <PostTime>"1 day ago"</PostTime>
-                </UserInfoText>
-                <MessageText>"Hello"</MessageText>
-              </TextSection>
-            </UserInfo>
-          </Card>
-        ))}
+      {chats
+        ? chats.map((chat) => (
+            <Card
+              key={chat._id}
+              onPress={() =>
+                navigation.navigate("ChatScreen", {
+                  chat: chat,
+                })
+              }
+            >
+              <UserInfo>
+                <UserImgWrapper>
+                  <UserImg source={require("../../assets/users/user-1.jpg")} />
+                </UserImgWrapper>
+                <TextSection>
+                  <UserInfoText>
+                    <UserName>{chat.chatName}</UserName>
+                    <PostTime>"1 day ago"</PostTime>
+                  </UserInfoText>
+                  <MessageText>"Hello"</MessageText>
+                </TextSection>
+              </UserInfo>
+            </Card>
+          ))
+        : null}
       <View style={styles.bottomContainer}>
         <Pressable onPress={() => setModalVisible(true)} style={styles.button}>
           <View>

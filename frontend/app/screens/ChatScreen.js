@@ -1,4 +1,4 @@
-import { useContext, useEffect, useLayoutEffect } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import {
   FlatList,
   Keyboard,
@@ -13,20 +13,107 @@ import {
 import ChatHeader from "../components/ChatHeader";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "@expo/vector-icons/FontAwesome";
+import client from "../api/client";
+import { useLogin } from "../../context/LoginProvider";
+import {
+  isLastMessage,
+  isSameSender,
+  isSameSenderMargin,
+  isSameUser,
+} from "../../config/ChatLogics";
+import io from "socket.io-client";
+
+var socket, selectedChatCompare;
 
 export default function Messagescreen({ route }) {
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [typing, setTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const { chat } = route.params;
   const navigation = useNavigation();
+  const { profile } = useLogin();
+
+  const fetchMessages = async () => {
+    try {
+      const { data } = await client.get(`/api/message/${chat._id}`, {
+        headers: {
+          authorization: `JWT ${profile.token}`,
+          accept: "application/json",
+        },
+      });
+      setMessages(data);
+
+      socket.emit("join chat", chat._id);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchMessages();
+    selectedChatCompare = chat;
+  }, [chat]);
+
+  useEffect(() => {
+    socket = io("http://192.168.50.21:8000");
+    socket.emit("setup", profile);
+    socket.on("connected", () => setSocketConnected(true));
+    socket.on("typing", () => setIsTyping(true));
+    socket.on("stop typing", () => setIsTyping(false));
+  }, []);
+
+  useEffect(() => {
+    socket.on("message recieved", (newMessageRecieved) => {
+      if (
+        !selectedChatCompare ||
+        selectedChatCompare._id !== newMessageRecieved.chat._id
+      ) {
+        // Give Notifcation
+      } else {
+        setMessages([...messages, newMessageRecieved]);
+      }
+    });
+  });
+
+  const sendMessage = async () => {
+    if (newMessage) {
+      socket.emit("stop typing");
+      try {
+        const { data } = await client.post(
+          "/api/message/",
+          {
+            content: newMessage,
+            chatId: chat._id,
+          },
+          {
+            headers: {
+              authorization: `JWT ${profile.token}`,
+              accept: "application/json",
+            },
+          }
+        );
+        setNewMessage("");
+        console.log(data);
+        socket.emit("new message", data);
+        setMessages([...messages, data]);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  };
+
   return (
     <>
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() =>
-            navigation.navigate("ChatScreen", {
+          onPress={() => {
+            navigation.navigate("MessagesScreen", {
               chat: chat,
-            })
-          }
+            });
+          }}
         >
           <Icon name="angle-left" size={30} color={"white"} />
         </TouchableOpacity>
@@ -69,14 +156,61 @@ export default function Messagescreen({ route }) {
             styles.wrapper,
             { paddingVertical: 15, paddingHorizontal: 10 },
           ]}
-        ></View>
+        >
+          <View style={styles.messageContainer}>
+            {messages.map((m, i) => (
+              <View key={m._id}>
+                {(isSameSender(messages, m, i, profile._id) ||
+                  isLastMessage(messages, i, profile._id)) && (
+                  <Text>From {m.sender.username} </Text> // {m.sender}
+                )}
+                <Text
+                  style={{
+                    backgroundColor: `${
+                      m.sender._id === profile._id ? "#BEE3F8" : "#89F5D0"
+                    }`,
+                    borderRadius: 20,
+                    padding: 5,
+                    maxWidth: "25%",
+                    marginLeft: isSameSenderMargin(messages, m, i, profile._id),
+                    marginTop: isSameUser(messages, m, i, profile._id) ? 3 : 10,
+                  }}
+                >
+                  {m.content}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </View>
+        {isTyping && <Text>Typing....</Text>}
         <View style={styles.messageInputContainer}>
           <TextInput
+            onChangeText={(messages) => {
+              setNewMessage(messages);
+              if (!socketConnected) return;
+              if (!typing) {
+                setTyping(true);
+                socket.emit("typing", chat._id);
+              }
+
+              let lastTypingTime = new Date().getTime();
+              var timerLength = 3000;
+              setTimeout(() => {
+                var timeNow = new Date().getTime();
+                var TimeDiff = timeNow - lastTypingTime;
+
+                if (TimeDiff >= timerLength && typing) {
+                  socket.emit("stop typing", chat._id);
+                  setTyping(false);
+                }
+              }, timerLength);
+            }}
             style={styles.messageInput}
             placeholder="Enter your message"
+            value={newMessage}
           />
 
-          <Pressable style={styles.button}>
+          <Pressable onPress={sendMessage} style={styles.button}>
             <View>
               <Text style={styles.buttonText}>SEND</Text>
             </View>
@@ -90,7 +224,7 @@ export default function Messagescreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    backgroundColor: "blue",
+    backgroundColor: "#2287D0",
     paddingTop: 40,
     paddingBottom: 10,
   },
@@ -157,7 +291,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "30%",
-    backgroundColor: "#703efe",
+    backgroundColor: "#2287D0",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,

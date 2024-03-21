@@ -12,8 +12,9 @@ import { useLogin } from "../../context/LoginProvider";
 import client from "../api/client";
 
 const AllergyScreen = ({ navigation }) => {
-  console.log("re-render");
   const { profile } = useLogin();
+
+  console.log(profile.token);
 
   const [allergies, setAllergies] = useState(profile.allergies);
 
