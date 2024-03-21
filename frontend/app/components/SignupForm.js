@@ -47,7 +47,8 @@ const SignupForm = ({ navigation }) => {
       const signInRes = await signIn(values.username, values.password);
 
       if (signInRes.data.success) {
-        setProfile(res.data.user);
+        console.log(signInRes.data.user);
+        setProfile(signInRes.data.user);
         setIsLoggedIn(true);
         navigation.navigate("AllergyScreen");
       }

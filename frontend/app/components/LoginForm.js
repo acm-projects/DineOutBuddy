@@ -14,7 +14,7 @@ const validationSchema = Yup.object({
   username: Yup.string()
     .trim()
     .min(3, "Invalid username")
-    .required("Username is required"),
+    .required("username is required"),
   password: Yup.string()
     .trim()
     .min(8, "Password must be at least 8 characters")
@@ -30,6 +30,7 @@ const LoginForm = () => {
   };
 
   const logIn = async (values, formikActions) => {
+    console.log("Signed in");
     const res = await signIn(values.username, values.password);
 
     if (res.data.success) {
@@ -42,6 +43,7 @@ const LoginForm = () => {
 
   return (
     <FormContainer>
+      <View style={{ height: 100 }} />
       <Formik
         initialValues={userInfo}
         validationSchema={validationSchema}
@@ -64,8 +66,8 @@ const LoginForm = () => {
                 error={touched.username && errors.username}
                 onChangeText={handleChange("username")}
                 onBlur={handleBlur("username")}
-                label="Username"
-                placeholder="Spongebob123"
+                label=""
+                placeholder="username"
               />
               <FormInput
                 value={password}
@@ -73,9 +75,20 @@ const LoginForm = () => {
                 onChangeText={handleChange("password")}
                 onBlur={handleBlur("password")}
                 secureTextEntry
-                label="Password"
-                placeholder="********"
+                label=""
+                placeholder="Password"
               />
+              <View style={{ height: 30 }} />
+              <View
+                style={{
+                  height: 50,
+                  justifyContent: "right",
+                  alignItems: "right",
+                }}
+              >
+                {<Text>Forgot Password?</Text>}
+              </View>
+
               <FormSubmitBtn
                 submitting={isSubmitting}
                 onPress={handleSubmit}
@@ -85,6 +98,12 @@ const LoginForm = () => {
           );
         }}
       </Formik>
+      <View style={{ height: 50 }} />
+      <View
+        style={{ height: 50, justifyContent: "center", alignItems: "center" }}
+      >
+        {<Text>Don't have an account? Sign up</Text>}
+      </View>
     </FormContainer>
   );
 };

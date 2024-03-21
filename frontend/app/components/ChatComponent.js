@@ -2,6 +2,9 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
+const ENDPOINT = "http://localhost:5000";
+var socket, selectedChatCompare;
+
 export default function Chatcomponent({ item }) {
   const navigation = useNavigation();
 
