@@ -8,9 +8,7 @@ import { useLogin } from "../../context/LoginProvider";
 import LoginProvider from "../../context/LoginProvider";
 import { createStackNavigator } from "@react-navigation/stack";
 import DrawerNavigator from "./DrawerNavigator";
-import LoginForm from "../components/LoginForm";
-import SignupForm from "../components/SignupForm";
-import AppForm from "../screens/AppForm";
+import AppForm from "../tabs/AppForm";
 
 const Stack = createStackNavigator();
 

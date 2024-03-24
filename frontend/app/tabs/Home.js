@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import ForYou from './ForYou';
-import ForGroupA from './ForGroupA';
+import ForYou from '../components/ForYou';
+import ForGroupA from '../components/ForGroupA';
 
 const Home = ({ navigation }) => {
   return (

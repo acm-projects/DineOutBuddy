@@ -1,19 +1,16 @@
 import { StyleSheet, Text, View, Image, Dimensions, TouchableHighlight, TouchableOpacity, Button } from "react-native";
 import React, { isValidElement, useState } from "react";
-import FormContainer from "./FormContainer";
-import FormInput from "./FormInput";
-import FormSubmitBtn from "./FormSubmitBtn";
-import { isValidObjField, updateError, isValidEmail } from "../utils/methods";
+import FormContainer from "../components/FormContainer.js";
+import FormInput from "../components/FormInput.js";
+import FormSubmitBtn from "../components/FormSubmitBtn.js";
+import { isValidObjField, updateError, isValidEmail } from "../utils/methods.js";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import client from "../api/client";
-import { useLogin } from "../../context/LoginProvider";
-import { signIn } from "../api/user";
+import client from "../api/client.js";
+import { useLogin } from "../../context/LoginProvider.js";
+import { signIn } from "../api/user.js";
 import whiteTextmark from "../../assets/BlueTextmark.png"
-import { accentColor } from "./ComponentColors.js";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SignupForm from "./SignupForm.js";
+import { accentColor } from "../components/ComponentColors.js";
 
 const validationSchema = Yup.object({
   username: Yup.string()

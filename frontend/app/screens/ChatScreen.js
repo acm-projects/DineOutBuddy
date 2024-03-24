@@ -95,7 +95,6 @@ export default function Messagescreen({ route }) {
           }
         );
         setNewMessage("");
-        console.log(data);
         socket.emit("new message", data);
         setMessages([...messages, data]);
       } catch (error) {

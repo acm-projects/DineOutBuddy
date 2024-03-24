@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from "react-native";
 import React, { isValidElement, useState } from "react";
-import FormContainer from "./FormContainer";
-import FormInput from "./FormInput";
-import FormSubmitBtn from "./FormSubmitBtn";
+import FormContainer from "../components/FormContainer";
+import FormInput from "../components/FormInput";
+import FormSubmitBtn from "../components/FormSubmitBtn";
 import { isValidObjField, updateError, isValidEmail } from "../utils/methods";
 import { Formik } from "formik";
 import * as Yup from "yup";
