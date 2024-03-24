@@ -11,6 +11,7 @@ import LoginProvider from "../../context/LoginProvider";
 import { createStackNavigator } from "@react-navigation/stack";
 import GroupProfileScreen from "../screens/GroupProfileScreen";
 import AllergyScreen from "../screens/AllergyScreen";
+import ImageUpload from "../components/ImageUpload";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ const DrawerNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen component={Test} name="Test" />
+      <Stack.Screen component={ImageUpload} name="ImageUpload" />
       <Stack.Screen component={AllergyScreen} name="AllergyScreen" />
       <Stack.Screen component={MessagesScreen} name="MessagesScreen" />
       <Stack.Screen component={ChatScreen} name="ChatScreen" />
