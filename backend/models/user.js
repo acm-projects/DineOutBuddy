@@ -1,56 +1,51 @@
-import mongoose from"mongoose";
-import bcrypt from 'bcrypt';
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const userSchema = mongoose.Schema(
   {
-    username:{
+    username: {
       type: String,
       required: true,
     },
-    fullname:{
+    fullname: {
       type: String,
       required: true,
     },
-    email:{
+    email: {
       type: String,
       required: true,
     },
-    password:{
+    password: {
       type: String,
       required: true,
     },
-    avatar:{
-      type: Buffer,
+    avatar: {
+      type: String,
     },
-    allergies:{
-      type: [
-        {type: String, required: true},
-      ],
+    allergies: {
+      type: [{ type: String, required: true }],
       required: true,
     },
-    preferences:{
-      type: [
-        {type: String, required: true},
-      ],
+    preferences: {
+      type: [{ type: String, required: true }],
       required: true,
     },
   },
-  {toJSON: {virtuals: true}}
-  
-)
+  { toJSON: { virtuals: true } }
+);
 
-userSchema.pre('save', function(next){
-  if(this.isModified('password')){
+userSchema.pre("save", function (next) {
+  if (this.isModified("password")) {
     bcrypt.hash(this.password, 8, (err, hash) => {
-      if (err) return next (err);
+      if (err) return next(err);
       this.password = hash;
       next();
-    })
+    });
   }
-})
+});
 
-userSchema.methods.comparePassword = async function(password){
-  if(!password) throw new Error("Password is missing,can not compare!");
+userSchema.methods.comparePassword = async function (password) {
+  if (!password) throw new Error("Password is missing,can not compare!");
   try {
     const result = await bcrypt.compare(password, this.password);
     return result;
@@ -59,32 +54,32 @@ userSchema.methods.comparePassword = async function(password){
   }
 };
 
-userSchema.statics.isThisEmailInUse = async function(email){
-  if (!email) throw new Error("Invalid Email")
-  try{
-    const user = await this.findOne({email: email})
-    if (user){
-      return true
+userSchema.statics.isThisEmailInUse = async function (email) {
+  if (!email) throw new Error("Invalid Email");
+  try {
+    const user = await this.findOne({ email: email });
+    if (user) {
+      return true;
     }
     return false;
-  }catch(err){
-    console.log("error in isThisEmailInUse method", err.message)
-    return false
+  } catch (err) {
+    console.log("error in isThisEmailInUse method", err.message);
+    return false;
   }
-}
+};
 
-userSchema.statics.isThisUserName = async function(username){
-  if (!username) throw new Error("Invalid Username")
-  try{
-    const user = await this.findOne({username: username})
-    if (user){
-      return true
+userSchema.statics.isThisUserName = async function (username) {
+  if (!username) throw new Error("Invalid Username");
+  try {
+    const user = await this.findOne({ username: username });
+    if (user) {
+      return true;
     }
     return false;
-  }catch(err){
-    console.log("error in isThisEmailInUse method", err.message)
-    return false
+  } catch (err) {
+    console.log("error in isThisEmailInUse method", err.message);
+    return false;
   }
-}
+};
 
-export const User = mongoose.model('User', userSchema);
+export const User = mongoose.model("User", userSchema);

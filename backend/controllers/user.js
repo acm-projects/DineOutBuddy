@@ -2,6 +2,8 @@ import { User } from "../models/user.js";
 import asyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
 import {} from "dotenv/config";
+import sharp from "sharp";
+import cloudinary from "../helper/imageUpload.js";
 
 export const createUser = async (req, res) => {
   const isNewUser = !(
@@ -54,6 +56,7 @@ export const userSignIn = async (req, res) => {
     email: user.email,
     allergies: user.allergies,
     preferences: user.preferences,
+    avatar: user.avatar,
     token: token,
     _id: user._id,
   };
@@ -93,3 +96,31 @@ export const updateAllergies = asyncHandler(async (req, res) => {
     res.json(updatedUser);
   }
 });
+
+export const uploadProfile = async (req, res) => {
+  const { user } = req;
+
+  if (!user)
+    return res
+      .status(401)
+      .json({ success: false, message: "unauthorized access" });
+
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      public_id: `${user._id}_profile`,
+      width: 500,
+      height: 500,
+      crop: "fill",
+    });
+
+    await User.findByIdAndUpdate(user._id, { avatar: result.url });
+    res
+      .status(201)
+      .json({ success: "true", message: "Your profile has updated" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ success: "false", message: "Server error, try again" });
+    console.log(error);
+  }
+};

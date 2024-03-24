@@ -16,8 +16,7 @@ import GroupScreen from "../tabs/GroupScreen";
 
 
 const Tab = createBottomTabNavigator();
-
-const Stack = createStackNavigator();
+import ImageUpload from "../components/ImageUpload";
 
 const DrawerNavigator = () => {
   return (
