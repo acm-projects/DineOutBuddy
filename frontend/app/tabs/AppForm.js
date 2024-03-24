@@ -1,5 +1,5 @@
-import LoginForm from "../components/LoginForm";
-import SignupForm from "../components/SignupForm";
+import LoginForm from "../screens/LoginForm";
+import SignupForm from "../screens/SignupForm";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 

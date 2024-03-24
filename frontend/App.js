@@ -9,7 +9,7 @@ import LoginProvider from "./context/LoginProvider";
 import MainNavigator from "./app/utils/MainNavigator";
 import * as SplashScreen from 'expo-splash-screen';
 import useCustomFonts from "./app/hooks/useCustomFonts";
-import SignupForm from "./app/components/SignupForm";
+import SignupForm from "./app/screens/SignupForm";
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
