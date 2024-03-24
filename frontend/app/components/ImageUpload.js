@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     width: 125,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: "100%",
+    borderRadius: 50,
     borderStyle: "dashed",
     borderWidth: 1,
     overflow: "hidden",

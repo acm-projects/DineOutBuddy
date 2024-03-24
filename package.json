@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "react-native-get-location": "^4.0.1",
     "socket.io": "^4.7.5",
     "styled-components": "^6.1.8"
   }
