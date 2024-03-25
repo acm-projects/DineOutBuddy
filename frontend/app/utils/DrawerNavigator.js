@@ -14,7 +14,6 @@ import AllergyScreen from "../screens/AllergyScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import GroupScreen from "../tabs/GroupScreen";
 
-
 const Tab = createBottomTabNavigator();
 import ImageUpload from "../components/ImageUpload";
 
@@ -24,6 +23,7 @@ const DrawerNavigator = () => {
       <Tab.Screen component={Test} name="Test" />
       <Tab.Screen component={AllergyScreen} name="AllergyScreen" />
       <Tab.Screen component={GroupScreen} name="GroupScreen" />
+      <Tab.Screen component={ImageUpload} name="ImageUpload" />
     </Tab.Navigator>
   );
 };

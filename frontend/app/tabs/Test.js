@@ -13,35 +13,9 @@ import { useLogin } from "../../context/LoginProvider";
 // import GetLocation from "react-native-get-location";
 import * as Location from "expo-location";
 
-const requestLocationPermission = async () => {
-  try {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      {
-        title: "Geolocation Permission",
-        message: "Can we access your location?",
-        buttonNeutral: "Ask Me Later",
-        buttonNegative: "Cancel",
-        buttonPositive: "OK",
-      }
-    );
-    console.log("granted", granted);
-    if (granted === "granted") {
-      console.log("You can use Geolocation");
-      return true;
-    } else {
-      console.log("You cannot use Geolocation");
-      return false;
-    }
-  } catch (err) {
-    return false;
-  }
-};
-
 const Test = ({ navigation }) => {
   const { setIsLoggedIn, profile } = useLogin();
   const [location, setLocation] = useState("");
-  // console.log(profile);
 
   const getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -73,18 +47,6 @@ const Test = ({ navigation }) => {
           />
         )}
       </View>
-      <Button
-        title="Go to GroupPage"
-        onPress={() => navigation.navigate("MessagesScreen")}
-      />
-      <Button
-        title="Go to AllergyScreen"
-        onPress={() => navigation.navigate("AllergyScreen")}
-      />
-      <Button
-        title="Go to ImageUpload"
-        onPress={() => navigation.navigate("ImageUpload")}
-      />
       <Button title="Get Location" onPress={getLocation} />
 
       <TouchableOpacity onPress={() => setIsLoggedIn(false)}>

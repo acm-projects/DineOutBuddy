@@ -14,8 +14,6 @@ import client from "../api/client";
 const AllergyScreen = ({ navigation }) => {
   const { profile } = useLogin();
 
-  console.log(profile.token);
-
   const [allergies, setAllergies] = useState(profile.allergies);
 
   const allAllergies = [
