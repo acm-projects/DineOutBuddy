@@ -9,6 +9,7 @@ import {
   TextInput,
 } from "react-native";
 import { useLogin } from "../../context/LoginProvider";
+import UserCard from "../components/UserCard";
 
 const GroupProfileScreen = ({ route, navigation }) => {
   const { chat } = route.params;
@@ -125,18 +126,25 @@ const GroupProfileScreen = ({ route, navigation }) => {
       <Text style={styles.text}>
         Group Admin: {chatDetails.groupAdmin.fullname}
       </Text>
-      <Text style={styles.text}>Group Members:</Text>
-      {chatDetails.users.map((user) => (
-        <TouchableOpacity
-          key={user._id}
-          style={styles.text}
-          onPress={() => {
-            RemoveFromGroup(user);
-          }}
-        >
-          <Text>{user.username}</Text>
-        </TouchableOpacity>
-      ))}
+      <Text style={styles.text}>Users</Text>
+      <View style={styles.wrapper}>
+        {chatDetails.users.map((user) => (
+          <TouchableOpacity
+            key={user._id}
+            style={styles.text}
+            onPress={() => {
+              RemoveFromGroup(user);
+            }}
+          >
+            <UserCard user={user}></UserCard>
+          </TouchableOpacity>
+        ))}
+      </View>
+      <Text style={styles.text}>Allergies</Text>
+      {chat.allergies.map((allergy, i) => {
+        return <Text key={i}>{allergy}</Text>;
+      })}
+
       <TextInput
         autoCorrect={false}
         placeholder={chat.chatName}
@@ -195,6 +203,10 @@ const styles = StyleSheet.create({
     padding: 8,
     color: "black",
     marginBottom: 10,
+  },
+  wrapper: {
+    flexDirection: "column",
+    gap: 18,
   },
 });
 export default GroupProfileScreen;

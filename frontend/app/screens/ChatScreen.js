@@ -22,6 +22,7 @@ import {
   isSameUser,
 } from "../../config/ChatLogics";
 import io from "socket.io-client";
+import FeatherIcon from "react-native-vector-icons/Feather";
 
 var socket, selectedChatCompare;
 
@@ -57,7 +58,7 @@ export default function Messagescreen({ route }) {
   }, [chat]);
 
   useEffect(() => {
-    socket = io("http://192.168.50.72:8000");
+    socket = io("http://10.178.170.242:8000");
     socket.emit("setup", profile);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
@@ -106,36 +107,30 @@ export default function Messagescreen({ route }) {
   return (
     <>
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => {
-            navigation.navigate("MessagesScreen", {
-              chat: chat,
-            });
-          }}
-        >
-          <Icon name="angle-left" size={30} color={"white"} />
-        </TouchableOpacity>
-        <View style={styles.profileOptions}>
-          <TouchableOpacity style={styles.profile}>
-            <Image
-              style={styles.image}
-              source={require("../../assets/users/user-1.jpg")}
-            />
-            <View style={styles.usernameAndOnlineStatus}>
-              <Text style={styles.username}>"Test User"</Text>
-              <Text style={styles.onlineStatus}>Online</Text>
+        <View style={styles.header}>
+          <View style={styles.profile}>
+            <View>
+              <TouchableOpacity
+                style={{ paddingHorizontal: 20 }}
+                onPress={() =>
+                  navigation.navigate("MessagesScreen", {
+                    chat: chat,
+                  })
+                }
+              >
+                <FeatherIcon name="chevron-left" size={25} color={"black"} />
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
+
+            <View style={styles.imgContainer}>
+              <Image
+                style={styles.image}
+                source={require("../../assets/users/user-1.jpg")}
+              />
+            </View>
+            <Text style={styles.username}>{chat.chatName}</Text>
+          </View>
           <View style={styles.options}>
-            <TouchableOpacity
-              onPress={() => {
-                console.log("pressed");
-              }}
-              style={{ paddingHorizontal: 5 }}
-            >
-              <Icon name="phone" size={30} color={"white"} />
-            </TouchableOpacity>
             <TouchableOpacity
               style={{ paddingHorizontal: 20 }}
               onPress={() =>
@@ -144,7 +139,7 @@ export default function Messagescreen({ route }) {
                 })
               }
             >
-              <Icon name="ellipsis-v" size={30} color={"white"} />
+              <Icon name="ellipsis-v" size={25} color={"black"} />
             </TouchableOpacity>
           </View>
         </View>
@@ -166,11 +161,11 @@ export default function Messagescreen({ route }) {
                 <Text
                   style={{
                     backgroundColor: `${
-                      m.sender._id === profile._id ? "#BEE3F8" : "#89F5D0"
+                      m.sender._id === profile._id ? "#C4DDEF" : "#F2F5F8"
                     }`,
-                    borderRadius: 20,
-                    padding: 5,
-                    maxWidth: "25%",
+                    borderRadius: 10,
+                    padding: 10,
+                    maxWidth: "40%",
                     marginLeft: isSameSenderMargin(messages, m, i, profile._id),
                     marginTop: isSameUser(messages, m, i, profile._id) ? 3 : 10,
                   }}
@@ -183,6 +178,16 @@ export default function Messagescreen({ route }) {
         </View>
         {isTyping && <Text>Typing....</Text>}
         <View style={styles.messageInputContainer}>
+          <Pressable
+            onPress={() => {
+              console.log("pressed");
+            }}
+            style={styles.cameraBtn}
+          >
+            <View>
+              <FeatherIcon name="camera" size={15} color="black"></FeatherIcon>
+            </View>
+          </Pressable>
           <TextInput
             onChangeText={(messages) => {
               setNewMessage(messages);
@@ -208,10 +213,9 @@ export default function Messagescreen({ route }) {
             placeholder="Enter your message"
             value={newMessage}
           />
-
           <Pressable onPress={sendMessage} style={styles.button}>
             <View>
-              <Text style={styles.buttonText}>SEND</Text>
+              <FeatherIcon name="send" size={20} color="white"></FeatherIcon>
             </View>
           </Pressable>
         </View>
@@ -223,20 +227,17 @@ export default function Messagescreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    backgroundColor: "#2287D0",
-    paddingTop: 40,
+    backgroundColor: "#F7FAFD",
+    paddingTop: 50,
     paddingBottom: 10,
   },
-  backButton: {
-    alignSelf: "center",
-    paddingHorizontal: 10,
-  },
-  profileOptions: {
+  header: {
+    maxHeight: 250,
     flex: 1,
+    paddingHorizontal: 8,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 10,
   },
   profile: {
     flexDirection: "row",
@@ -245,23 +246,22 @@ const styles = StyleSheet.create({
     flex: 4,
   },
   image: {
-    height: 65,
-    width: 65,
-    borderRadius: 32.5,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
   },
-  usernameAndOnlineStatus: {
-    flexDirection: "column",
-    justifyContent: "center",
-    paddingHorizontal: 10,
+  imgContainer: {
+    elevation: 15,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    shadowColor: "black",
   },
   username: {
-    color: "white",
-    fontSize: 18,
+    marginLeft: 15,
+    color: "black",
+    fontSize: 20,
     fontWeight: "bold",
-  },
-  onlineStatus: {
-    color: "white",
-    fontSize: 16,
   },
   options: {
     flex: 1,
@@ -271,32 +271,40 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
-    backgroundColor: "#eee",
+    backgroundColor: "#F7FAFD",
+    paddingHorizontal: 8,
   },
   messageInputContainer: {
+    maxHeight: 50,
     width: "100%",
-    backgroundColor: "#fff",
-    paddingVertical: 30,
-    paddingHorizontal: 15,
+    paddingHorizontal: 8,
+    borderRadius: 50,
+    backgroundColor: "#C4DDEF",
     justifyContent: "center",
+    alignItems: "center",
     flexDirection: "row",
+    marginBottom: 30,
   },
   messageInput: {
-    borderWidth: 1,
+    color: "white",
     padding: 15,
     flex: 1,
     borderRadius: 50,
-    marginRight: 10,
   },
   button: {
     width: "30%",
-    backgroundColor: "#2287D0",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 50,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
   },
-  buttonText: {
-    color: "#fff",
-    fontSize: 20,
+  cameraBtn: {
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 30,
+    height: 30,
+    borderRadius: 15,
   },
 });

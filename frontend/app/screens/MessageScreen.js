@@ -8,6 +8,7 @@ import {
   FlatList,
   Pressable,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import {
   Container,
@@ -25,47 +26,35 @@ import { GlobalContext } from "../../context";
 import NewGroupModal from "../components/Modal";
 import client from "../api/client";
 import { useLogin } from "../../context/LoginProvider";
+import Icon from "react-native-vector-icons/AntDesign";
+import GroupCard from "../components/GroupCard";
 
 const MessagesScreen = ({ navigation }) => {
   const { modalVisible, setModalVisible } = useContext(GlobalContext);
   const { chats, fetchChats } = useLogin();
   fetchChats();
   return (
-    <Container style={styles.container}>
-      {chats
-        ? chats.map((chat) => (
-            <Card
-              key={chat._id}
-              onPress={() =>
-                navigation.navigate("ChatScreen", {
-                  chat: chat,
-                })
-              }
-            >
-              <UserInfo>
-                <UserImgWrapper>
-                  <UserImg source={require("../../assets/users/user-1.jpg")} />
-                </UserImgWrapper>
-                <TextSection>
-                  <UserInfoText>
-                    <UserName>{chat.chatName}</UserName>
-                    <PostTime>"1 day ago"</PostTime>
-                  </UserInfoText>
-                  <MessageText>"Hello"</MessageText>
-                </TextSection>
-              </UserInfo>
-            </Card>
-          ))
-        : null}
-      <View style={styles.bottomContainer}>
-        <Pressable onPress={() => setModalVisible(true)} style={styles.button}>
-          <View>
-            <Text style={styles.buttonText}>Create New Group</Text>
-          </View>
-        </Pressable>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Groups</Text>
+        <View style={styles.icons}>
+          <Pressable onPress={() => setModalVisible(true)}>
+            <Icon name="plus" size={25} color={"#2675EC"} />
+          </Pressable>
+
+          <Icon name="search1" size={25} color={"#2675EC"} />
+          <Icon name="bars" size={25} color={"#2675EC"} />
+        </View>
+      </View>
+      <View style={styles.groupWrapper}>
+        {chats
+          ? chats.map((chat) => {
+              return <GroupCard chat={chat} key={chat._id} />;
+            })
+          : null}
       </View>
       {modalVisible && <NewGroupModal />}
-    </Container>
+    </View>
   );
 };
 
@@ -73,26 +62,49 @@ export default MessagesScreen;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
     flex: 1,
+    backgroundColor: "#F7FAFD",
+  },
+  header: {
+    marginTop: 20,
+    paddingVertical: 38,
+    paddingHorizontal: 25,
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
-  bottomContainer: {
-    flex: 0.3,
-    padding: 10,
+  icons: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 15,
   },
-  button: {
-    backgroundColor: "#703efe",
-    padding: 12,
-    width: "100%",
-    elevation: 1,
-    borderRadius: 50,
-  },
-  buttonText: {
-    textAlign: "center",
-    color: "#fff",
+  title: {
+    color: "#2287D0",
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 28,
+  },
+  groupWrapper: {
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    backgroundColor: "white",
+    paddingVertical: 60,
+    flex: 1,
+    flexDirection: "column",
+    gap: 18,
+  },
+  groupCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "stretch",
+    paddingHorizontal: 23,
+  },
+  text: {
+    marginLeft: 18,
+    flex: 1,
+  },
+  cardHeader: {
+    alignSelf: "stretch",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
