@@ -28,12 +28,6 @@ function GlobalState({ children }) {
         setAllChatRooms,
         modalVisible,
         setModalVisible,
-        currentGroupName,
-        setCurrentGroupName,
-        allChatMessages,
-        setAllChatMessages,
-        currentChatMesage,
-        setCurrentChatMessage,
       }}
     >
       {children}

@@ -60,30 +60,13 @@ const ImageUpload = () => {
               style={{ width: "100%", height: "100%" }}
             />
           ) : (
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 16,
-                opacity: 0.3,
-                fontWeight: "bold",
-              }}
-            >
-              Upload Profile Image
-            </Text>
+            <Image
+              style={{ width: "100%", height: "100%" }}
+              source={require("../../assets/users/user-1.jpg")}
+            />
           )}
         </TouchableOpacity>
-        <Text
-          style={{
-            textAlign: "center",
-            padding: 10,
-            fontSize: 16,
-            fontWeight: "bold",
-            letterSpacing: 1,
-            opacity: 0.5,
-          }}
-        >
-          SKIP
-        </Text>
+
         {profileImage && (
           <Text
             style={{
@@ -110,19 +93,14 @@ const ImageUpload = () => {
 export default ImageUpload;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   uploadBtn: {
-    height: 125,
-    width: 125,
+    width: 130,
+    height: 130,
+    borderRadius: 65,
+    borderWidth: 13,
+    borderColor: "white",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 50,
-    borderStyle: "dashed",
-    borderWidth: 1,
     overflow: "hidden",
   },
 });

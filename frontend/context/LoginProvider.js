@@ -7,7 +7,7 @@ const LoginProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profile, setProfile] = useState({});
   const [chats, setChats] = useState([]);
-
+  const [modalVisible, setModalVisible] = useState(false);
   const fetchChats = async () => {
     try {
       const { data } = await client.get("/api/chat", {
@@ -32,6 +32,8 @@ const LoginProvider = ({ children }) => {
         chats,
         setChats,
         fetchChats,
+        modalVisible,
+        setModalVisible,
       }}
     >
       {children}

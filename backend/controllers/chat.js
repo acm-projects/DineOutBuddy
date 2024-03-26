@@ -82,7 +82,13 @@ export const createGroupChat = asyncHandler(async (req, res) => {
 
   users.push(req.user);
   console.log(req.user.allergies);
-  const groupAllergies = allergies.concat(req.user.allergies);
+  const groupAllergies = [];
+  req.user.allergies.forEach((allergy) => {
+    if (!groupAllergies.includes(allergy)) {
+      groupAllergies.push(allergy);
+    }
+  });
+  // const groupAllergies = allergies.concat(req.user.allergies);
   console.log(groupAllergies);
 
   try {

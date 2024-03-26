@@ -17,6 +17,7 @@ import { GlobalContext } from "../../context";
 import { useLogin } from "../../context/LoginProvider";
 import axios from "axios";
 import client from "../api/client";
+import UserCard from "./UserCard";
 
 const NewGroupModal = () => {
   const { profile, chats, setChats } = useLogin();
@@ -121,11 +122,12 @@ const NewGroupModal = () => {
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text>Modal Title</Text>
+          <Text style={styles.title}>Create a Group</Text>
           <TextInput
             autoCorrect={false}
             placeholder="Enter group name"
             style={styles.loginInput}
+            placeholderTextColor={"white"}
             onChangeText={(value) => SetGroupChatName(value)}
             value={groupChatName}
           />
@@ -133,29 +135,42 @@ const NewGroupModal = () => {
             autoCorrect={false}
             placeholder="Find Users"
             style={styles.loginInput}
+            placeholderTextColor={"white"}
             onChangeText={(value) => handleSearch(value)}
             value={search}
           />
           {selectedUsers.map((user) => (
             <TouchableOpacity
               key={user._id}
-              style={{ backgroundColor: "red", marginBottom: 10, color: "red" }}
+              style={{
+                backgroundColor: "#C4DDEF",
+                marginBottom: 10,
+                borderWidth: 0.5,
+                borderRadius: 10,
+                paddingVertical: 3,
+                marginBottom: 10,
+              }}
               onPress={() => {
                 handleDelete(user);
               }}
             >
-              <Text>{user.fullname}</Text>
+              <UserCard user={user} />
             </TouchableOpacity>
           ))}
           {searchResult?.slice(0, 4).map((user) => (
             <TouchableOpacity
               key={user._id}
-              style={{ backgroundColor: "lightblue", marginBottom: 10 }}
+              style={{
+                borderWidth: 0.5,
+                borderRadius: 10,
+                paddingVertical: 3,
+                marginBottom: 10,
+              }}
               onPress={() => {
                 handleGroup(user);
               }}
             >
-              <Text>{user.fullname}</Text>
+              <UserCard user={user} />
             </TouchableOpacity>
           ))}
           <View style={styles.buttonWrapper}>
@@ -184,6 +199,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    minWidth: 200,
+    backgroundColor: "rgba(0,0,0,0.1)",
   },
   modalView: {
     margin: 20,
@@ -199,6 +216,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+    minWidth: 300,
+  },
+  title: {
+    color: "#0093ED",
+    fontSize: 30,
+    fontWeight: "bold",
+    marginBottom: 15,
   },
   textStyle: {
     color: "white",
@@ -211,18 +235,18 @@ const styles = StyleSheet.create({
   },
   loginInput: {
     borderRadius: 50,
-    borderWidth: 1,
     padding: 8,
-    color: "black",
+    backgroundColor: "#C4DDEF",
     marginBottom: 10,
   },
 
   button: {
-    backgroundColor: "#703efe",
+    backgroundColor: "#0093ED",
     padding: 15,
     marginVertical: 10,
     elevation: 1,
     borderRadius: 50,
+    flex: 1,
   },
   buttonWrapper: {
     flexDirection: "row",

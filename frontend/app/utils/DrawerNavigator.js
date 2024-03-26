@@ -16,6 +16,7 @@ import GroupScreen from "../tabs/GroupScreen";
 
 const Tab = createBottomTabNavigator();
 import ImageUpload from "../components/ImageUpload";
+import IndividualProfile from "../tabs/IndividualProfile";
 
 const DrawerNavigator = () => {
   return (
@@ -24,6 +25,7 @@ const DrawerNavigator = () => {
       <Tab.Screen component={AllergyScreen} name="AllergyScreen" />
       <Tab.Screen component={GroupScreen} name="GroupScreen" />
       <Tab.Screen component={ImageUpload} name="ImageUpload" />
+      <Tab.Screen component={IndividualProfile} name="Profile" />
     </Tab.Navigator>
   );
 };

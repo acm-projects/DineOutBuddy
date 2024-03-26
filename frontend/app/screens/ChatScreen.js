@@ -9,6 +9,7 @@ import {
   TextInput,
   View,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import ChatHeader from "../components/ChatHeader";
 import { useNavigation } from "@react-navigation/native";
@@ -58,7 +59,7 @@ export default function Messagescreen({ route }) {
   }, [chat]);
 
   useEffect(() => {
-    socket = io("http://10.178.170.242:8000");
+    socket = io("http://10.178.162.233:8000");
     socket.emit("setup", profile);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
@@ -151,7 +152,7 @@ export default function Messagescreen({ route }) {
             { paddingVertical: 15, paddingHorizontal: 10 },
           ]}
         >
-          <View style={styles.messageContainer}>
+          <ScrollView style={styles.messageContainer}>
             {messages.map((m, i) => (
               <View key={m._id}>
                 {(isSameSender(messages, m, i, profile._id) ||
@@ -163,7 +164,7 @@ export default function Messagescreen({ route }) {
                     backgroundColor: `${
                       m.sender._id === profile._id ? "#C4DDEF" : "#F2F5F8"
                     }`,
-                    borderRadius: 10,
+                    borderRadius: 20,
                     padding: 10,
                     maxWidth: "40%",
                     marginLeft: isSameSenderMargin(messages, m, i, profile._id),
@@ -174,7 +175,7 @@ export default function Messagescreen({ route }) {
                 </Text>
               </View>
             ))}
-          </View>
+          </ScrollView>
         </View>
         {isTyping && <Text>Typing....</Text>}
         <View style={styles.messageInputContainer}>
@@ -230,6 +231,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7FAFD",
     paddingTop: 50,
     paddingBottom: 10,
+  },
+  messageContainer: {
+    flex: 1,
   },
   header: {
     maxHeight: 250,

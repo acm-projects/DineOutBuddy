@@ -14,7 +14,7 @@ const messageSchema = mongoose.Schema(
       ref: "Chat",
     },
   },
-  { toJSON: { virtuals: true } }
+  { toJSON: { virtuals: true }, timestamps: true }
 );
 
 export const Message = mongoose.model("Message", messageSchema);

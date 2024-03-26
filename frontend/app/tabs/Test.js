@@ -48,10 +48,6 @@ const Test = ({ navigation }) => {
         )}
       </View>
       <Button title="Get Location" onPress={getLocation} />
-
-      <TouchableOpacity onPress={() => setIsLoggedIn(false)}>
-        <Text style={{ fontSize: 18, color: "white" }}>Log Out</Text>
-      </TouchableOpacity>
     </View>
   );
 };

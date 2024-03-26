@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import React, { isValidElement, useState } from "react";
 import FormContainer from "../components/FormContainer";
 import FormInput from "../components/FormInput";
@@ -76,7 +82,7 @@ const SignupForm = ({ navigation }) => {
         }) => {
           const { fullname, username, email, password } = values;
           return (
-            <View styles={{gap: 22}}>
+            <View styles={{ gap: 22 }}>
               <FormInput
                 value={fullname}
                 error={touched.fullname && errors.fullname}
@@ -115,11 +121,24 @@ const SignupForm = ({ navigation }) => {
                 onPress={handleSubmit}
                 title="SignUp"
               />
-              <View style={{ height: 50, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+              <View
+                style={{
+                  height: 50,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "row",
+                }}
+              >
                 <Text>Already have an account? </Text>
-                <TouchableOpacity onPress={() => navigation.navigate("LoginForm")} underlayColor={"white"} styles={{color: "#ff0000"}} >
-                  <View styles={{backgroundColor: "#ff0000"}}>
-                    <Text styles={{fontFamily: "Metropolis-Medium"}}>Log In</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("LoginForm")}
+                  underlayColor={"white"}
+                  styles={{ color: "#ff0000" }}
+                >
+                  <View styles={{ backgroundColor: "#ff0000" }}>
+                    <Text styles={{ fontFamily: "Metropolis-Medium" }}>
+                      Log In
+                    </Text>
                   </View>
                 </TouchableOpacity>
               </View>
