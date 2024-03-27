@@ -1,0 +1,182 @@
+[
+  {
+    "name": "IHOP",
+    "address": "1010 S Central Expy, Richardson, TX 75080-7303",
+    "dietary_restrictions": "",
+    "cuisine": "American"
+  },
+  {
+    "name": "Sonic Drive-In",
+    "address": "8620 Spring Valley Road, Dallas, TX 75240",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Dog Haus",
+    "address": "744 S. Central Expressway Suite 210, Richardson, TX 75080-7448",
+    "dietary_restrictions": "",
+    "cuisine": "American, Bar, Pub"
+  },
+  {
+    "name": "Jasmine Market & Cafe",
+    "address": "820 S Sherman St, Richardson, TX 75081",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Denny's",
+    "address": "13689 N Central Expy, Dallas, TX 75243-1001",
+    "dietary_restrictions": "",
+    "cuisine": "American, Diner"
+  },
+  {
+    "name": "Waffle House",
+    "address": "120 W Spring Valley Rd, Richardson, TX 75081-4032",
+    "dietary_restrictions": "",
+    "cuisine": "Diner"
+  },
+  {
+    "name": "Chiloso Mexican Bistro",
+    "address": "100 S Central Expy #104, Richardson, TX 75080-6320",
+    "dietary_restrictions": "Vegetarian Friendly",
+    "cuisine": "Mexican, Southwestern, Latin, Spanish, Vegetarian Friendly"
+  },
+  {
+    "name": "Mediterranean Cafe & Bakery",
+    "address": "100 S Central Expy Ste 49, Richardson, TX 75080-6320",
+    "dietary_restrictions": "",
+    "cuisine": "Greek"
+  },
+  {
+    "name": "Birdcall",
+    "address": "507 W Belt Line Rd., Richardson, TX 75080",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "McDonald's",
+    "address": "120 S Central Expressway, Richardson, TX 75080",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "zDAR Market",
+    "address": "214 E Spring Valley Rd, Richardson, TX 75081-5032",
+    "dietary_restrictions": "",
+    "cuisine": "Mediterranean, Greek, Middle Eastern"
+  },
+  {
+    "name": "Communion Neighborhood Cooperative",
+    "address": "514 Lockwood Dr, Richardson, TX 75080-5609",
+    "dietary_restrictions": "",
+    "cuisine": "American, Bar, Seafood, Pub, Wine Bar, Dining bars, Beer restaurants"
+  },
+  {
+    "name": "Nuno’s Tacos & Vegmex Grill",
+    "address": "8024 Spring Valley Rd, Dallas, TX 75240-3827",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Burger King",
+    "address": "14010 Coit Rd, Dallas, TX 75240",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "La Salsa Verde Taqueria",
+    "address": "14225 Coit Rd, Dallas, TX 75254-2862",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Deep Cuts Dallas",
+    "address": "103 S Coit Rd #146, Richardson, TX 75080-5721",
+    "dietary_restrictions": "",
+    "cuisine": "American, Seafood"
+  },
+  {
+    "name": "Jack in the Box",
+    "address": "14219 Coit Rd, Dallas, TX 75254",
+    "dietary_restrictions": "",
+    "cuisine": "Mexican, American, Fast Food"
+  },
+  {
+    "name": "Tacos Y Mas - North Dallas",
+    "address": "101 S Coit Rd #404, Richardson, TX 75080",
+    "dietary_restrictions": "",
+    "cuisine": "Mexican, Fast Food"
+  },
+  {
+    "name": "McDonald's",
+    "address": "105 S Coit Rd, Richardson, TX 75080",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Tantuni Mediterranean Restaurant",
+    "address": "925 Abrams Rd, Richardson, TX 75081-5037",
+    "dietary_restrictions": "Vegetarian Friendly, Vegan Options",
+    "cuisine": "Turkish, Mediterranean, Middle Eastern, Vegetarian Friendly, Vegan Options"
+  },
+  {
+    "name": "The Palate Grill",
+    "address": "7989 Belt Line Rd Suite 154, Dallas, TX 75248-5734",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Taqueria La Candelaria",
+    "address": "200 N Coit Rd, Richardson, TX 75080-5441",
+    "dietary_restrictions": "",
+    "cuisine": "Mexican"
+  },
+  {
+    "name": "Dutch Bros Coffee",
+    "address": "815 W Arapaho Dr., Richardson, TX 75080",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Baskin-Robbins",
+    "address": "14841 South Coit Road, Dallas, TX 75248",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Dunkin'",
+    "address": "14841 Coit Rd, Dallas, TX 75248-5710",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "Salad and Go",
+    "address": "14909 Coit Rd, Dallas, TX 75248",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  },
+  {
+    "name": "85C Bakery Cafe",
+    "address": "400 N Greenville Ave, Richardson, TX 75081-6202",
+    "dietary_restrictions": "",
+    "cuisine": "Cafe"
+  },
+  {
+    "name": "DFW China Town",
+    "address": "400 North Greenville Avenue #17, Richardson, TX 75081",
+    "dietary_restrictions": "",
+    "cuisine": "Chinese, Asian"
+  },
+  {
+    "name": "Subway",
+    "address": "600 N Coit Suite 2055, Richardson, TX 75080",
+    "dietary_restrictions": "",
+    "cuisine": "American, Deli"
+  },
+  {
+    "name": "Taco Bell",
+    "address": "517 W Arapaho Rd., Richardson, TX 75080",
+    "dietary_restrictions": "",
+    "cuisine": ""
+  }
+]
