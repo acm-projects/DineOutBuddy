@@ -14,6 +14,7 @@ import AllergyScreen from "../screens/AllergyScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import GroupScreen from "../tabs/GroupScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import SearchScreen from "../tabs/SearchScreen";
 
 const Tab = createBottomTabNavigator();
 import ImageUpload from "../components/ImageUpload";
@@ -83,6 +84,13 @@ const TabArr = [
     component: Test,
   },
   {
+    route: "SearchScreen",
+    label: "SearchScreen",
+    activeIcon: "search",
+    inActiveIcon: "search-circle-outline",
+    component: SearchScreen,
+  },
+  {
     route: "AllergyScreen",
     label: "AllergyScreen",
     activeIcon: "egg",
@@ -110,6 +118,7 @@ const TabArr = [
     inActiveIcon: "person-circle-outline",
     component: IndividualProfile,
   },
+  ,
 ];
 
 const DrawerNavigator = () => {

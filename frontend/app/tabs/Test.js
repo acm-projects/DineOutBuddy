@@ -23,6 +23,7 @@ const Test = ({ navigation }) => {
     if (status == "granted") {
       try {
         currLocation = await Location.getCurrentPositionAsync({});
+        console.log(currLocation);
         const { latitude, longitude } = currLocation.coords;
         console.log(latitude);
         console.log(longitude);
