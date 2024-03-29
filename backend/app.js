@@ -4,9 +4,9 @@ import mongoose from "mongoose";
 import userRoutes from "./routes/user.js";
 import chatRoutes from "./routes/chat.js";
 import messageRoutes from "./routes/message.js";
-import aichatRoute from './routes/aichat.js';
-import googleRoute from './routes/google.js';
-import travelRoute from './routes/travel.js'
+import aichatRoute from "./routes/aichat.js";
+import googleRoute from "./routes/google.js";
+import travelRoute from "./routes/travel.js";
 
 import { chats } from "./data/data.js";
 import { createServer } from "http";
@@ -23,7 +23,7 @@ mongoose
     const io = new Server(httpServer, {
       pingTimeout: 60000,
       cors: {
-        origin: "http://10.178.162.233:8081",
+        origin: "http://10.178.163.29:8081",
       },
     });
 
@@ -91,12 +91,12 @@ app.get("/api/chat/:id", (req, res) => {
   res.send(singleChat);
 });
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("App is connected to Database");
     app.listen(6000, () => {
       console.log("Port is now listening to 8000");
     });
-    
   })
-  .catch(err => console.log(err.message));
+  .catch((err) => console.log(err.message));
