@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   Button,
+  ImageBackground,
 } from "react-native";
 import React, { isValidElement, useState } from "react";
 import FormContainer from "../components/FormContainer.js";
@@ -22,18 +23,19 @@ import * as Yup from "yup";
 import client from "../api/client.js";
 import { useLogin } from "../../context/LoginProvider.js";
 import { signIn } from "../api/user.js";
-import whiteTextmark from "../../assets/BlueTextmark.png";
-import { accentColor } from "../components/ComponentColors.js";
+import whiteTextmark from "../../assets/WhiteTextmark.png";
+import { accentColor, darkColor, primaryColor } from "../components/ComponentColors.js";
+import LoginPageBG from "../../assets/LoginPageBG.png"
 
 const validationSchema = Yup.object({
   username: Yup.string()
     .trim()
     .min(3, "Invalid username")
-    .required("username is required"),
+    .required("Username is required"),
   password: Yup.string()
     .trim()
     .min(8, "Password must be at least 8 characters")
-    .required("Required"),
+    .required("Password is required"),
 });
 
 const LoginForm = ({ navigation }) => {
@@ -57,87 +59,122 @@ const LoginForm = ({ navigation }) => {
   };
 
   return (
-    <FormContainer>
-      <Formik
-        initialValues={userInfo}
-        validationSchema={validationSchema}
-        onSubmit={logIn}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          isSubmitting,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-        }) => {
-          const { fullname, username, email, password } = values;
-          return (
-            <View style={{ gap: 22, marginTop: 100 }}>
-              <FormInput
-                value={username}
-                error={touched.username && errors.username}
-                onChangeText={handleChange("username")}
-                onBlur={handleBlur("username")}
-                label=""
-                placeholder="Username"
-              />
-              <FormInput
-                value={password}
-                error={touched.password && errors.password}
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                secureTextEntry
-                label=""
-                placeholder="Password"
-              />
-              <View
-                style={{ justifyContent: "center", alignItems: "flex-end" }}
-              >
-                <Text
+    <View style={styles.container}>
+      <ImageBackground source={LoginPageBG} style={styles.imageBG}>
+        <Text style={[styles.splashText, {fontSize: 26, padding: 22}]}>Welcome!</Text>
+        <Image source={whiteTextmark} style={styles.logo}/>
+        <Text style={[styles.splashText, {fontSize: 21}]}>Food, Friends, Fun</Text>
+      </ImageBackground>
+      <View style={{marginTop: 20}}/> 
+      <FormContainer>
+        <Formik
+          initialValues={userInfo}
+          validationSchema={validationSchema}
+          onSubmit={logIn}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            isSubmitting,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+          }) => {
+            const { fullname, username, email, password } = values;
+            return (
+              <View style={{ gap: 8 }}>
+                <FormInput
+                  value={username}
+                  error={touched.username && errors.username}
+                  onChangeText={handleChange("username")}
+                  onBlur={handleBlur("username")}
+                  label=""
+                  placeholder="Username"
+                />
+                <FormInput
+                  value={password}
+                  error={touched.password && errors.password}
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  secureTextEntry
+                  label=""
+                  placeholder="Password"
+                />
+                <View
                   style={{
-                    color: accentColor,
-                    fontSize: 16,
-                    fontFamily: "Metropolis-Medium",
+                    justifyContent: "center", 
+                    alignItems: "flex-end",
+                    height: 56 
                   }}
                 >
-                  Forgot Password?
-                </Text>
+                  <Text style={styles.linkText}>Forgot Password?</Text>
+                </View>
+                <FormSubmitBtn
+                  submitting={isSubmitting}
+                  onPress={handleSubmit}
+                  title="Log In"
+                />
               </View>
-
-              <FormSubmitBtn
-                submitting={isSubmitting}
-                onPress={handleSubmit}
-                title="Log In"
-              />
-            </View>
-          );
-        }}
-      </Formik>
-      <View
-        style={{
-          height: 50,
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "row",
-        }}
-      >
-        <Text>Don't have an account? </Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("SignupForm")}
-          underlayColor={"white"}
-          styles={{ color: "#ff0000" }}
+            );
+          }}
+        </Formik>
+        <View style={{height: 44}}/>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "flex-end",
+            flexDirection: "row",
+          }}
         >
-          <View styles={{ backgroundColor: "#ff0000" }}>
-            <Text styles={{ fontFamily: "Metropolis-Medium" }}>Sign Up</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    </FormContainer>
+          <Text style={styles.plainText}>Don't have an account? </Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("SignupForm")}
+            underlayColor={"white"}
+            styles={{ color: "#ff0000" }}
+          >
+            <View>
+              <Text style={styles.linkText}>Sign Up</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </FormContainer>
+    </View>
   );
 };
 
 export default LoginForm;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    height: Dimensions.get("window").height,
+    backgroundColor: primaryColor
+  },
+  imageBG: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").width/1.14, // 1.14 is the aspect ratio of the image
+    resizeMode: "cover",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center"
+  },
+  logo: {
+    width: Dimensions.get("window").width - 60,
+    height: (Dimensions.get("window").width - 60)/3.2, // 3.2 is the aspect ratio of the image
+    resizeMode: "center"
+  },
+  splashText: {
+    fontFamily: "HeyComic",
+    color: primaryColor
+  },
+  plainText: {
+    fontSize: 16,
+    fontFamily: "Metropolis-Regular",
+    color: darkColor
+  },
+  linkText: {
+    fontSize: 16,
+    fontFamily: "Metropolis-Medium",
+    color: accentColor
+  }
+});
