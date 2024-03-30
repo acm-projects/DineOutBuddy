@@ -23,7 +23,7 @@ mongoose
     const io = new Server(httpServer, {
       pingTimeout: 60000,
       cors: {
-        origin: "http://10.178.163.29:8081",
+        origin: "http://110.173.168.188:8081",
       },
     });
 

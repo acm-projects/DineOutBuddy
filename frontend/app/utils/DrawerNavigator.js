@@ -15,6 +15,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import GroupScreen from "../tabs/GroupScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SearchScreen from "../tabs/SearchScreen";
+import RestaurantScreen from "../tabs/RestaurantScreen";
 
 const Tab = createBottomTabNavigator();
 import ImageUpload from "../components/ImageUpload";
@@ -118,7 +119,13 @@ const TabArr = [
     inActiveIcon: "person-circle-outline",
     component: IndividualProfile,
   },
-  ,
+  {
+    route: "RestaurantScreen",
+    label: "RestaurantScreen",
+    activeIcon: "fast-food-sharp",
+    inActiveIcon: "fast-food-sharp",
+    component: RestaurantScreen,
+  },
 ];
 
 const DrawerNavigator = () => {
