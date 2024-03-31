@@ -2,6 +2,8 @@ import express from 'express';
 import { } from 'dotenv/config';
 import axios from 'axios';
 import { unsubscribe } from 'diagnostics_channel';
+import { User } from "../models/user.js";
+import isAuth from "../middlewares/auth.js"
 
 export const router = express.Router();
 
@@ -12,20 +14,21 @@ router.get('/restaurantsByDiet', async (req, res) => {
 
     // Replace '+' with '|' to construct a keyword parameter that searches for any of the specified restrictions
     const formattedRestrictions = restrictions.replace(/\+/g, '|');
-    const uber = "only uber eats  " + formattedRestrictions;
-    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&type=restaurant&keyword=${uber}&key=${apiKey}`;
+    const uber = "uber eats only and " + formattedRestrictions;
+    //console.log(profile.allergies);
+    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&type=restaurant&keyword=${formattedRestrictions}&key=${apiKey}`;
 
     try {   
         const response = await axios.get(url);
-        const filteredRestaurants = response.data.results.map(result => ({
-            name: result.name,
-            address: result.vicinity,
-            rating: result.rating,
-            latitude: result.geometry.location.lat,
-            longitude: result.geometry.location.lng,
-            googleMapsLink: `https://www.google.com/maps/search/?api=1&query=${result.geometry.location.lat},${result.geometry.location.lng}`
-        }));
-        res.json(filteredRestaurants);
+        // const filteredRestaurants = response.data.results.map(result => ({
+        //     name: result.name,
+        //     address: result.vicinity,
+        //     rating: result.rating,
+        //     latitude: result.geometry.location.lat,
+        //     longitude: result.geometry.location.lng,
+        //     googleMapsLink: `https://www.google.com/maps/search/?api=1&query=${result.geometry.location.lat},${result.geometry.location.lng}`
+        // }));
+        res.json(response.data.results);
     } catch (error) {
         console.error('Error fetching restaurants with specified dietary restrictions:', error);
         res.status(500).json({ message: error.message });
@@ -40,9 +43,14 @@ router.get('/findRestaurants', async (req, res) => {
 
     try {
         const response = await axios.get(url);
-        
+        const formattedResponse = response.data.results.map(restaurant => ({
+            name: restaurant.name,
+            address: restaurant.vicinity,
+            placeId: restaurant.place_id
+        }));
+        res.json(formattedResponse);
 
-        res.json(response.data);
+        //res.json(response.data);
     } catch (error) {
         console.error('Error fetching restaurants:', error);
         res.status(500).json({ message: error.message });

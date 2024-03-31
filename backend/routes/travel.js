@@ -30,6 +30,7 @@ router.get('/restaurants', async (req, res) => {
 
     try {
         const response = await axios.request(options);
+        res.json(response.data.data);
         const filteredData = response.data.data
             .filter(restaurant => restaurant.name) // Filter out restaurants without a name
             .map(restaurant => {
@@ -53,7 +54,7 @@ router.get('/restaurants', async (req, res) => {
         
         await fs.writeFile('restaurants.txt', dataString);
         console.log('Data written to restaurants.txt');
-        res.json({ message: 'Data successfully written to restaurants.txt' });
+        //res.json({ message: 'Data successfully written to restaurants.txt' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });

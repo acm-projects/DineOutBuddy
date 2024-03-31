@@ -2,17 +2,33 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import React from "react";
 
-const RestaurantCard = () => {
+const RestaurantCard = ({data}) => {
+
+  const priceLevelToDollarSign = (level) => {
+    const levels = {
+      1: '$',
+      2: '$$',
+      3: '$$$'
+    };
+    return levels[level] || '?'; 
+  };
+
+  //console.log(data.photos[0].photo_reference);
+  let photoUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" + data.photos[0].photo_reference + "&key=AIzaSyDlu9r4NNFvcpgeb1ggv4BK0HyYEh5cl-c"; 
+
   return (
     <View style={styles.restaurantCard}>
       <View style={styles.main}>
-        <Image source={require("../../assets/restaurantPic.png")}></Image>
+        <Image
+          style={{ width: 100, height: 100 }}
+          source={{ uri: photoUrl }}
+        />
         <View style={styles.content}>
-          <Text style={styles.title}>Osaka Hibachi Sushi & Bar</Text>
+          <Text style={styles.title}>{data.name}</Text>
           <View style={styles.info}>
             <Icon name="star" size={10} color={"#A2A6B5"} />
 
-            <Text style={styles.infoText}>4.3 (644) | $$ | 5.6 mi</Text>
+            <Text style={styles.infoText}>{data.rating} (644) | {priceLevelToDollarSign(data.price_level)} | 5.6 mi</Text>
           </View>
           <View style={styles.tagWrapper}>
             <View style={styles.tag}>

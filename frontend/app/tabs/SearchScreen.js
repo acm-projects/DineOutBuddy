@@ -8,7 +8,7 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
 import RestaurantCard from "../components/RestaurantCard";
@@ -40,6 +40,19 @@ const SearchScreen = () => {
   const onMarkerSelected = (marker) => {
     console.log(marker.name);
   };
+ 
+  const [restaurants, setRestaurants] = useState([]); // Step 1: State to hold restaurant data
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`http://10.162.166.136:8000/restaurantsByDiet?lat=${32.99116507104899}&lng=${-96.75371033272737}&restrictions=${"chicken"}`);
+      const data = await response.json();
+      //console.log(data);
+      setRestaurants(data); // Assuming 'data' is the array of restaurants
+    };
+    fetchData();
+  }, []); // Fetch data when component mounts
+  
 
   return (
     <View style={styles.container}>
@@ -83,10 +96,9 @@ const SearchScreen = () => {
       )) */}
       </MapView>
       <ScrollView style={styles.cardWrapper}>
-        <RestaurantCard />
-        <RestaurantCard />
-        <RestaurantCard />
-        <RestaurantCard />
+        {restaurants.map((restaurant) => (
+          <RestaurantCard key={restaurant.name} data={restaurant} />
+        ))}
       </ScrollView>
     </View>
   );
