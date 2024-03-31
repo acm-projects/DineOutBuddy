@@ -128,7 +128,7 @@ const SignupForm = ({ navigation }) => {
                 <FormSubmitBtn
                   submitting={isSubmitting}
                   onPress={handleSubmit}
-                  title="SignUp"
+                  title="Sign Up"
                 />
                 <View style={{height: 44}}/>
                 <View
@@ -138,14 +138,14 @@ const SignupForm = ({ navigation }) => {
                     flexDirection: "row",
                   }}
                 >
-                  <Text style={styles.plainText}>Don't have an account? </Text>
+                  <Text style={styles.plainText}>Already have an account? </Text>
                   <TouchableOpacity
                     onPress={() => navigation.navigate("LoginForm")}
                     underlayColor={"white"}
                     styles={{ color: "#ff0000" }}
                   >
                     <View>
-                      <Text style={styles.linkText}>Sign Up</Text>
+                      <Text style={styles.linkText}>Log In</Text>
                     </View>
                   </TouchableOpacity>
                 </View>
