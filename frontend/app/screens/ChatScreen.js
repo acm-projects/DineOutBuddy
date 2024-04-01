@@ -114,7 +114,7 @@ export default function Messagescreen({ route }) {
               <TouchableOpacity
                 style={{ paddingHorizontal: 20 }}
                 onPress={() =>
-                  navigation.navigate("MessagesScreen", {
+                  navigation.navigate("HomeTabs", {
                     chat: chat,
                   })
                 }

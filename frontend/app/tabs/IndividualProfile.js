@@ -5,6 +5,7 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import React from "react";
 import ImageUpload from "../components/ImageUpload";
@@ -13,7 +14,7 @@ import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useLogin } from "../../context/LoginProvider";
 
-const IndividualProfile = () => {
+const IndividualProfile = ({ navigation }) => {
   const { profile, setIsLoggedIn } = useLogin();
   return (
     <View style={styles.container}>
@@ -61,27 +62,42 @@ const IndividualProfile = () => {
           </View>
         </View>
         <View style={styles.optionContainer}>
-          <View style={styles.option}>
+          <Pressable
+            style={styles.option}
+            onPress={() => {
+              navigation.navigate("AllergyScreen");
+            }}
+          >
             <View style={styles.optionImg}>
               <MaterialIcon size={24} name="peanut-off-outline" />
               <Text style={styles.optionLabel}>Allergies</Text>
             </View>
             <MaterialIcon size={24} name="chevron-right" />
-          </View>
-          <View style={styles.option}>
+          </Pressable>
+          <Pressable
+            style={styles.option}
+            onPress={() => {
+              navigation.navigate("PreferencesScreen");
+            }}
+          >
             <View style={styles.optionImg}>
               <FeatherIcon size={24} name="x-square" />
-              <Text style={styles.optionLabel}>Restrictions</Text>
-            </View>
-            <FeatherIcon size={24} name="chevron-right" />
-          </View>
-          <View style={styles.option}>
-            <View style={styles.optionImg}>
-              <FeatherIcon size={24} name="heart" />
               <Text style={styles.optionLabel}>Preferences</Text>
             </View>
             <FeatherIcon size={24} name="chevron-right" />
-          </View>
+          </Pressable>
+          <Pressable
+            style={styles.option}
+            onPress={() => {
+              navigation.navigate("CravingsScreen");
+            }}
+          >
+            <View style={styles.optionImg}>
+              <FeatherIcon size={24} name="heart" />
+              <Text style={styles.optionLabel}>Cravings</Text>
+            </View>
+            <FeatherIcon size={24} name="chevron-right" />
+          </Pressable>
         </View>
         <View style={styles.optionContainer}>
           <View style={styles.option}>

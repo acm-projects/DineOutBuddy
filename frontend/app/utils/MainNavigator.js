@@ -9,6 +9,7 @@ import LoginProvider from "../../context/LoginProvider";
 import { createStackNavigator } from "@react-navigation/stack";
 import DrawerNavigator from "./DrawerNavigator";
 import AppForm from "../tabs/AppForm";
+import HomeNavigator from "./DrawerNavigator";
 
 const Stack = createStackNavigator();
 
@@ -22,7 +23,7 @@ const StackNavigator = () => {
 
 const MainNavigator = () => {
   const { isLoggedIn } = useLogin();
-  return isLoggedIn ? <DrawerNavigator /> : <StackNavigator />;
+  return isLoggedIn ? <HomeNavigator /> : <StackNavigator />;
 };
 
 export default MainNavigator;

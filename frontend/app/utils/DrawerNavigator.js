@@ -22,6 +22,8 @@ import ImageUpload from "../components/ImageUpload";
 import IndividualProfile from "../tabs/IndividualProfile";
 
 import { View, Text, TouchableOpacity } from "react-native";
+import PreferencesScreen from "../screens/PreferencesScreen";
+import CravingsScreen from "../screens/CravingsScreen";
 
 function MyTabBar({ state, descriptors, navigation }) {
   return (
@@ -85,32 +87,18 @@ const TabArr = [
     component: Test,
   },
   {
+    route: "GroupScreen",
+    label: "GroupScreen",
+    activeIcon: "chatbox-sharp",
+    inActiveIcon: "chatbox-outline",
+    component: MessagesScreen,
+  },
+  {
     route: "SearchScreen",
     label: "SearchScreen",
     activeIcon: "search",
     inActiveIcon: "search-circle-outline",
     component: SearchScreen,
-  },
-  {
-    route: "AllergyScreen",
-    label: "AllergyScreen",
-    activeIcon: "egg",
-    inActiveIcon: "egg-outline",
-    component: AllergyScreen,
-  },
-  {
-    route: "GroupScreen",
-    label: "GroupScreen",
-    activeIcon: "chatbox-sharp",
-    inActiveIcon: "chatbox-outline",
-    component: GroupScreen,
-  },
-  {
-    route: "ImageUpload",
-    label: "ImageUpload",
-    activeIcon: "images",
-    inActiveIcon: "images-outline",
-    component: ImageUpload,
   },
   {
     route: "IndividualProfile",
@@ -119,16 +107,9 @@ const TabArr = [
     inActiveIcon: "person-circle-outline",
     component: IndividualProfile,
   },
-  {
-    route: "RestaurantScreen",
-    label: "RestaurantScreen",
-    activeIcon: "fast-food-sharp",
-    inActiveIcon: "fast-food-sharp",
-    component: RestaurantScreen,
-  },
 ];
 
-const DrawerNavigator = () => {
+const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -168,4 +149,20 @@ const DrawerNavigator = () => {
   );
 };
 
-export default DrawerNavigator;
+const Stack = createStackNavigator();
+
+const HomeNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen component={TabNavigator} name="HomeTabs" />
+      <Stack.Screen component={ChatScreen} name="ChatScreen" />
+      <Stack.Screen component={GroupProfileScreen} name="GroupProfileScreen" />
+      <Stack.Screen component={AllergyScreen} name="AllergyScreen" />
+      <Stack.Screen component={PreferencesScreen} name="PreferencesScreen" />
+      <Stack.Screen component={CravingsScreen} name="CravingsScreen" />
+      <Stack.Screen component={RestaurantScreen} name="RestaurantScreen" />
+    </Stack.Navigator>
+  );
+};
+
+export default HomeNavigator;

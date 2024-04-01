@@ -31,6 +31,10 @@ const userSchema = mongoose.Schema(
       type: [{ type: String, required: true }],
       required: true,
     },
+    cravings: {
+      type: [{ type: String, required: true }],
+      required: true,
+    },
   },
   { toJSON: { virtuals: true } }
 );

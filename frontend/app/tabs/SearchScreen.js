@@ -8,12 +8,12 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
 import RestaurantCard from "../components/RestaurantCard";
 
-const SearchScreen = () => {
+const SearchScreen = ({ navigation }) => {
   const INITIAL_REGION = {
     latitude: 32.985105,
     longitude: -96.7494417,
@@ -40,19 +40,27 @@ const SearchScreen = () => {
   const onMarkerSelected = (marker) => {
     console.log(marker.name);
   };
- 
+
   const [restaurants, setRestaurants] = useState([]); // Step 1: State to hold restaurant data
 
   useEffect(() => {
+    console.log("Hello");
+  });
+  useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://10.162.166.136:8000/restaurantsByDiet?lat=${32.99116507104899}&lng=${-96.75371033272737}&restrictions=${"chicken"}`);
-      const data = await response.json();
-      //console.log(data);
-      setRestaurants(data); // Assuming 'data' is the array of restaurants
+      try {
+        const response = await fetch(
+          `http://10.178.173.82:8000/restaurantsByDiet?lat=${32.99116507104899}&lng=${-96.75371033272737}&restrictions=${"chicken"}`
+        );
+        const data = await response.json();
+        //console.log(data);
+        setRestaurants(data); // Assuming 'data' is the array of restaurants
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchData();
   }, []); // Fetch data when component mounts
-  
 
   return (
     <View style={styles.container}>
@@ -97,7 +105,11 @@ const SearchScreen = () => {
       </MapView>
       <ScrollView style={styles.cardWrapper}>
         {restaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant.name} data={restaurant} />
+          <RestaurantCard
+            key={restaurant.name}
+            data={restaurant}
+            navigation={navigation}
+          />
         ))}
       </ScrollView>
     </View>

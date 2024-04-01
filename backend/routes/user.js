@@ -6,6 +6,8 @@ import {
   allUsers,
   createUser,
   updateAllergies,
+  updateCravings,
+  updatePreferences,
   uploadProfile,
   userSignIn,
 } from "../controllers/user.js";
@@ -40,6 +42,8 @@ router.post(
 
 router.get("/", isAuth, allUsers);
 router.put("/allergies", isAuth, updateAllergies);
+router.put("/preferences", isAuth, updatePreferences);
+router.put("/cravings", isAuth, updateCravings);
 router.post("/create-post", isAuth, (req, res) => {
   res.send("DineoutBuddy Secret Route!");
 });

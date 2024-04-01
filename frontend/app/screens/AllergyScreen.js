@@ -17,15 +17,15 @@ const AllergyScreen = ({ navigation }) => {
   const [allergies, setAllergies] = useState(profile.allergies);
 
   const allAllergies = [
-    "Dairy Allergy",
-    "Egg Allergy",
-    "Fish Allergy",
-    "Shellfish Allergy",
-    "Tree Nuts Allergy",
-    "Peanuts Allergy",
-    "Wheat Allergy",
-    "Soybeans Allergy",
-    "Sesame Allergy",
+    "Eggs",
+    "Lactose",
+    "Seafood",
+    "Wheat",
+    "Sesame",
+    "Soy",
+    "Tree Nuts",
+    "Peanuts",
+    "Gluten",
   ];
 
   const handleChange = (allergy) => {
@@ -52,6 +52,8 @@ const AllergyScreen = ({ navigation }) => {
         }
       );
       console.log(data);
+
+      navigation.navigate("PreferencesScreen");
     } catch (error) {
       console.log(error.message);
     }
@@ -59,37 +61,56 @@ const AllergyScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Allergy Screen</Text>
-
-      <TouchableOpacity
-        onPress={() => {
-          console.log("Pressed");
-          navigation.navigate("Test");
-        }}
-        style={{ paddingHorizontal: 5, fontSize: 45 }}
-      >
-        <Text>Go Home</Text>
-      </TouchableOpacity>
-
-      {allAllergies.map((a) => (
-        <TouchableOpacity
-          key={a}
+      <Text style={styles.blurb}>
+        In order to recommend you restaurants, we need to get to know you
+        better!
+      </Text>
+      <Text style={styles.title}>What are your food allergies?</Text>
+      <View style={styles.cardWrapper}>
+        {allAllergies.map((a) => (
+          <TouchableOpacity
+            key={a}
+            onPress={() => {
+              handleChange(a);
+            }}
+            style={[
+              {
+                backgroundColor: allergies.includes(a)
+                  ? "#0093ED"
+                  : "transparent",
+              },
+              styles.card,
+            ]}
+          >
+            <Text
+              style={[
+                { color: allergies.includes(a) ? "white" : "#0093ED" },
+                styles.cardText,
+              ]}
+            >
+              {a}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+      <View style={styles.navigationWrapper}>
+        <Pressable onPress={handleSubmit} style={styles.button}>
+          <View>
+            <Text style={styles.buttonText}>Next</Text>
+          </View>
+        </Pressable>
+        <Pressable
           onPress={() => {
-            handleChange(a);
+            console.log("pressed");
+            navigation.navigate("PreferencesScreen");
           }}
-          style={{
-            backgroundColor: allergies.includes(a) ? "green" : "white",
-          }}
+          style={styles.exit}
         >
-          <Text style={styles.label}>{a}</Text>
-        </TouchableOpacity>
-      ))}
-
-      <Pressable onPress={handleSubmit} style={styles.button}>
-        <View>
-          <Text style={styles.buttonText}>Add</Text>
-        </View>
-      </Pressable>
+          <View>
+            <Text style={styles.exitText}>I have no allergies</Text>
+          </View>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -98,18 +119,56 @@ export default AllergyScreen;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 100,
-    marginLeft: 60,
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 75,
+    backgroundColor: "#F7FAFD",
+  },
+  blurb: {
+    color: "#9DA7CD",
+    fontSize: 16,
+    maxWidth: "50%",
+    marginBottom: 16,
+  },
+  title: {
+    color: "#0093ED",
+    fontSize: 32,
+    fontWeight: "bold",
+    marginBottom: 32,
   },
   button: {
-    width: "50%",
     height: 40,
-    backgroundColor: "red",
+    backgroundColor: "#0093ED",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    marginBottom: 15,
+  },
+  buttonText: {
+    color: "white",
+  },
+  cardWrapper: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 15,
+    marginBottom: 250,
+  },
+  card: {
+    minWidth: 60,
+    borderRadius: 40,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 2,
+    borderColor: "#0093ED",
     justifyContent: "center",
     alignItems: "center",
   },
-  label: {
-    color: "black",
-    zIndex: 2,
+  cardText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  exitText: {
+    color: "#9DA7CD",
+    textAlign: "center",
   },
 });

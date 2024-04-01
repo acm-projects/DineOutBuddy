@@ -97,6 +97,44 @@ export const updateAllergies = asyncHandler(async (req, res) => {
   }
 });
 
+export const updatePreferences = asyncHandler(async (req, res) => {
+  const { userId, preferences } = req.body;
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    {
+      preferences: preferences,
+    },
+    {
+      new: true,
+    }
+  );
+  if (!updatedUser) {
+    res.status(404);
+    throw new Error("User not found");
+  } else {
+    res.json(updatedUser);
+  }
+});
+
+export const updateCravings = asyncHandler(async (req, res) => {
+  const { userId, cravings } = req.body;
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    {
+      cravings: cravings,
+    },
+    {
+      new: true,
+    }
+  );
+  if (!updatedUser) {
+    res.status(404);
+    throw new Error("User not found");
+  } else {
+    res.json(updatedUser);
+  }
+});
+
 export const uploadProfile = async (req, res) => {
   const { user } = req;
 

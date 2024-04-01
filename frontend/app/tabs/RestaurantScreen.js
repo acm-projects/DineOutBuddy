@@ -81,9 +81,9 @@ const RestaurantScreen = () => {
 
         <Text style={styles.subHeading}>Restaurants You Might Like</Text>
         <View style={styles.restaurantCardWrapper}>
+          {/*<RestaurantCard />
           <RestaurantCard />
-          <RestaurantCard />
-          <RestaurantCard />
+          <RestaurantCard /> */}
         </View>
       </View>
     </ScrollView>
