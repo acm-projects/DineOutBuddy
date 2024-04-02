@@ -21,7 +21,8 @@ const userSchema = mongoose.Schema(
     },
     avatar: {
       type: String,
-      default: "../../assets/Default_pfp.svg.png",
+      default:
+        "http://res.cloudinary.com/drtqk4uaf/image/upload/v1711813461/bnsqohuak9luwzyarzss.png",
     },
     allergies: {
       type: [{ type: String, required: true }],

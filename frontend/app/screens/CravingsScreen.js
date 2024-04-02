@@ -32,10 +32,10 @@ const CravingsScreen = ({ navigation }) => {
   ];
 
   const handleChange = (craving) => {
-    if (!cravings.includes(cravings)) {
+    if (!cravings.includes(craving)) {
       setCravings((prev) => [...prev, craving]);
     } else {
-      setCravings(cravings.filter((a) => a != craving));
+      setCravings(cravings.filter((c) => c != craving));
     }
   };
 

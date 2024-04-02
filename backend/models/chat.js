@@ -32,6 +32,10 @@ const chatSchema = mongoose.Schema(
       type: [{ type: String, required: true }],
       required: true,
     },
+    cravings: {
+      type: [{ type: String, required: true }],
+      required: true,
+    },
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );

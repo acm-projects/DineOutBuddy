@@ -81,6 +81,16 @@ const NewGroupModal = () => {
         allAlergies = allAlergies.concat(user.allergies);
       });
 
+      let allPreferences = [];
+      selectedUsers.map((user) => {
+        allPreferences = allPreferences.concat(user.preferences);
+      });
+
+      let allCravings = [];
+      selectedUsers.map((user) => {
+        allCravings = allCravings.concat(user.cravings);
+      });
+
       console.log(allAlergies);
 
       const { data } = await client.post(
@@ -90,9 +100,8 @@ const NewGroupModal = () => {
           name: groupChatName,
           users: JSON.stringify(selectedUsers.map((user) => user._id)),
           allergies: allAlergies,
-          preferences: JSON.stringify(
-            selectedUsers.map((user) => user.preferences)
-          ),
+          preferences: allPreferences,
+          cravings: allCravings,
         },
         {
           headers: {

@@ -44,13 +44,10 @@ const SearchScreen = ({ navigation }) => {
   const [restaurants, setRestaurants] = useState([]); // Step 1: State to hold restaurant data
 
   useEffect(() => {
-    console.log("Hello");
-  });
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://10.178.173.82:8000/restaurantsByDiet?lat=${32.99116507104899}&lng=${-96.75371033272737}&restrictions=${"chicken"}`
+          `http://10.178.164.140:8000/restaurantsByDiet?lat=${32.99116507104899}&lng=${-96.75371033272737}&restrictions=${"chicken"}`
         );
         const data = await response.json();
         //console.log(data);

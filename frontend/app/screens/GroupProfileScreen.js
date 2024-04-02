@@ -162,14 +162,14 @@ const GroupProfileScreen = ({ route, navigation }) => {
           </View>
           <View style={styles.optionContainer}>
             <Text style={styles.optionLabel}>Preferences</Text>
-            {chat.allergies.map((allergy, i) => {
-              return <Text key={i}>{allergy}</Text>;
+            {chat.preferences.map((perference, i) => {
+              return <Text key={i}>{perference}</Text>;
             })}
           </View>
           <View style={styles.optionContainer}>
-            <Text style={styles.optionLabel}>Restrictions</Text>
-            {chat.allergies.map((allergy, i) => {
-              return <Text key={i}>{allergy}</Text>;
+            <Text style={styles.optionLabel}>Cravings</Text>
+            {chat.cravings.map((craving, i) => {
+              return <Text key={i}>{craving}</Text>;
             })}
           </View>
           <View style={styles.optionContainer}>

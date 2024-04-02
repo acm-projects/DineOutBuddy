@@ -75,21 +75,35 @@ export const createGroupChat = asyncHandler(async (req, res) => {
 
   const users = JSON.parse(req.body.users);
   const allergies = req.body.allergies;
+  const preferences = req.body.preferences;
+  const cravings = req.body.cravings;
 
   if (users.length < 2) {
     return res.status(400).send("More than 2 users are required for a group");
   }
 
   users.push(req.user);
-  console.log(req.user.allergies);
-  const groupAllergies = [];
+
+  const groupAllergies = allergies;
   req.user.allergies.forEach((allergy) => {
     if (!groupAllergies.includes(allergy)) {
       groupAllergies.push(allergy);
     }
   });
-  // const groupAllergies = allergies.concat(req.user.allergies);
-  console.log(groupAllergies);
+
+  const groupPerferences = preferences;
+  req.user.preferences.forEach((preference) => {
+    if (!groupPerferences.includes(preference)) {
+      groupPerferences.push(preference);
+    }
+  });
+
+  const groupCravings = cravings;
+  req.user.cravings.forEach((craving) => {
+    if (!groupCravings.includes(craving)) {
+      groupCravings.push(craving);
+    }
+  });
 
   try {
     const groupChat = await Chat.create({
@@ -98,7 +112,8 @@ export const createGroupChat = asyncHandler(async (req, res) => {
       isGroupChat: true,
       groupAdmin: req.user,
       allergies: groupAllergies,
-      preferences: req.preferences,
+      preferences: groupPerferences,
+      cravings: groupCravings,
     });
 
     const fullGroupChat = await Chat.findOne({ _id: groupChat._id })
