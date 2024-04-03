@@ -9,7 +9,7 @@ import {
   Pressable,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
 import RestaurantCard from "../components/RestaurantCard";
 
@@ -37,17 +37,18 @@ const SearchScreen = ({ navigation }) => {
     );
   };
 
-  const onMarkerSelected = (marker) => {
-    console.log(marker.name);
+  const onMarkerSelected = (restaurant) => {
+    console.log(restaurant.name);
   };
 
   const [restaurants, setRestaurants] = useState([]); // Step 1: State to hold restaurant data
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://10.178.164.140:8000/restaurantsByDiet?lat=${32.99116507104899}&lng=${-96.75371033272737}&restrictions=${"chicken"}`
+          `http://10.178.175.126:8000/restaurantsByDiet?lat=${32.99116507104899}&lng=${-96.75371033272737}&restrictions=${"chicken"}`
         );
         const data = await response.json();
         //console.log(data);
@@ -77,6 +78,10 @@ const SearchScreen = ({ navigation }) => {
             style={styles.input}
             placeholder="Search"
             placeholderTextColor={"white"}
+            onChangeText={(value) => {
+              setSearch(value);
+            }}
+            value={search}
           ></TextInput>
         </View>
         <Icon name={"locate"} size={25}></Icon>
@@ -90,24 +95,43 @@ const SearchScreen = ({ navigation }) => {
         showsMyLocationButton
         ref={mapRef}
       >
-        {/*markers.map((marker, index) => (
-        <Marker key={index} coordinate={marker} onPress={() => onMarkerSelected(marker)}>
-          <Callout>
-            <View>
-              <Text>Simon</Text>
-            </View>
-          </Callout>
-        </Marker>
-      )) */}
+        {restaurants
+          .filter((restaurant) => {
+            return search.toLowerCase() === ""
+              ? restaurant
+              : restaurant.name.toLowerCase().includes(search.toLowerCase());
+          })
+          .map((restaurant, index) => (
+            <Marker
+              key={index}
+              coordinate={{
+                longitude: restaurant.geometry.location.lng,
+                latitude: restaurant.geometry.location.lat,
+              }}
+              onPress={() => onMarkerSelected(restaurant)}
+            >
+              <Callout>
+                <View>
+                  <Text>{restaurant.name}</Text>
+                </View>
+              </Callout>
+            </Marker>
+          ))}
       </MapView>
       <ScrollView style={styles.cardWrapper}>
-        {restaurants.map((restaurant) => (
-          <RestaurantCard
-            key={restaurant.name}
-            data={restaurant}
-            navigation={navigation}
-          />
-        ))}
+        {restaurants
+          .filter((restaurant) => {
+            return search.toLowerCase() === ""
+              ? restaurant
+              : restaurant.name.toLowerCase().includes(search.toLowerCase());
+          })
+          .map((restaurant) => (
+            <RestaurantCard
+              key={restaurant.name}
+              data={restaurant}
+              navigation={navigation}
+            />
+          ))}
       </ScrollView>
     </View>
   );

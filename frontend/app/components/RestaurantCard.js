@@ -22,7 +22,9 @@ const RestaurantCard = ({ data, navigation }) => {
     <Pressable
       style={styles.restaurantCard}
       onPress={() => {
-        navigation.navigate("RestaurantScreen");
+        navigation.navigate("RestaurantScreen", {
+          data: data,
+        });
       }}
     >
       <View style={styles.main}>

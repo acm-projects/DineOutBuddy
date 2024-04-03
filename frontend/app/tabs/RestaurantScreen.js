@@ -13,19 +13,35 @@ import FoodCard from "../components/FoodCard";
 import RestaurantCard from "../components/RestaurantCard";
 import ReviewCard from "../components/ReviewCard";
 
-const RestaurantScreen = () => {
-  const [rating, setRating] = useState(2);
+const RestaurantScreen = ({ route }) => {
+  const { data } = route.params;
+  const [rating, setRating] = useState(data.rating);
+  console.log(data);
+
+  const priceLevelToDollarSign = (level) => {
+    const levels = {
+      1: "$",
+      2: "$$",
+      3: "$$$",
+    };
+    return levels[level] || "?";
+  };
+
+  let photoUrl =
+    "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
+    data.photos[0].photo_reference +
+    "&key=AIzaSyDlu9r4NNFvcpgeb1ggv4BK0HyYEh5cl-c";
   return (
     <ScrollView style={styles.container}>
-      <ImageBackground
-        style={styles.header}
-        source={require("../../assets/restaurantBG.jpeg")}
-      >
-        <Text style={styles.title}>Osaka Hibachi Sushi & Bar</Text>
+      <ImageBackground style={styles.header} source={{ uri: photoUrl }}>
+        <Text style={styles.title}>{data.name}</Text>
         <View style={styles.info}>
           <Icon name="star" size={10} color={"#A2A6B5"} />
 
-          <Text style={styles.infoText}>4.3 (644) | $$ | 5.6 mi</Text>
+          <Text style={styles.infoText}>
+            {data.rating} ({data.user_ratings_total}) |{" "}
+            {priceLevelToDollarSign(data.price_level)} | 5.6 mi
+          </Text>
         </View>
         <View style={styles.tagWrapper}>
           <View style={styles.tag}>
@@ -51,7 +67,7 @@ const RestaurantScreen = () => {
         </TouchableOpacity>
         <Text style={styles.subHeading}>Reviews</Text>
         <View style={styles.reviewHeader}>
-          <Text style={styles.review}>4.3</Text>
+          <Text style={styles.review}>{data.rating}</Text>
           <View style={styles.starContainer}>
             {[...Array(5)].map((star, i) => {
               currentValue = i + 1;
