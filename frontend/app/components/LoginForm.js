@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import client from '../api/client';
 
 const validationSchema = Yup.object({
-  username: Yup.string()
+  email: Yup.string()
     .trim()
     .min(3, 'Invalid email')
     .required('Email is required'),
@@ -18,20 +18,28 @@ const validationSchema = Yup.object({
     .required('Password is required'),
 });
 
-const LoginForm = () => {
+const LoginForm = ({ navigation }) => {
   const userInfo = {
     email: '',
     password: '',
   };
 
   const logIn = async (values, formikActions) => {
-    const res = await client.post('/api/user/sign-in', {
-      ...values,
-    });
+    try {
+      const res = await client.post('/api/user/sign-in', {
+        ...values,
+      });
 
-    console.log(res.data);
-    formikActions.resetForm();
-    formikActions.setSubmitting(false);
+      console.log(res.data);
+      formikActions.resetForm();
+      formikActions.setSubmitting(false);
+
+      // Navigate to home page upon successful login
+      //navigation.navigate('./Home'); // Replace 'Home' with the name of your home screen
+    } catch (error) {
+      console.error('Login failed:', error);
+      // Handle login failure
+    }
   };
 
   return (
@@ -55,7 +63,7 @@ const LoginForm = () => {
             <>
               <FormInput
                 value={email}
-                error={touched.email && errors.username}
+                error={touched.email && errors.email}
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 label=""

@@ -5,13 +5,16 @@ import FormHeader from './app/components/FormHeader';
 import LoginForm from './app/components/LoginForm';
 import SignupForm from './app/components/SignupForm';
 import Home from './app/components/Home';
+import ForYou from './app/components/ForYou';
+import Group from './app/components/Group';
+
 import axios from 'axios';
 import { useEffect } from 'react';
 
 export default function App() {
   const fetchApi = async () => {
     try {
-      const res = await axios.get('http://127.0.0.1:8000/');
+      const res = await axios.get('http://192.168.1.245:8000/');
       console.log(res);
     } catch (error) {
       console.log(error.message);
@@ -46,9 +49,8 @@ export default function App() {
         showsHorizontalScrollIndicator={false}
         style={{ backgroundColor: 'white' }}
       >
-        <LoginForm />
-        <SignupForm />
         <Home />
+
       </ScrollView>
       <StatusBar style="auto" />
     </View>

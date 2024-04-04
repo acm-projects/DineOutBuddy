@@ -23,7 +23,7 @@ const validationSchema = Yup.object({
     .required('Password is required'),
 });
 
-const SignupForm = () => {
+const SignupForm = ({ navigation }) => {
   const userInfo = {
     fullname: '',
     username: '',
@@ -32,13 +32,21 @@ const SignupForm = () => {
   };
 
   const signUp = async (values, formikActions) => {
-    const res = await client.post('/api/user/create-user', {
-      ...values,
-    });
+    try {
+      const res = await client.post('/api/user/create-user', {
+        ...values,
+      });
 
-    console.log(res.data);
-    formikActions.resetForm();
-    formikActions.setSubmitting(false);
+      console.log(res.data);
+      formikActions.resetForm();
+      formikActions.setSubmitting(false);
+
+      // Navigate to home page upon successful signup
+      navigation.navigate('./Home'); // Replace 'Home' with the name of your home screen
+    } catch (error) {
+      console.error('Signup failed:', error);
+      // Handle signup failure
+    }
   };
 
   return (

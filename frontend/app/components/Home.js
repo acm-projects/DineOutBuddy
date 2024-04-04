@@ -1,13 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import ForYou from './ForYou';
-import ForGroupA from './ForGroupA';
+import Group from './Group';
 
 const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ForYou />
-      <ForGroupA />
+      <Group />
+      
     </View>
   );
 };
@@ -15,10 +16,10 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start', // Align content at the top
-    alignItems: 'center', // Center content horizontally
-    paddingTop: 50, // Add paddingTop to create space from the top
-    backgroundColor: '#fff', // Set background color if needed
+    justifyContent: 'flex-end', // Align items to the bottom
+    alignItems: 'center', // Center items horizontally
+    marginBottom: 20, // Add margin at the bottom
+    paddingHorizontal: 20, // Add horizontal padding
   },
 });
 
