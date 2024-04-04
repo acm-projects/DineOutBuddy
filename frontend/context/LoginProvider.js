@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import client from "../app/api/client";
+import * as Location from "expo-location";
 
 const LoginContext = createContext();
 const LoginProvider = ({ children }) => {
@@ -8,6 +9,8 @@ const LoginProvider = ({ children }) => {
   const [profile, setProfile] = useState({});
   const [chats, setChats] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [coordinates, setCoordinates] = useState({});
+
   const fetchChats = async () => {
     try {
       const { data } = await client.get("/api/chat", {
@@ -19,6 +22,22 @@ const LoginProvider = ({ children }) => {
       setChats(data);
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  const getLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+
+    if (status === "granted") {
+      try {
+        const currLocation = await Location.getCurrentPositionAsync({});
+        const { latitude, longitude } = currLocation.coords;
+        setCoordinates(currLocation.coords);
+      } catch (error) {
+        console.error(error.message);
+      }
+    } else {
+      console.log("Please grant permission");
     }
   };
 
@@ -34,6 +53,8 @@ const LoginProvider = ({ children }) => {
         fetchChats,
         modalVisible,
         setModalVisible,
+        getLocation,
+        coordinates,
       }}
     >
       {children}

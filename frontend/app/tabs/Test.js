@@ -12,47 +12,46 @@ import { useState } from "react";
 import { useLogin } from "../../context/LoginProvider";
 import * as Location from "expo-location";
 
-
 const Test = ({ navigation }) => {
-  const { setIsLoggedIn, profile } = useLogin();
-  const [location, setLocation] = useState("");
+  const { setIsLoggedIn, profile, coordinates } = useLogin();
+  // const [location, setLocation] = useState("");
 
-  const getLocation = async () => {
-  let { status } = await Location.requestForegroundPermissionsAsync();
+  /* const getLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
 
-  if (status === "granted") {
-    try {
-      const currLocation = await Location.getCurrentPositionAsync({});
-      const { latitude, longitude } = currLocation.coords;
-
-      const preferences = profile.preferences.join(' and ');
-      const allergies = profile.allergies.join(' and ');
-      console.log(preferences);
-      console.log(latitude);
-      console.log(longitude);
-
+    if (status === "granted") {
       try {
-        //const response = await fetch(`http://192.168.1.81:8000/findRestaurants?lat=32.99116507104899&lng=-96.75371033272737`);
-        //const response = await fetch(`http://192.168.1.81:8000/findRestaurants?lat=${latitude}&lng=${longitude}`);
-        //http://192.168.1.81:8000/findRestaurants?lat=${latitude}&lng=${longitude}
+        const currLocation = await Location.getCurrentPositionAsync({});
+        const { latitude, longitude } = currLocation.coords;
 
-        const response = await fetch(`http://10.162.166.136:8000/restaurantsByDiet?lat=${latitude}&lng=${longitude}&restrictions=${preferences}`);
-        const data = await response.json();
-        console.log(data);
+        const preferences = profile.preferences.join(" and ");
+        const allergies = profile.allergies.join(" and ");
+        console.log(preferences);
+        console.log(latitude);
+        console.log(longitude);
 
-        // 32.94310199846829 -96.96419053678457
+        try {
+          //const response = await fetch(`http://192.168.1.81:8000/findRestaurants?lat=32.99116507104899&lng=-96.75371033272737`);
+          //const response = await fetch(`http://192.168.1.81:8000/findRestaurants?lat=${latitude}&lng=${longitude}`);
+          //http://192.168.1.81:8000/findRestaurants?lat=${latitude}&lng=${longitude}
+
+          const response = await fetch(
+            `http://10.162.166.136:8000/restaurantsByDiet?lat=${latitude}&lng=${longitude}&restrictions=${preferences}`
+          );
+          const data = await response.json();
+          console.log(data);
+
+          // 32.94310199846829 -96.96419053678457
+        } catch (error) {
+          console.error("Error:", error);
+        }
       } catch (error) {
-        console.error('Error:', error);
+        console.error(error.message);
       }
-
-    } catch (error) {
-      console.error(error.message);
+    } else {
+      console.log("Please grant permission");
     }
-  } else {
-    console.log("Please grant permission");
-  }
-};
-
+  }; */
 
   return (
     <View style={styles.container}>
@@ -67,8 +66,7 @@ const Test = ({ navigation }) => {
           />
         )}
       </View>
-      <Button title="Get Location" onPress={getLocation} />
-      
+      {/*<Button title="Get Location" onPress={getLocation} /> */}
     </View>
   );
 };

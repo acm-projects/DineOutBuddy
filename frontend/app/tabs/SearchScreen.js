@@ -12,8 +12,12 @@ import React, { useState, useEffect, useRef } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
 import RestaurantCard from "../components/RestaurantCard";
+import { useLogin } from "../../context/LoginProvider";
 
 const SearchScreen = ({ navigation }) => {
+  const { coordinates } = useLogin();
+  console.log(coordinates.longitude);
+  console.log(coordinates.latitude);
   const INITIAL_REGION = {
     latitude: 32.985105,
     longitude: -96.7494417,
@@ -48,7 +52,9 @@ const SearchScreen = ({ navigation }) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://10.178.175.126:8000/restaurantsByDiet?lat=${32.99116507104899}&lng=${-96.75371033272737}&restrictions=${"chicken"}`
+          `http://10.176.215.167:8000/restaurantsByDiet?lat=${
+            coordinates.latitude
+          }&lng=${coordinates.longitude}&restrictions=${"chicken"}`
         );
         const data = await response.json();
         //console.log(data);

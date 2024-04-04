@@ -24,8 +24,12 @@ import client from "../api/client.js";
 import { useLogin } from "../../context/LoginProvider.js";
 import { signIn } from "../api/user.js";
 import whiteTextmark from "../../assets/WhiteTextmark.png";
-import { accentColor, darkColor, primaryColor } from "../components/ComponentColors.js";
-import LoginPageBG from "../../assets/LoginPageBG.png"
+import {
+  accentColor,
+  darkColor,
+  primaryColor,
+} from "../components/ComponentColors.js";
+import LoginPageBG from "../../assets/LoginPageBG.png";
 
 const validationSchema = Yup.object({
   username: Yup.string()
@@ -39,7 +43,7 @@ const validationSchema = Yup.object({
 });
 
 const LoginForm = ({ navigation }) => {
-  const { setIsLoggedIn, setProfile } = useLogin();
+  const { setIsLoggedIn, setProfile, getLocation } = useLogin();
 
   const userInfo = {
     username: "",
@@ -53,6 +57,7 @@ const LoginForm = ({ navigation }) => {
     if (res.data.success) {
       setProfile(res.data.user);
       setIsLoggedIn(true);
+      getLocation();
     }
     formikActions.resetForm();
     formikActions.setSubmitting(false);
@@ -61,11 +66,15 @@ const LoginForm = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={LoginPageBG} style={styles.imageBG}>
-        <Text style={[styles.splashText, {fontSize: 26, padding: 22}]}>Welcome!</Text>
-        <Image source={whiteTextmark} style={styles.logo}/>
-        <Text style={[styles.splashText, {fontSize: 21}]}>Food, Friends, Fun</Text>
+        <Text style={[styles.splashText, { fontSize: 26, padding: 22 }]}>
+          Welcome!
+        </Text>
+        <Image source={whiteTextmark} style={styles.logo} />
+        <Text style={[styles.splashText, { fontSize: 21 }]}>
+          Food, Friends, Fun
+        </Text>
       </ImageBackground>
-      <View style={{marginTop: 20}}/> 
+      <View style={{ marginTop: 20 }} />
       <FormContainer>
         <Formik
           initialValues={userInfo}
@@ -103,9 +112,9 @@ const LoginForm = ({ navigation }) => {
                 />
                 <View
                   style={{
-                    justifyContent: "center", 
+                    justifyContent: "center",
                     alignItems: "flex-end",
-                    height: 56 
+                    height: 56,
                   }}
                 >
                   <Text style={styles.linkText}>Forgot Password?</Text>
@@ -119,7 +128,7 @@ const LoginForm = ({ navigation }) => {
             );
           }}
         </Formik>
-        <View style={{height: 44}}/>
+        <View style={{ height: 44 }} />
         <View
           style={{
             justifyContent: "center",
@@ -148,33 +157,33 @@ export default LoginForm;
 const styles = StyleSheet.create({
   container: {
     height: Dimensions.get("window").height,
-    backgroundColor: primaryColor
+    backgroundColor: primaryColor,
   },
   imageBG: {
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").width/1.14, // 1.14 is the aspect ratio of the image
+    height: Dimensions.get("window").width / 1.14, // 1.14 is the aspect ratio of the image
     resizeMode: "cover",
     justifyContent: "center",
     alignItems: "center",
-    alignContent: "center"
+    alignContent: "center",
   },
   logo: {
     width: Dimensions.get("window").width - 60,
-    height: (Dimensions.get("window").width - 60)/3.2, // 3.2 is the aspect ratio of the image
-    resizeMode: "center"
+    height: (Dimensions.get("window").width - 60) / 3.2, // 3.2 is the aspect ratio of the image
+    resizeMode: "center",
   },
   splashText: {
     fontFamily: "HeyComic",
-    color: primaryColor
+    color: primaryColor,
   },
   plainText: {
     fontSize: 16,
     fontFamily: "Metropolis-Regular",
-    color: darkColor
+    color: darkColor,
   },
   linkText: {
     fontSize: 16,
     fontFamily: "Metropolis-Medium",
-    color: accentColor
-  }
+    color: accentColor,
+  },
 });
