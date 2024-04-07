@@ -1,36 +1,81 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 
-const ForYou = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>For You</Text>
-      <Image
-        source={require('./Osaka.png')} // Example path to local image
-        style={styles.image}
-      />
-      {/* Add more content here */}
-    </View>
-  );
-};
+
+export default function ForYou({chat}) {
+    function handleClick(type) {
+        // Handle click event based on the type of image
+
+        console.log('Clicked:', type);
+        {/*
+        navigation.navigate('Restaurant');
+        */}
+
+    }
+    return (
+        <View style={styles.container}>
+            <Text style={styles.text}>For {chat.chatName}</Text>
+            
+             <ScrollView horizontal={true}>
+            <TouchableOpacity onPress={() => handleClick('fish')}>
+                    <Image source={require('./fish.png')} style={styles.image} />
+                    <Text style={{ textAlign: 'center' }}>Name</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => handleClick('fish')}>
+                    <Image source={require('./fish.png')} style={styles.image} />
+                    <Text style={{ textAlign: 'center' }}>Name</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => handleClick('fish')}>
+                    <Image source={require('./fish.png')} style={styles.image} />
+                    <Text style={{ textAlign: 'center' }}>Name</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => handleClick('fish')}>
+                    <Image source={require('./fish.png')} style={styles.image} />
+                    <Text style={{ textAlign: 'center' }}>Name</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => handleClick('fish')}>
+                    <Image source={require('./fish.png')} style={styles.image} />
+                    <Text style={{ textAlign: 'center' }}>Name</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => handleClick('fish')}>
+                    <Image source={require('./fish.png')} style={styles.image} />
+                    <Text style={{ textAlign: 'center' }}>Name</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => handleClick('fish')}>
+                    <Image source={require('./fish.png')} style={styles.image} />
+                    <Text style={{ textAlign: 'center' }}>Name</Text>
+            </TouchableOpacity>
+                
+
+            </ScrollView>
+            
+            
+        </View>
+    );
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    paddingTop: 50,
-  },
-  title: {
-    fontSize: 45,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  image: {
-    width: 200, // Adjust width as needed
-    height: 200, // Adjust height as needed
-    marginBottom: 20, // Add margin to separate from the title
-  },
+    container: {
+        marginBottom: 10,
+        marginTop: 10,
+        alignItems: 'top', // Align items to the center vertically
+        flex: 1,
+    },
+    text: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        marginTop: 0, // Remove margin above the text
+    },
+    image: {
+        width: 200,
+        height: 120,
+    },
 });
 
-export default ForYou;

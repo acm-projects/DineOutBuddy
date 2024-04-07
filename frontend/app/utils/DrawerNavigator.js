@@ -16,6 +16,7 @@ import GroupScreen from "../tabs/GroupScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SearchScreen from "../tabs/SearchScreen";
 import RestaurantScreen from "../tabs/RestaurantScreen";
+import Home from "../tabs/Home";
 
 const Tab = createBottomTabNavigator();
 import ImageUpload from "../components/ImageUpload";
@@ -106,6 +107,13 @@ const TabArr = [
     activeIcon: "person-circle",
     inActiveIcon: "person-circle-outline",
     component: IndividualProfile,
+  },
+  {
+    route: "Home",
+    label: "Home",
+    activeIcon: "person-circle",
+    inActiveIcon: "person-circle-outline",
+    component: Home,
   },
 ];
 
