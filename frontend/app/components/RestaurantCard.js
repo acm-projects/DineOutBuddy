@@ -15,7 +15,7 @@ const RestaurantCard = ({ data, navigation }) => {
   //console.log(data.photos[0].photo_reference);
   let photoUrl =
     "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
-    data.photos[0].photo_reference +
+    data.photo +
     "&key=AIzaSyDlu9r4NNFvcpgeb1ggv4BK0HyYEh5cl-c";
 
   return (
@@ -41,13 +41,13 @@ const RestaurantCard = ({ data, navigation }) => {
           </View>
           <View style={styles.tagWrapper}>
             <View style={styles.tag}>
-              <Text style={styles.tagText}>Japanese</Text>
+              <Text style={styles.tagText}>{data.category[0]}</Text>
             </View>
             <View style={styles.tag}>
-              <Text style={styles.tagText}>Sushi</Text>
+              <Text style={styles.tagText}>{data.category[1]}</Text>
             </View>
             <View style={styles.tag}>
-              <Text style={styles.tagText}>Asian</Text>
+              <Text style={styles.tagText}>{data.category[2]}</Text>
             </View>
           </View>
 

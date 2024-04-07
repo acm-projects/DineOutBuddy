@@ -29,8 +29,9 @@ const RestaurantScreen = ({ route }) => {
 
   let photoUrl =
     "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
-    data.photos[0].photo_reference +
+    data.photos +
     "&key=AIzaSyDlu9r4NNFvcpgeb1ggv4BK0HyYEh5cl-c";
+    const menuItems = data.menuItems || [];
   return (
     <ScrollView style={styles.container}>
       <ImageBackground style={styles.header} source={{ uri: photoUrl }}>
@@ -45,22 +46,22 @@ const RestaurantScreen = ({ route }) => {
         </View>
         <View style={styles.tagWrapper}>
           <View style={styles.tag}>
-            <Text style={styles.tagText}>Japanese</Text>
+            <Text style={styles.tagText}>{data.category[0]}</Text>
           </View>
           <View style={styles.tag}>
-            <Text style={styles.tagText}>Sushi</Text>
+            <Text style={styles.tagText}>{data.category[1]}</Text>
           </View>
           <View style={styles.tag}>
-            <Text style={styles.tagText}>Asian</Text>
+            <Text style={styles.tagText}>{data.category[2]}</Text>
           </View>
         </View>
       </ImageBackground>
       <View style={styles.main}>
         <Text style={styles.subHeading}>Reccomended Menu Items</Text>
         <View style={styles.cardWrapper}>
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
+          {menuItems.map((menuItem, index) => (
+            <FoodCard key={index} item={menuItem} />
+          ))}
         </View>
         <TouchableOpacity style={styles.menuBtn}>
           <Text style={styles.menuBtnText}>See Full Menu</Text>

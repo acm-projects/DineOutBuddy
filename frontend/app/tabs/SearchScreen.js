@@ -15,9 +15,9 @@ import RestaurantCard from "../components/RestaurantCard";
 import { useLogin } from "../../context/LoginProvider";
 
 const SearchScreen = ({ navigation }) => {
-  const { coordinates } = useLogin();
-  console.log(coordinates.longitude);
-  console.log(coordinates.latitude);
+  const { coordinates, profile } = useLogin();
+  // console.log(coordinates.longitude);
+  // console.log(coordinates.latitude);
   const INITIAL_REGION = {
     latitude: 32.985105,
     longitude: -96.7494417,
@@ -47,17 +47,22 @@ const SearchScreen = ({ navigation }) => {
 
   const [restaurants, setRestaurants] = useState([]); // Step 1: State to hold restaurant data
   const [search, setSearch] = useState("");
+  const preferences = profile.preferences.join(' and ');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://10.176.215.167:8000/restaurantsByDiet?lat=${
-            coordinates.latitude
-          }&lng=${coordinates.longitude}&restrictions=${"chicken"}`
+          `http://10.176.198.238:8000/matchedRestaurants?lat=${
+            32.990
+          }&lng=${-96.7553}&restrictions=${"chicken"}`
         );
+        //http://localhost:8000/matchedRestaurants?lat=32.7767&lng=-96.7970&restrictions=chicken
+
         const data = await response.json();
-        //console.log(data);
+        console.log(data);
+        console.log(coordinates.latitude);
+        console.log(coordinates.longitude);
         setRestaurants(data); // Assuming 'data' is the array of restaurants
       } catch (error) {
         console.log(error);
@@ -111,8 +116,10 @@ const SearchScreen = ({ navigation }) => {
             <Marker
               key={index}
               coordinate={{
-                longitude: restaurant.geometry.location.lng,
-                latitude: restaurant.geometry.location.lat,
+                longitude: 32,
+                latitude: -96,
+                 longitude: restaurant.lng,
+                 latitude: restaurant.lat,
               }}
               onPress={() => onMarkerSelected(restaurant)}
             >

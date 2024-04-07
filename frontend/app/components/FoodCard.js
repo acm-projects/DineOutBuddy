@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 
-const FoodCard = () => {
+const FoodCard = ( {item} ) => {
   return (
     <View style={styles.foodCard}>
       <Image source={require("../../assets/restaurantPic.png")}></Image>
       <View style={styles.cardContent}>
-        <Text style={styles.cardTitle}>Las Vegas Roll</Text>
+        <Text style={styles.cardTitle}>{item.name}</Text>
         <View style={styles.cardInfo}>
-          <Text style={styles.cardText}>$14.95</Text>
+          <Text style={styles.cardText}>${item.price}</Text>
         </View>
         <View style={styles.tagWrapper}>
           <View style={styles.tag}>
