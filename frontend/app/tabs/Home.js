@@ -1,30 +1,32 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
-import ForYou from '../components/ForYou';
+import React from "react";
+import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
+import ForYou from "../components/ForYou";
 import { useLogin } from "../../context/LoginProvider";
 
 export default function Home() {
-  const { chats } = useLogin();
+  const { chats, fetchChats } = useLogin();
+  fetchChats();
 
   const handleClick = (type) => {
-    console.log('Clicked', type);
+    console.log("Clicked", type);
     // Assuming you're using React Navigation and have passed the `navigation` prop correctly:
     // navigation.navigate('Restaurant');
-  }
-
-  console.log(chats);
+  };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => handleClick('fish')} style={styles.topPickContainer}>
+      <TouchableOpacity
+        onPress={() => handleClick("fish")}
+        style={styles.topPickContainer}
+      >
         <Text style={styles.title}>Top Picks in Your Area</Text>
-        <Image source={require('./fish.png')} style={styles.image} />
+        <Image source={require("./fish.png")} style={styles.image} />
         <Text style={styles.restaurantName}>Osaka Hibachi Sushi and Grill</Text>
         <Text style={styles.rating}>4.3 (644) $$</Text>
       </TouchableOpacity>
 
       {chats.map((chat) => (
-        <ForYou key={chat._id} chat={chat}/>
+        <ForYou key={chat._id} chat={chat} />
       ))}
     </View>
   );
@@ -43,20 +45,20 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 40,
-    fontWeight: 'bold',
-    color: 'blue',
+    fontWeight: "bold",
+    color: "blue",
     marginTop: 20,
   },
   image: {
     // Your image style
-    alignItems: 'center',
+    alignItems: "center",
   },
   restaurantName: {
-    textAlign: 'left',
+    textAlign: "left",
     // Any other styling you want
   },
   rating: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     // Any other styling you want
   },
 });

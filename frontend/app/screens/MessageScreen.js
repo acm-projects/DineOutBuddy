@@ -28,6 +28,12 @@ import client from "../api/client";
 import { useLogin } from "../../context/LoginProvider";
 import Icon from "react-native-vector-icons/AntDesign";
 import GroupCard from "../components/GroupCard";
+import {
+  accentClick,
+  accentColor,
+  inputColor,
+  primaryColor,
+} from "../components/ComponentColors";
 
 const MessagesScreen = ({ navigation }) => {
   const { modalVisible, setModalVisible } = useContext(GlobalContext);
@@ -36,14 +42,11 @@ const MessagesScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Groups</Text>
+        <Text style={styles.title}>Your Groups</Text>
         <View style={styles.icons}>
           <Pressable onPress={() => setModalVisible(true)}>
-            <Icon name="plus" size={25} color={"#2675EC"} />
+            <Icon name="pluscircleo" size={25} color={"#2675EC"} />
           </Pressable>
-
-          <Icon name="search1" size={25} color={"#2675EC"} />
-          <Icon name="bars" size={25} color={"#2675EC"} />
         </View>
       </View>
       <View style={styles.groupWrapper}>
@@ -63,12 +66,12 @@ export default MessagesScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F7FAFD",
+    backgroundColor: primaryColor,
+    paddingHorizontal: 16,
+    gap: 20,
   },
   header: {
-    marginTop: 20,
-    paddingVertical: 38,
-    paddingHorizontal: 25,
+    marginTop: 60,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -79,32 +82,12 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   title: {
-    color: "#2287D0",
-    fontWeight: "bold",
-    fontSize: 28,
+    color: accentColor,
+    fontFamily: "Metropolis-Black",
+    fontSize: 32,
   },
   groupWrapper: {
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
-    backgroundColor: "white",
-    paddingVertical: 60,
     flex: 1,
     flexDirection: "column",
-    gap: 18,
-  },
-  groupCard: {
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "stretch",
-    paddingHorizontal: 23,
-  },
-  text: {
-    marginLeft: 18,
-    flex: 1,
-  },
-  cardHeader: {
-    alignSelf: "stretch",
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
 });

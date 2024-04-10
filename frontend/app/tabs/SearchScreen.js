@@ -27,35 +27,20 @@ const SearchScreen = ({ navigation }) => {
 
   const mapRef = useRef();
 
-  const focusMap = () => {
-    const Stadium = {
-      latitude: 44.4220936,
-      longitude: -88.083922,
-      latitudeDelta: 0.1,
-      longitudeDelta: 0.1,
-    };
-    console.log("Pressed");
-    mapRef.current?.animateCamera(
-      { center: Stadium, zoom: 10 },
-      { duration: 3000 }
-    );
-  };
-
   const onMarkerSelected = (restaurant) => {
     console.log(restaurant.name);
   };
 
   const [restaurants, setRestaurants] = useState([]); // Step 1: State to hold restaurant data
   const [search, setSearch] = useState("");
-  const preferences = profile.preferences.join(' and ');
+  const preferences = profile.preferences.join(" and ");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("Hello");
         const response = await fetch(
-          `http://10.176.198.238:8000/matchedRestaurants?lat=${
-            32.990
-          }&lng=${-96.7553}&restrictions=${"chicken"}`
+          `http://IPADDRESSS:8000/matchedRestaurants?lat=${32.99}&lng=${-96.7553}&restrictions=${"chicken"}`
         );
         //http://localhost:8000/matchedRestaurants?lat=32.7767&lng=-96.7970&restrictions=chicken
 
@@ -66,6 +51,7 @@ const SearchScreen = ({ navigation }) => {
         setRestaurants(data); // Assuming 'data' is the array of restaurants
       } catch (error) {
         console.log(error);
+        console.log("Error in search");
       }
     };
     fetchData();
@@ -118,8 +104,8 @@ const SearchScreen = ({ navigation }) => {
               coordinate={{
                 longitude: 32,
                 latitude: -96,
-                 longitude: restaurant.lng,
-                 latitude: restaurant.lat,
+                longitude: restaurant.lng,
+                latitude: restaurant.lat,
               }}
               onPress={() => onMarkerSelected(restaurant)}
             >
@@ -138,9 +124,9 @@ const SearchScreen = ({ navigation }) => {
               ? restaurant
               : restaurant.name.toLowerCase().includes(search.toLowerCase());
           })
-          .map((restaurant) => (
+          .map((restaurant, index) => (
             <RestaurantCard
-              key={restaurant.name}
+              key={index}
               data={restaurant}
               navigation={navigation}
             />

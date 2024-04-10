@@ -10,9 +10,11 @@ import {
   Image,
   FlatList,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import { useLogin } from "../../context/LoginProvider";
 import UserCard from "../components/UserCard";
+import ImageUpload from "../components/ImageUpload";
 
 const GroupProfileScreen = ({ route, navigation }) => {
   const { chat } = route.params;
@@ -124,100 +126,104 @@ const GroupProfileScreen = ({ route, navigation }) => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.profileContainer}>
-          <Image
-            style={styles.image}
-            source={require("../../assets/users/user-1.jpg")}
-          />
-          <View style={styles.profileText}>
-            <Text style={styles.title}>{chatDetails.chatName}</Text>
-            <Text style={styles.text}>
-              Group Admin: {chatDetails.groupAdmin.fullname}
-            </Text>
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <ImageBackground
+          source={require("../../assets/profileBackground.png")}
+          resizeMode="cover"
+          maxHeight={190}
+        >
+          <View style={styles.profileContainer}>
+            <View>
+              <ImageUpload />
+            </View>
+            <View style={styles.profileText}>
+              <Text style={styles.title}>{chatDetails.chatName}</Text>
+              <Text style={styles.text}>
+                Group Admin: {chatDetails.groupAdmin.fullname}
+              </Text>
+            </View>
           </View>
-        </View>
-
-        <View style={styles.optionWrapper}>
-          <View style={styles.optionContainer}>
-            <Text style={styles.optionLabel}>Users</Text>
-            {chatDetails.users.map((user) => (
-              <TouchableOpacity
-                key={user._id}
-                style={styles.text}
-                onPress={() => {
-                  RemoveFromGroup(user);
-                }}
-              >
-                <UserCard user={user}></UserCard>
-              </TouchableOpacity>
-            ))}
-          </View>
-          <View style={styles.optionContainer}>
-            <Text style={styles.optionLabel}>Allergies</Text>
-            {chat.allergies.map((allergy, i) => {
-              return <Text key={i}>{allergy}</Text>;
-            })}
-          </View>
-          <View style={styles.optionContainer}>
-            <Text style={styles.optionLabel}>Preferences</Text>
-            {chat.preferences.map((perference, i) => {
-              return <Text key={i}>{perference}</Text>;
-            })}
-          </View>
-          <View style={styles.optionContainer}>
-            <Text style={styles.optionLabel}>Cravings</Text>
-            {chat.cravings.map((craving, i) => {
-              return <Text key={i}>{craving}</Text>;
-            })}
-          </View>
-          <View style={styles.optionContainer}>
-            <TextInput
-              autoCorrect={false}
-              placeholder={chat.chatName}
-              style={styles.loginInput}
-              onChangeText={(value) => SetGroupChatName(value)}
-              value={groupChatName}
-            />
-            <TouchableOpacity onPress={handleRename} style={styles.button}>
-              <Text>Update Group Name</Text>
-            </TouchableOpacity>
-
-            <TextInput
-              autoCorrect={false}
-              placeholder="Find Users"
-              style={styles.loginInput}
-              onChangeText={(value) => handleSearch(value)}
-              value={search}
-            />
-            {searchResult?.slice(0, 4).map((user) => (
-              <TouchableOpacity
-                key={user._id}
-                style={{
-                  borderWidth: 0.5,
-                  borderRadius: 10,
-                  paddingVertical: 3,
-                  marginBottom: 5,
-                }}
-                onPress={() => {
-                  AddToGroup(user);
-                }}
-              >
-                <UserCard user={user} />
-              </TouchableOpacity>
-            ))}
+        </ImageBackground>
+      </View>
+      <View style={styles.optionWrapper}>
+        <View style={styles.optionContainer}>
+          <Text style={styles.optionLabel}>Users</Text>
+          {chatDetails.users.map((user) => (
             <TouchableOpacity
+              key={user._id}
+              style={styles.text}
               onPress={() => {
-                navigation.navigate("ChatScreen", {
-                  chat: chat,
-                });
+                RemoveFromGroup(user);
               }}
-              style={{ paddingHorizontal: 5 }}
             >
-              <Text>Go Back</Text>
+              <UserCard user={user}></UserCard>
             </TouchableOpacity>
-          </View>
+          ))}
+        </View>
+        <View style={styles.optionContainer}>
+          <Text style={styles.optionLabel}>Allergies</Text>
+          {chat.allergies.map((allergy, i) => {
+            return <Text key={i}>{allergy}</Text>;
+          })}
+        </View>
+        <View style={styles.optionContainer}>
+          <Text style={styles.optionLabel}>Preferences</Text>
+          {chat.preferences.map((perference, i) => {
+            return <Text key={i}>{perference}</Text>;
+          })}
+        </View>
+        <View style={styles.optionContainer}>
+          <Text style={styles.optionLabel}>Cravings</Text>
+          {chat.cravings.map((craving, i) => {
+            return <Text key={i}>{craving}</Text>;
+          })}
+        </View>
+        <View style={styles.optionContainer}>
+          <TextInput
+            autoCorrect={false}
+            placeholder={chat.chatName}
+            style={styles.loginInput}
+            onChangeText={(value) => SetGroupChatName(value)}
+            value={groupChatName}
+          />
+          <TouchableOpacity onPress={handleRename} style={styles.button}>
+            <Text>Update Group Name</Text>
+          </TouchableOpacity>
+
+          <TextInput
+            autoCorrect={false}
+            placeholder="Find Users"
+            style={styles.loginInput}
+            onChangeText={(value) => handleSearch(value)}
+            value={search}
+          />
+          {searchResult?.slice(0, 4).map((user) => (
+            <TouchableOpacity
+              key={user._id}
+              style={{
+                borderWidth: 0.5,
+                borderRadius: 10,
+                paddingVertical: 3,
+                marginBottom: 5,
+              }}
+              onPress={() => {
+                AddToGroup(user);
+              }}
+            >
+              <UserCard user={user} />
+            </TouchableOpacity>
+          ))}
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("ChatScreen", {
+                chat: chat,
+              });
+            }}
+            style={{ paddingHorizontal: 5 }}
+          >
+            <Text>Go Back</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
@@ -229,7 +235,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7FAFD",
     flex: 1,
     flexDirection: "column",
-    gap: 30,
   },
   header: {
     flexDirection: "column",

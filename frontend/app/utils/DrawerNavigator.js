@@ -81,12 +81,13 @@ function MyTabBar({ state, descriptors, navigation }) {
 
 const TabArr = [
   {
-    route: "Test",
-    label: "Test",
+    route: "Home",
+    label: "Home",
     activeIcon: "home",
     inActiveIcon: "home-outline",
-    component: Test,
+    component: Home,
   },
+
   {
     route: "GroupScreen",
     label: "GroupScreen",
@@ -109,11 +110,11 @@ const TabArr = [
     component: IndividualProfile,
   },
   {
-    route: "Home",
-    label: "Home",
-    activeIcon: "person-circle",
-    inActiveIcon: "person-circle-outline",
-    component: Home,
+    route: "Test",
+    label: "Test",
+    activeIcon: "home",
+    inActiveIcon: "home-outline",
+    component: Test,
   },
 ];
 

@@ -8,9 +8,15 @@ import {
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { accentClick, inputColor, lavenderColor } from "./ComponentColors";
 
 const GroupCard = ({ chat }) => {
   // console.log(chat);
+
+  const convertTime = (createdAt) => {
+    var date = new Date(createdAt);
+    return ((date.getHours() + 24) % 12 || 12) + ":" + date.getMinutes();
+  };
   const navigation = useNavigation();
   return (
     <Pressable
@@ -30,10 +36,16 @@ const GroupCard = ({ chat }) => {
         <View style={styles.text}>
           <View style={styles.cardHeader}>
             <Text style={styles.name}>{chat.chatName}</Text>
-            <Text style={styles.time}>8:34</Text>
+            {chat.latestMessage ? (
+              <Text style={styles.time}>
+                {convertTime(chat.latestMessage.createdAt)}
+              </Text>
+            ) : null}
           </View>
           {chat.latestMessage ? (
-            <Text style={styles.message}>{chat.latestMessage.content}</Text>
+            <Text style={styles.message}>
+              {chat.latestMessage.sender.username}: {chat.latestMessage.content}
+            </Text>
           ) : null}
         </View>
       </View>
@@ -49,6 +61,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "stretch",
     paddingHorizontal: 23,
+    borderTopWidth: 1,
+    borderTopColor: "#CFD6EF",
+    borderBottomWidth: 1,
+    borderBottomColor: "#CFD6EF",
+    paddingVertical: 10,
   },
   text: {
     marginLeft: 18,
@@ -60,24 +77,25 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
   },
   imgContainer: {
     elevation: 15,
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     shadowColor: "black",
   },
   name: {
-    color: "#2287D0",
     fontSize: 15,
-    fontWeight: "bold",
+    fontFamily: "Metropolis-SemiBold",
   },
   message: {
     fontSize: 14,
+    color: lavenderColor,
+    fontFamily: "Metropolis-Medium",
   },
   time: {
     fontSize: 14,
