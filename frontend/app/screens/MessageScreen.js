@@ -45,7 +45,7 @@ const MessagesScreen = ({ navigation }) => {
         <Text style={styles.title}>Your Groups</Text>
         <View style={styles.icons}>
           <Pressable onPress={() => setModalVisible(true)}>
-            <Icon name="pluscircleo" size={25} color={"#2675EC"} />
+            <Icon name="pluscircleo" size={25} color={accentColor} />
           </Pressable>
         </View>
       </View>

@@ -45,6 +45,12 @@ const SearchScreen = ({ navigation }) => {
     }
   };
 
+  const handleGroupChange = (group) => {
+    setAllergies(group.allergies);
+    setPreferences(group.preferences);
+    setCravings(group.cravings);
+  };
+
   const INITIAL_REGION = {
     latitude: 32.985105,
     longitude: -96.7494417,
@@ -61,21 +67,23 @@ const SearchScreen = ({ navigation }) => {
   const { modalVisible, setModalVisible } = useContext(GlobalContext);
   const [restaurants, setRestaurants] = useState([]); // Step 1: State to hold restaurant data
   const [search, setSearch] = useState("");
-  // const preferences = profile.preferences.join(" and ");
+
+  const preferenceString = preferences.join(" and ");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         console.log("Hello");
+        console.log(preferenceString);
         const response = await fetch(
-          `http://10.178.177.24:8000/matchedRestaurants?lat=${32.99}&lng=${-96.7553}&restrictions=${"chicken"}`
+          `http://192.168.50.72:8000/matchedRestaurants?lat=${
+            coordinates.latitude
+          }&lng=${coordinates.longitude}&restrictions=${"chicken"}`
         );
         //http://localhost:8000/matchedRestaurants?lat=32.7767&lng=-96.7970&restrictions=chicken
 
         const data = await response.json();
         console.log(data);
-        console.log(coordinates.latitude);
-        console.log(coordinates.longitude);
         setRestaurants(data); // Assuming 'data' is the array of restaurants
       } catch (error) {
         console.log(error);
@@ -110,7 +118,7 @@ const SearchScreen = ({ navigation }) => {
           ></TextInput>
         </View>
         <Pressable onPress={() => setModalVisible(true)}>
-          <Icon name={"locate"} size={25}></Icon>
+          <Icon name={"cog"} size={25}></Icon>
         </Pressable>
       </View>
 
@@ -168,6 +176,7 @@ const SearchScreen = ({ navigation }) => {
           preferences={preferences}
           cravings={cravings}
           handleChange={handleChange}
+          handleGroupChange={handleGroupChange}
         />
       )}
     </View>

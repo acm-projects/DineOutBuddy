@@ -25,6 +25,7 @@ import IndividualProfile from "../tabs/IndividualProfile";
 import { View, Text, TouchableOpacity } from "react-native";
 import PreferencesScreen from "../screens/PreferencesScreen";
 import CravingsScreen from "../screens/CravingsScreen";
+import ChatBotScreen from "../tabs/ChatBot";
 
 function MyTabBar({ state, descriptors, navigation }) {
   return (
@@ -91,8 +92,8 @@ const TabArr = [
   {
     route: "GroupScreen",
     label: "GroupScreen",
-    activeIcon: "chatbox-sharp",
-    inActiveIcon: "chatbox-outline",
+    activeIcon: "people-sharp",
+    inActiveIcon: "people-outline",
     component: MessagesScreen,
   },
   {
@@ -101,6 +102,13 @@ const TabArr = [
     activeIcon: "search",
     inActiveIcon: "search-circle-outline",
     component: SearchScreen,
+  },
+  {
+    route: "Chabot",
+    label: "Chabot",
+    activeIcon: "chatbox-sharp",
+    inActiveIcon: "chatbox-outline",
+    component: ChatBotScreen,
   },
   {
     route: "IndividualProfile",

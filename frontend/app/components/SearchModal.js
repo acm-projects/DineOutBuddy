@@ -13,13 +13,22 @@ import {
   TouchableOpacity,
   Button,
   ScrollView,
+  Image,
 } from "react-native";
 import { GlobalContext } from "../../context";
 import { useLogin } from "../../context/LoginProvider";
 import { primaryColor } from "./ComponentColors";
 import FeatherIcon from "react-native-vector-icons/Feather";
+import GroupCard from "./GroupCard";
 
-const SearchModal = ({ allergies, preferences, cravings, handleChange }) => {
+const SearchModal = ({
+  allergies,
+  preferences,
+  cravings,
+  handleChange,
+  handleGroupChange,
+}) => {
+  const { chats } = useLogin();
   const { modalVisible, setModalVisible } = useContext(GlobalContext);
   const [groupsVisible, setGroupVisible] = useState(false);
 
@@ -59,8 +68,6 @@ const SearchModal = ({ allergies, preferences, cravings, handleChange }) => {
     "Keto",
   ];
 
-  console.log(groupsVisible);
-
   return (
     <Modal
       animationType="slide"
@@ -72,30 +79,48 @@ const SearchModal = ({ allergies, preferences, cravings, handleChange }) => {
       }}
     >
       <View style={styles.centeredView}>
-        <View style={styles.modalView}>
+        <View style={[styles.modalView]}>
           {groupsVisible ? (
-            <>
-              <Text>This is group</Text>
-              <Pressable
-                onPress={() => {
-                  setGroupVisible(false);
-                }}
-              >
-                <View
-                  style={[
-                    styles.modalItem,
-                    {
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    },
-                  ]}
+            <View style={styles.groupModal}>
+              <Text style={styles.groupTitle}>Choose Group</Text>
+              {chats
+                ? chats.map((chat) => {
+                    return (
+                      <Pressable
+                        onPress={() => {
+                          handleGroupChange(chat);
+                          setModalVisible(false);
+                        }}
+                        key={chat._id}
+                      >
+                        <View style={styles.groupCard}>
+                          <View style={styles.imgContainer}>
+                            <Image
+                              style={styles.image}
+                              source={require("../../assets/users/user-1.jpg")}
+                            />
+                          </View>
+                          <View style={styles.text}>
+                            <View style={styles.cardHeader}>
+                              <Text style={styles.name}>{chat.chatName}</Text>
+                            </View>
+                          </View>
+                        </View>
+                      </Pressable>
+                    );
+                  })
+                : null}
+              <View style={styles.buttonWrapper}>
+                <Pressable
+                  onPress={() => setModalVisible(false)}
+                  style={styles.button}
                 >
-                  <Text style={styles.title}> Cick me to go back</Text>
-                  <FeatherIcon name="chevron-right" size={25} color={"black"} />
-                </View>
-              </Pressable>
-            </>
+                  <View>
+                    <Text style={styles.buttonText}>Save</Text>
+                  </View>
+                </Pressable>
+              </View>
+            </View>
           ) : (
             <>
               <Pressable
@@ -217,17 +242,12 @@ const SearchModal = ({ allergies, preferences, cravings, handleChange }) => {
                 </ScrollView>
               </View>
               <View style={styles.buttonWrapper}>
-                <Pressable style={styles.button}>
-                  <View>
-                    <Text style={styles.buttonText}>Save Changes</Text>
-                  </View>
-                </Pressable>
                 <Pressable
-                  onPress={() => setModalVisible(false)}
                   style={styles.button}
+                  onPress={() => setModalVisible(false)}
                 >
                   <View>
-                    <Text style={styles.buttonText}>Cancel</Text>
+                    <Text style={styles.buttonText}>Save Changes</Text>
                   </View>
                 </Pressable>
               </View>
@@ -336,6 +356,61 @@ const styles = StyleSheet.create({
   cardText: {
     fontSize: 16,
     fontWeight: "bold",
+  },
+  groupCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "stretch",
+    paddingHorizontal: 23,
+    borderTopWidth: 1,
+    borderTopColor: "#CFD6EF",
+    borderBottomWidth: 1,
+    borderBottomColor: "#CFD6EF",
+    paddingVertical: 10,
+  },
+  text: {
+    marginLeft: 18,
+    flex: 1,
+  },
+  cardHeader: {
+    alignSelf: "stretch",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  image: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+  },
+  imgContainer: {
+    elevation: 15,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    shadowColor: "black",
+  },
+  name: {
+    fontSize: 15,
+    fontFamily: "Metropolis-Medium",
+  },
+
+  time: {
+    fontSize: 14,
+  },
+  bottomContainer: {
+    flex: 0.3,
+    padding: 10,
+  },
+  groupModal: {
+    backgroundColor: "white",
+    borderRadius: 20,
+    paddingHorizontal: 22,
+    paddingVertical: 16,
+  },
+  groupTitle: {
+    fontFamily: "Metropolis-SemiBold",
+    fontSize: 20,
+    marginBottom: 40,
   },
 });
 

@@ -39,6 +39,7 @@ const RestaurantCard = ({ data, navigation }) => {
               5.6 mi
             </Text>
           </View>
+          <Text style={styles.subHeading}> Tags </Text>
           <View style={styles.tagWrapper}>
             <View style={styles.tag}>
               <Text style={styles.tagText}>{data.category[0]}</Text>
@@ -48,16 +49,6 @@ const RestaurantCard = ({ data, navigation }) => {
             </View>
             <View style={styles.tag}>
               <Text style={styles.tagText}>{data.category[2]}</Text>
-            </View>
-          </View>
-
-          <Text style={styles.subHeading}> Dietary Restrictions</Text>
-          <View style={styles.tagWrapper}>
-            <View style={styles.tag}>
-              <Text style={styles.tagText}>Vegetarin Options</Text>
-            </View>
-            <View style={styles.tag}>
-              <Text style={styles.tagText}>Non-Pork Options</Text>
             </View>
           </View>
         </View>
@@ -86,6 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 2,
+    marginBottom: 10,
   },
   infoText: {
     color: "#A2A6B5",
@@ -102,11 +94,12 @@ const styles = StyleSheet.create({
   },
   tagText: {
     color: "white",
-    fontSize: 10,
+    fontSize: 14,
   },
   subHeading: {
-    fontSize: 10,
-    fontWeight: "semibold",
+    fontSize: 15,
+    fontFamily: "Metropolis-SemiBold",
+    marginBottom: 5,
   },
   divider: {
     backgroundColor: "#C4DDEF",
