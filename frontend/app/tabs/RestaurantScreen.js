@@ -25,7 +25,7 @@ const RestaurantScreen = ({ route }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch(`http://10.176.214.33:8000/restaurantDetails?placeId=${data.place_id}`);
+        const response = await fetch(`http://10.122.139.198:8000/restaurantDetails?placeId=${data.place_id}`);
         const json = await response.json();
         setReviews(json.result.reviews || []); 
         //console.log(json.result.reviews);
@@ -37,7 +37,7 @@ const RestaurantScreen = ({ route }) => {
   
   const fetchRecommendedMenuItems = async () => {
     try {
-      const response = await fetch(`http://10.176.214.33:8000/aichatfilter?message=${"allergies: peanut, " + data.menuString}`);
+      const response = await fetch(`http://10.122.139.198:8000/aichatfilter?message=${"allergies: peanut, " + data.menuString}`);
       console.log(data.menuString + "HISSSS");
       const json = await response.json();
       console.log(json.response + "  test3");

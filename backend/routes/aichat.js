@@ -14,7 +14,7 @@ router.get('/aichatfilter', async (req, res) => {
     
     chatHistory.push(['user', req.query.message]);
     chatHistory.push(['user', "You will use the given data and return an array of the best menu items given based on the allergy given using your common knowledge, give at least 10 items, it doesnt have to be accurate"]);
-    chatHistory.push(['user', "GIVE THE VALID ITEMS IN AN ARRAY FORMAT IN THE SAME WAY IT WAS GIVEN which includes name and price in this format [\"name, $prince\", \"name, $prince\" ,...] use that as an example, fill it with the correct data and make sure the array is correct in text, no other text"]);
+    chatHistory.push(['user', "GIVE THE VALID ITEMS IN AN ARRAY FORMAT IN THE SAME WAY IT WAS GIVEN which includes name and price in this format [\"name, $price\", \"name, $price\" ,...] use that as an example, fill it with the correct data and make sure the array is correct in text, no other text"]);
 
     
 
