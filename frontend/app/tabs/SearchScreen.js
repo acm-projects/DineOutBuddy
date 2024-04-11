@@ -76,7 +76,7 @@ const SearchScreen = ({ navigation }) => {
         console.log("Hello");
         console.log(preferenceString);
         const response = await fetch(
-          `http://IPADDRSES:8000/matchedRestaurants?lat=${
+          `http://10.122.139.198:8000/matchedRestaurants?lat=${
             coordinates.latitude
           }&lng=${coordinates.longitude}&restrictions=${"chicken"}`
         );

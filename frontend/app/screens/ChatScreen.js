@@ -59,7 +59,7 @@ export default function Messagescreen({ route }) {
   }, [chat]);
 
   useEffect(() => {
-    socket = io("http://IPADDRSES:8000");
+    socket = io("http://10.122.139.198:8000");
     socket.emit("setup", profile);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
