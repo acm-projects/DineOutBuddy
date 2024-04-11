@@ -8,16 +8,43 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
 import RestaurantCard from "../components/RestaurantCard";
 import { useLogin } from "../../context/LoginProvider";
+import SearchModal from "../components/SearchModal";
+import { GlobalContext } from "../../context";
 
 const SearchScreen = ({ navigation }) => {
   const { coordinates, profile } = useLogin();
-  // console.log(coordinates.longitude);
-  // console.log(coordinates.latitude);
+  const [allergies, setAllergies] = useState(profile.allergies);
+  const [preferences, setPreferences] = useState(profile.preferences);
+  const [cravings, setCravings] = useState(profile.cravings);
+
+  const handleChange = (type, option) => {
+    if (type == "allergy") {
+      if (!allergies.includes(option)) {
+        setAllergies((prev) => [...prev, option]);
+      } else {
+        setAllergies(allergies.filter((a) => a != option));
+      }
+    }
+    if (type == "preference") {
+      if (!preferences.includes(option)) {
+        setPreferences((prev) => [...prev, option]);
+      } else {
+        setPreferences(preferences.filter((a) => a != option));
+      }
+    } else if (type == "craving") {
+      if (!cravings.includes(option)) {
+        setCravings((prev) => [...prev, option]);
+      } else {
+        setCravings(cravings.filter((a) => a != option));
+      }
+    }
+  };
+
   const INITIAL_REGION = {
     latitude: 32.985105,
     longitude: -96.7494417,
@@ -31,16 +58,17 @@ const SearchScreen = ({ navigation }) => {
     console.log(restaurant.name);
   };
 
+  const { modalVisible, setModalVisible } = useContext(GlobalContext);
   const [restaurants, setRestaurants] = useState([]); // Step 1: State to hold restaurant data
   const [search, setSearch] = useState("");
-  const preferences = profile.preferences.join(" and ");
+  // const preferences = profile.preferences.join(" and ");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         console.log("Hello");
         const response = await fetch(
-          `http://IPADDRESSS:8000/matchedRestaurants?lat=${32.99}&lng=${-96.7553}&restrictions=${"chicken"}`
+          `http://10.178.177.24:8000/matchedRestaurants?lat=${32.99}&lng=${-96.7553}&restrictions=${"chicken"}`
         );
         //http://localhost:8000/matchedRestaurants?lat=32.7767&lng=-96.7970&restrictions=chicken
 
@@ -81,7 +109,9 @@ const SearchScreen = ({ navigation }) => {
             value={search}
           ></TextInput>
         </View>
-        <Icon name={"locate"} size={25}></Icon>
+        <Pressable onPress={() => setModalVisible(true)}>
+          <Icon name={"locate"} size={25}></Icon>
+        </Pressable>
       </View>
 
       <MapView
@@ -132,6 +162,14 @@ const SearchScreen = ({ navigation }) => {
             />
           ))}
       </ScrollView>
+      {modalVisible && (
+        <SearchModal
+          allergies={allergies}
+          preferences={preferences}
+          cravings={cravings}
+          handleChange={handleChange}
+        />
+      )}
     </View>
   );
 };

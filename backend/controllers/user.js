@@ -24,6 +24,7 @@ export const createUser = async (req, res) => {
     avatar: req.body.avatar,
     allergies: req.body.allergies,
     preferences: req.body.preferences,
+    cravings: req.body.cravings,
   });
 
   await user.save();
@@ -56,6 +57,7 @@ export const userSignIn = async (req, res) => {
     email: user.email,
     allergies: user.allergies,
     preferences: user.preferences,
+    cravings: user.cravings,
     avatar: user.avatar,
     token: token,
     _id: user._id,
