@@ -7,18 +7,64 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState,useEffect  } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import FoodCard from "../components/FoodCard";
 import RestaurantCard from "../components/RestaurantCard";
 import ReviewCard from "../components/ReviewCard";
 
+
+
 const RestaurantScreen = ({ route }) => {
   const { data } = route.params;
   const [rating, setRating] = useState(data.rating);
+  const [reviews, setReviews] = useState([]);
+  const [recommendedMenuItems, setRecommendedMenuItems] = useState([]);
   console.log(data);
 
-  const priceLevelToDollarSign = (level) => {
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch(`http://10.176.214.33:8000/restaurantDetails?placeId=${data.place_id}`);
+        const json = await response.json();
+        setReviews(json.result.reviews || []); 
+        //console.log(json.result.reviews);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+  
+  const fetchRecommendedMenuItems = async () => {
+    try {
+      const response = await fetch(`http://10.176.214.33:8000/aichatfilter?message=${"allergies: peanut, " + data.menuString}`);
+      console.log(data.menuString + "HISSSS");
+      const json = await response.json();
+      console.log(json.response + "  test3");
+      const recommendedItemsStrings = JSON.parse(json.response);
+      console.log(recommendedItemsStrings + "  ");
+
+      const recommendedItems = recommendedItemsStrings.map(itemString => {
+      const parts = itemString.split(", $");
+      const name = parts[0];
+      const price = "" + parts[1] + " USD"; 
+      return { name, price };
+    });
+
+      console.log(recommendedItems );
+      setRecommendedMenuItems(recommendedItems);
+    } catch (error) {
+      console.error("Error fetching recommended menu items:", error);
+    }
+  };
+
+    fetchReviews();
+    fetchRecommendedMenuItems();
+  }, [data.place_id]);
+
+  
+
+  const priceLevelToDollarSign = (level) => { 
     const levels = {
       1: "$",
       2: "$$",
@@ -29,8 +75,9 @@ const RestaurantScreen = ({ route }) => {
 
   let photoUrl =
     "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
-    data.photos +
+    data.photo +
     "&key=AIzaSyDlu9r4NNFvcpgeb1ggv4BK0HyYEh5cl-c";
+    console.log(data.name);
     const menuItems = data.menuItems || [];
   return (
     <ScrollView style={styles.container}>
@@ -57,7 +104,13 @@ const RestaurantScreen = ({ route }) => {
         </View>
       </ImageBackground>
       <View style={styles.main}>
-        <Text style={styles.subHeading}>Reccomended Menu Items</Text>
+        <Text style={styles.subHeading}>Recommended Menu Items</Text>
+        <View style={styles.cardWrapper}>
+          {recommendedMenuItems.map((menuItem, index) => (
+            <FoodCard key={index} item={menuItem} />
+          ))}
+        </View>
+        <Text style={styles.subHeading}>All Menu Items</Text>
         <View style={styles.cardWrapper}>
           {menuItems.map((menuItem, index) => (
             <FoodCard key={index} item={menuItem} />
@@ -88,9 +141,9 @@ const RestaurantScreen = ({ route }) => {
         </View>
 
         <View style={styles.reviewWrapper}>
-          <ReviewCard />
-          <ReviewCard />
-          <View />
+          {reviews.map((review, index) => (
+            <ReviewCard key={index} reviewData={review} />
+          ))}
         </View>
         <TouchableOpacity style={styles.menuBtn}>
           <Text style={styles.menuBtnText}>See more Reviews</Text>

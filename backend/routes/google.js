@@ -94,6 +94,7 @@ router.get('/matchedRestaurants', async (req, res) => {
 
       if (closestMatch && shortestDistance <= matchThreshold) {
         const restaurantMenuItems = menuItemsMap.get(closestMatch.id) || [];
+        const menuItemsString = restaurantMenuItems.map(item => `${item.name} (${item.category}): ${item.price}`).join(", ");
         return {
           id: closestMatch.id,
           name: apiRestaurant.name,
@@ -106,6 +107,8 @@ router.get('/matchedRestaurants', async (req, res) => {
           user_ratings_total: apiRestaurant.user_ratings_total,
           photo: apiRestaurant.photos?.[0]?.photo_reference ?? 'DEFAULT_PHOTO_REFERENCE',
           distance: shortestDistance,
+          place_id: apiRestaurant.place_id,
+          menuString: menuItemsString,
           menuItems: restaurantMenuItems
         };
       }

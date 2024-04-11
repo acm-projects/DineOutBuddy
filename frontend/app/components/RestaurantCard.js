@@ -15,7 +15,7 @@ const RestaurantCard = ({ data, navigation }) => {
   //console.log(data.photos[0].photo_reference);
   let photoUrl =
     "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
-    data.photo +
+     data.photo +
     "&key=AIzaSyDlu9r4NNFvcpgeb1ggv4BK0HyYEh5cl-c";
 
   return (
@@ -35,7 +35,7 @@ const RestaurantCard = ({ data, navigation }) => {
             <Icon name="star" size={10} color={"#A2A6B5"} />
 
             <Text style={styles.infoText}>
-              {data.rating} (644) | {priceLevelToDollarSign(data.price_level)} |
+              {data.rating} (40) | {priceLevelToDollarSign(data.price_level)} |
               5.6 mi
             </Text>
           </View>
