@@ -62,9 +62,9 @@ export default function ForYou({chat}) {
 
 const styles = StyleSheet.create({
     container: {
-        marginBottom: 10,
-        marginTop: 10,
-        alignItems: 'top', // Align items to the center vertically
+        marginBottom: 0,
+        marginTop: 0,
+        alignItems: 'flex-start', // Align items to the start of the container
         flex: 1,
     },
     text: {
@@ -73,9 +73,20 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 0, // Remove margin above the text
     },
+    scrollViewContent: {
+        flexDirection: 'row', // Arrange items horizontally
+        justifyContent: 'space-between', // Distribute items evenly along the main axis
+        alignItems: 'center', // Align items to the center vertically
+        flexGrow: 1,
+    },
+    imageContainer: {
+        marginRight: 10,
+    },
     image: {
-        width: 200,
-        height: 120,
+        width: 100,
+        height: 80,
+    },
+    imageText: {
+        textAlign: 'center',
     },
 });
-
