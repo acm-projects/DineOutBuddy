@@ -49,7 +49,7 @@ const IndividualProfile = ({ navigation }) => {
           <View style={styles.option}>
             <View style={styles.optionImg}>
               <FeatherIcon size={24} name="bell" />
-              <Text style={styles.optionLabel}>Notifcation Settings</Text>
+              <Text style={styles.optionLabel}>Notification Settings</Text>
             </View>
             <FeatherIcon size={24} name="chevron-right" />
           </View>

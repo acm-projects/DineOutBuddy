@@ -21,7 +21,7 @@ const PreferencesScreen = ({ navigation }) => {
     "Halal",
     "Vegan",
     "Kosher",
-    "Pescantarianism",
+    "Pescatarianism",
     "Keto",
   ];
 
@@ -87,6 +87,7 @@ const PreferencesScreen = ({ navigation }) => {
           </TouchableOpacity>
         ))}
       </View>
+      <View style={{flex: 1}} />
       <View style={styles.navigationWrapper}>
         <Pressable onPress={handleSubmit} style={styles.button}>
           <View>
@@ -117,20 +118,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 75,
+    paddingTop: 60,
+    paddingBottom: 16,
     backgroundColor: "#F7FAFD",
   },
   blurb: {
     color: "#9DA7CD",
     fontSize: 16,
-    maxWidth: "50%",
+    maxWidth: "70%",
     marginBottom: 16,
+    fontFamily: "Metropolis-Medium"
   },
   title: {
     color: "#0093ED",
     fontSize: 32,
-    fontWeight: "bold",
-    marginBottom: 32,
+    fontFamily: "Metropolis-Black",
+    marginBottom: 48,
   },
   button: {
     height: 40,
@@ -142,6 +145,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
+    fontFamily: "Metropolis-Medium"
   },
   cardWrapper: {
     flexDirection: "row",
@@ -152,7 +156,7 @@ const styles = StyleSheet.create({
   card: {
     minWidth: 60,
     borderRadius: 40,
-    paddingHorizontal: 10,
+    paddingHorizontal: 18,
     paddingVertical: 8,
     borderWidth: 2,
     borderColor: "#0093ED",
@@ -161,10 +165,12 @@ const styles = StyleSheet.create({
   },
   cardText: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "Metropolis-SemiBold"
   },
   exitText: {
     color: "#9DA7CD",
     textAlign: "center",
+    fontFamily: "Metropolis-Medium"
   },
 });
+
