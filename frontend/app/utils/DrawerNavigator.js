@@ -117,13 +117,6 @@ const TabArr = [
     inActiveIcon: "person-circle-outline",
     component: IndividualProfile,
   },
-  {
-    route: "Test",
-    label: "Test",
-    activeIcon: "home",
-    inActiveIcon: "home-outline",
-    component: Test,
-  },
 ];
 
 const TabNavigator = () => {

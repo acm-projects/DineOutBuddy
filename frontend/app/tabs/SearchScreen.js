@@ -15,6 +15,7 @@ import RestaurantCard from "../components/RestaurantCard";
 import { useLogin } from "../../context/LoginProvider";
 import SearchModal from "../components/SearchModal";
 import { GlobalContext } from "../../context";
+import AppLoader from "../components/AppLoader";
 
 const SearchScreen = ({ navigation }) => {
   const { coordinates, profile } = useLogin();
@@ -67,6 +68,7 @@ const SearchScreen = ({ navigation }) => {
   const { modalVisible, setModalVisible } = useContext(GlobalContext);
   const [restaurants, setRestaurants] = useState([]); // Step 1: State to hold restaurant data
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const preferenceString = preferences.join(" and ");
 
@@ -75,8 +77,9 @@ const SearchScreen = ({ navigation }) => {
       try {
         console.log("Hello");
         console.log(preferenceString);
+        console.log(coordinates.latitude);
         const response = await fetch(
-          `http://10.122.139.198:8000/matchedRestaurants?lat=${
+          `http://192.168.50.72:8000/matchedRestaurants?lat=${
             coordinates.latitude
           }&lng=${coordinates.longitude}&restrictions=${"chicken"}`
         );
@@ -84,6 +87,7 @@ const SearchScreen = ({ navigation }) => {
 
         const data = await response.json();
         console.log(data);
+        setLoading(false);
         setRestaurants(data); // Assuming 'data' is the array of restaurants
       } catch (error) {
         console.log(error);
@@ -94,92 +98,99 @@ const SearchScreen = ({ navigation }) => {
   }, []); // Fetch data when component mounts
 
   return (
-    <View style={styles.container}>
-      <View style={styles.navbar}>
-        <View style={styles.inputContainer}>
-          <Pressable
-            onPress={() => {
-              console.log("pressed");
-            }}
-            style={styles.searchBtn}
-          >
-            <View>
-              <Icon name="search" size={15} color="white"></Icon>
-            </View>
-          </Pressable>
-          <TextInput
-            style={styles.input}
-            placeholder="Search"
-            placeholderTextColor={"white"}
-            onChangeText={(value) => {
-              setSearch(value);
-            }}
-            value={search}
-          ></TextInput>
-        </View>
-        <Pressable onPress={() => setModalVisible(true)}>
-          <Icon name={"cog"} size={25}></Icon>
-        </Pressable>
-      </View>
-
-      <MapView
-        style={styles.map}
-        provider={PROVIDER_GOOGLE}
-        initialRegion={INITIAL_REGION}
-        showsUserLocation
-        showsMyLocationButton
-        ref={mapRef}
-      >
-        {restaurants
-          .filter((restaurant) => {
-            return search.toLowerCase() === ""
-              ? restaurant
-              : restaurant.name.toLowerCase().includes(search.toLowerCase());
-          })
-          .map((restaurant, index) => (
-            <Marker
-              key={index}
-              coordinate={{
-                longitude: 32,
-                latitude: -96,
-                longitude: restaurant.lng,
-                latitude: restaurant.lat,
+    <>
+      <View style={styles.container}>
+        <View style={styles.navbar}>
+          <View style={styles.inputContainer}>
+            <Pressable
+              onPress={() => {
+                console.log("pressed");
               }}
-              onPress={() => onMarkerSelected(restaurant)}
+              style={styles.searchBtn}
             >
-              <Callout>
-                <View>
-                  <Text>{restaurant.name}</Text>
-                </View>
-              </Callout>
-            </Marker>
-          ))}
-      </MapView>
-      <ScrollView style={styles.cardWrapper}>
-        {restaurants
-          .filter((restaurant) => {
-            return search.toLowerCase() === ""
-              ? restaurant
-              : restaurant.name.toLowerCase().includes(search.toLowerCase());
-          })
-          .map((restaurant, index) => (
-            <RestaurantCard
-              key={index}
-              data={restaurant}
-              navigation={navigation}
-            />
-          ))}
-      </ScrollView>
-      {modalVisible && (
-        <SearchModal
-          allergies={allergies}
-          preferences={preferences}
-          cravings={cravings}
-          handleChange={handleChange}
-          handleGroupChange={handleGroupChange}
-        />
-      )}
-    </View>
+              <View>
+                <Icon name="search" size={15} color="white"></Icon>
+              </View>
+            </Pressable>
+            <TextInput
+              style={styles.input}
+              placeholder="Search"
+              placeholderTextColor={"white"}
+              onChangeText={(value) => {
+                setSearch(value);
+              }}
+              value={search}
+            ></TextInput>
+          </View>
+          <Pressable onPress={() => setModalVisible(true)}>
+            <Icon name={"cog"} size={25}></Icon>
+          </Pressable>
+        </View>
+
+        <MapView
+          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          initialRegion={INITIAL_REGION}
+          showsUserLocation
+          showsMyLocationButton
+          ref={mapRef}
+        >
+          {restaurants
+            .filter((restaurant) => {
+              return search.toLowerCase() === ""
+                ? restaurant
+                : restaurant.name.toLowerCase().includes(search.toLowerCase());
+            })
+            .map((restaurant, index) => (
+              <Marker
+                key={index}
+                coordinate={{
+                  longitude: 32,
+                  latitude: -96,
+                  longitude: restaurant.lng,
+                  latitude: restaurant.lat,
+                }}
+                onPress={() => onMarkerSelected(restaurant)}
+              >
+                <Image
+                  source={require("../../assets/marker.png")}
+                  style={{ height: 60, width: 60 }}
+                />
+                <Callout>
+                  <View>
+                    <Text>{restaurant.name}</Text>
+                  </View>
+                </Callout>
+              </Marker>
+            ))}
+        </MapView>
+        <ScrollView style={styles.cardWrapper}>
+          {loading && <AppLoader />}
+          {restaurants
+            .filter((restaurant) => {
+              return search.toLowerCase() === ""
+                ? restaurant
+                : restaurant.name.toLowerCase().includes(search.toLowerCase());
+            })
+            .map((restaurant, index) => (
+              <RestaurantCard
+                key={index}
+                data={restaurant}
+                navigation={navigation}
+              />
+            ))}
+        </ScrollView>
+        {modalVisible && (
+          <SearchModal
+            allergies={allergies}
+            preferences={preferences}
+            cravings={cravings}
+            handleChange={handleChange}
+            handleGroupChange={handleGroupChange}
+          />
+        )}
+      </View>
+    </>
   );
 };
 
@@ -206,7 +217,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     borderRadius: 10,
-    padding: 4,
+    padding: 8,
     paddingHorizontal: 10,
     backgroundColor: "#C4DDEF",
     marginBottom: 10,

@@ -19,11 +19,11 @@ export const sendMessage = asyncHandler(async (req, res) => {
   try {
     var message = await Message.create(newMessage);
 
-    message = await message.populate("sender", "username");
+    message = await message.populate("sender", "username avatar");
     message = await message.populate("chat");
     message = await User.populate(message, {
       path: "chat.users",
-      select: "username",
+      select: "username avatar",
     });
 
     await Chat.findByIdAndUpdate(req.body.chatId, {
@@ -42,7 +42,7 @@ export const allMessages = asyncHandler(async (req, res) => {
     const messages = await Message.find({
       chat: req.params.chatId,
     })
-      .populate("sender", "username")
+      .populate("sender", "username avatar")
       .populate("chat");
 
     res.json(messages);

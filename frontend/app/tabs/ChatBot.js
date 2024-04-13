@@ -10,6 +10,8 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import ChatHeader from "../components/ChatHeader";
 import { useNavigation } from "@react-navigation/native";
@@ -55,7 +57,11 @@ export default function ChatBotScreen() {
           </View>
         </View>
       </View>
-      <View style={styles.wrapper}>
+      <KeyboardAvoidingView
+        style={styles.wrapper}
+        enabled
+        behavior={Platform.OS === "ios" ? "padding" : null}
+      >
         <View
           style={[
             styles.wrapper,
@@ -110,7 +116,7 @@ export default function ChatBotScreen() {
             </View>
           </Pressable>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </>
   );
 }
@@ -170,7 +176,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F7FAFD",
     paddingHorizontal: 8,
-    paddingBottom: 100,
+    marginBottom: 100,
   },
   messageInputContainer: {
     maxHeight: 50,

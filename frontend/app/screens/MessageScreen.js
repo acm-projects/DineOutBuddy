@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import {
   View,
@@ -38,7 +38,11 @@ import {
 const MessagesScreen = ({ navigation }) => {
   const { modalVisible, setModalVisible } = useContext(GlobalContext);
   const { chats, fetchChats } = useLogin();
-  fetchChats();
+
+  useEffect(() => {
+    console.log("Fetching Chats");
+    fetchChats();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.header}>

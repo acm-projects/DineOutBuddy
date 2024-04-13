@@ -10,6 +10,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import ChatHeader from "../components/ChatHeader";
 import { useNavigation } from "@react-navigation/native";
@@ -59,7 +60,7 @@ export default function Messagescreen({ route }) {
   }, [chat]);
 
   useEffect(() => {
-    socket = io("http://10.122.139.198:8000");
+    socket = io("http://192.168.50.72:8000");
     socket.emit("setup", profile);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
@@ -145,7 +146,11 @@ export default function Messagescreen({ route }) {
           </View>
         </View>
       </View>
-      <View style={styles.wrapper}>
+      <KeyboardAvoidingView
+        style={styles.wrapper}
+        enabled
+        behavior={Platform.OS === "ios" ? "padding" : null}
+      >
         <View
           style={[
             styles.wrapper,
@@ -154,25 +159,40 @@ export default function Messagescreen({ route }) {
         >
           <ScrollView style={styles.messageContainer}>
             {messages.map((m, i) => (
-              <View key={m._id}>
-                {(isSameSender(messages, m, i, profile._id) ||
-                  isLastMessage(messages, i, profile._id)) && (
-                  <Text>From {m.sender.username} </Text> // {m.sender}
-                )}
-                <Text
+              <View key={m._id} style={{ borderRadius: 40 }}>
+                <View
                   style={{
                     backgroundColor: `${
-                      m.sender._id === profile._id ? "#C4DDEF" : "#F2F5F8"
+                      m.sender._id === profile._id ? "#0093ED" : "#C4DDEF"
                     }`,
-                    borderRadius: 20,
+                    color: `${
+                      m.sender._id === profile._id ? "#F7FAFD" : "#1D2235"
+                    }`,
+                    borderRadius: 15,
                     padding: 10,
                     maxWidth: "40%",
                     marginLeft: isSameSenderMargin(messages, m, i, profile._id),
                     marginTop: isSameUser(messages, m, i, profile._id) ? 3 : 10,
                   }}
                 >
-                  {m.content}
-                </Text>
+                  <Text
+                    style={{
+                      color: `${
+                        m.sender._id === profile._id ? "#F7FAFD" : "#1D2235"
+                      }`,
+                    }}
+                  >
+                    {m.content}
+                  </Text>
+                </View>
+
+                {(isSameSender(messages, m, i, profile._id) ||
+                  isLastMessage(messages, i, profile._id)) && (
+                  <Image
+                    source={{ uri: m.sender.avatar }}
+                    style={{ width: 40, height: 40, borderRadius: 20 }}
+                  />
+                )}
               </View>
             ))}
           </ScrollView>
@@ -220,7 +240,7 @@ export default function Messagescreen({ route }) {
             </View>
           </Pressable>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </>
   );
 }

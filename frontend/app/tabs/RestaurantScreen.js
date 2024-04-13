@@ -7,13 +7,11 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React, { useState,useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import FoodCard from "../components/FoodCard";
 import RestaurantCard from "../components/RestaurantCard";
 import ReviewCard from "../components/ReviewCard";
-
-
 
 const RestaurantScreen = ({ route }) => {
   const { data } = route.params;
@@ -25,46 +23,49 @@ const RestaurantScreen = ({ route }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch(`http://10.122.139.198:8000/restaurantDetails?placeId=${data.place_id}`);
+        const response = await fetch(
+          `http://192.168.50.72:8000/restaurantDetails?placeId=${data.place_id}`
+        );
         const json = await response.json();
-        setReviews(json.result.reviews || []); 
+        setReviews(json.result.reviews || []);
         //console.log(json.result.reviews);
       } catch (error) {
         console.error(error);
       }
     };
 
-  
-  const fetchRecommendedMenuItems = async () => {
-    try {
-      const response = await fetch(`http://10.122.139.198:8000/aichatfilter?message=${"allergies: peanut, " + data.menuString}`);
-      console.log(data.menuString + "HISSSS");
-      const json = await response.json();
-      console.log(json.response + "  test3");
-      const recommendedItemsStrings = JSON.parse(json.response);
-      console.log(recommendedItemsStrings + "  ");
+    const fetchRecommendedMenuItems = async () => {
+      try {
+        const response = await fetch(
+          `http://192.168.50.72:8000/aichatfilter?message=${
+            "allergies: peanut, " + data.menuString
+          }`
+        );
+        console.log(data.menuString + "HISSSS");
+        const json = await response.json();
+        console.log(json.response + "  test3");
+        const recommendedItemsStrings = JSON.parse(json.response);
+        console.log(recommendedItemsStrings + "  ");
 
-      const recommendedItems = recommendedItemsStrings.map(itemString => {
-      const parts = itemString.split(", $");
-      const name = parts[0];
-      const price = "" + parts[1] + " USD"; 
-      return { name, price };
-    });
+        const recommendedItems = recommendedItemsStrings.map((itemString) => {
+          const parts = itemString.split(", $");
+          const name = parts[0];
+          const price = "" + parts[1] + " USD";
+          return { name, price };
+        });
 
-      console.log(recommendedItems );
-      setRecommendedMenuItems(recommendedItems);
-    } catch (error) {
-      console.error("Error fetching recommended menu items:", error);
-    }
-  };
+        console.log(recommendedItems);
+        setRecommendedMenuItems(recommendedItems);
+      } catch (error) {
+        console.error("Error fetching recommended menu items:", error);
+      }
+    };
 
     fetchReviews();
     fetchRecommendedMenuItems();
   }, [data.place_id]);
 
-  
-
-  const priceLevelToDollarSign = (level) => { 
+  const priceLevelToDollarSign = (level) => {
     const levels = {
       1: "$",
       2: "$$",
@@ -77,8 +78,8 @@ const RestaurantScreen = ({ route }) => {
     "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
     data.photo +
     "&key=AIzaSyDlu9r4NNFvcpgeb1ggv4BK0HyYEh5cl-c";
-    console.log(data.name);
-    const menuItems = data.menuItems || [];
+  console.log(data.name);
+  const menuItems = data.menuItems || [];
   return (
     <ScrollView style={styles.container}>
       <ImageBackground style={styles.header} source={{ uri: photoUrl }}>
