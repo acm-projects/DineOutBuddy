@@ -31,7 +31,7 @@ export default function RestaurantHomeWrapper({ category }) {
       >
         {category.restaurants.map((restaurant) => {
           return (
-            <TouchableOpacity onPress={handlePress} key={restaurant.id}>
+            <TouchableOpacity onPress={handlePress} key={restaurant.name}>
               <Image
                 source={{
                   uri:

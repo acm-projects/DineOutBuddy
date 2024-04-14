@@ -77,7 +77,7 @@ const SearchScreen = ({ navigation }) => {
       try {
         console.log(coordinates);
         const response = await fetch(
-          `http://10.122.139.198:8000/matchedRestaurants?lat=${
+          `http://10.176.219.164:8000/matchedRestaurants?lat=${
             coordinates.latitude
           }&lng=${coordinates.longitude}&restrictions=${"Japanese"}`
         );

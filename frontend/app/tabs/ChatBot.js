@@ -28,7 +28,7 @@ export default function ChatBotScreen() {
       setNewMessage(""); // Clear the input field immediately after sending
       try {
         const response = await fetch(
-          `http://10.122.139.198:8000/aichat?message=${encodeURIComponent(
+          `http://10.176.219.164:8000/aichat?message=${encodeURIComponent(
             messageToSend
           )}`,
           {

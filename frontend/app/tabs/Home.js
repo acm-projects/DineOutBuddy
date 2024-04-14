@@ -27,7 +27,7 @@ import {
   JapaneseResturant,
   MexicanRestaurans,
   IndianRestaurans,
-  ThaiRestaurans
+  ThaiRestaurans,
 } from "../../data.js/Restaurantinfo";
 import RestaurantHomeWrapper from "../components/RestaurantHomeWrapper";
 
@@ -102,13 +102,12 @@ export default function Home() {
           <ForYou key={chat._id} chat={chat} />
         ))}
 
-        <RestaurantHomeWrapper category={AmericanRestaurants}/>
-        <RestaurantHomeWrapper category={ItalianRestaurans}/>
-        <RestaurantHomeWrapper category={JapaneseResturant}/>
-        <RestaurantHomeWrapper category={MexicanRestaurans}/>
-        <RestaurantHomeWrapper category={IndianRestaurans}/>
-        <RestaurantHomeWrapper category={ThaiRestaurans}/>
         <RestaurantHomeWrapper category={AmericanRestaurants} />
+        <RestaurantHomeWrapper category={ItalianRestaurans} />
+        <RestaurantHomeWrapper category={JapaneseResturant} />
+        <RestaurantHomeWrapper category={MexicanRestaurans} />
+        <RestaurantHomeWrapper category={IndianRestaurans} />
+        <RestaurantHomeWrapper category={ThaiRestaurans} />
       </ScrollView>
     </View>
   );

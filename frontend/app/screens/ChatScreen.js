@@ -60,7 +60,7 @@ export default function Messagescreen({ route }) {
   }, [chat]);
 
   useEffect(() => {
-    socket = io("http://10.122.139.198:8000");
+    socket = io("http://10.176.219.164:8000");
     socket.emit("setup", profile);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
@@ -125,10 +125,7 @@ export default function Messagescreen({ route }) {
             </View>
 
             <View style={styles.imgContainer}>
-              <Image
-                style={styles.image}
-                source={require("../../assets/users/user-1.jpg")}
-              />
+              <Image style={styles.image} source={{ uri: chat.avatar }} />
             </View>
             <Text style={styles.username}>{chat.chatName}</Text>
           </View>

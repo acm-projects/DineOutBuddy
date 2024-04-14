@@ -1,6 +1,8 @@
 import { Chat } from "../models/chat.js";
 import { User } from "../models/user.js";
 import asyncHandler from "express-async-handler";
+import sharp from "sharp";
+import cloudinary from "../helper/imageUpload.js";
 
 export const accessChat = asyncHandler(async (req, res) => {
   const { userId } = req.body;
@@ -194,3 +196,31 @@ export const removeFromGroup = asyncHandler(async (req, res) => {
     res.json(removed);
   }
 });
+
+export const uploadProfile = async (req, res) => {
+  const { chat } = req;
+
+  if (!chat)
+    return res
+      .status(401)
+      .json({ success: false, message: "unauthorized access" });
+
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      public_id: `${chat._id}_profile`,
+      width: 500,
+      height: 500,
+      crop: "fill",
+    });
+
+    await Chat.findByIdAndUpdate(chat._id, { avatar: result.url });
+    res
+      .status(201)
+      .json({ success: "true", message: "Your profile has updated" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ success: "false", message: "Server error, try again" });
+    console.log(error);
+  }
+};

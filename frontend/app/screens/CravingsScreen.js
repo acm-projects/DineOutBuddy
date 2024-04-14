@@ -14,7 +14,7 @@ import client from "../api/client";
 const CravingsScreen = ({ navigation }) => {
   const { profile } = useLogin();
 
-  const [cravings, setCravings] = useState([]);
+  const [cravings, setCravings] = useState(profile.cravings);
 
   const allCravings = [
     "Italian",

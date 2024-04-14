@@ -15,6 +15,7 @@ import {
 import { useLogin } from "../../context/LoginProvider";
 import UserCard from "../components/UserCard";
 import ImageUpload from "../components/ImageUpload";
+import GroupImageUpload from "../components/GroupImageUpload";
 
 const GroupProfileScreen = ({ route, navigation }) => {
   const { chat } = route.params;
@@ -135,7 +136,7 @@ const GroupProfileScreen = ({ route, navigation }) => {
         >
           <View style={styles.profileContainer}>
             <View>
-              <ImageUpload />
+              <GroupImageUpload chat={chat} />
             </View>
             <View style={styles.profileText}>
               <Text style={styles.title}>{chatDetails.chatName}</Text>

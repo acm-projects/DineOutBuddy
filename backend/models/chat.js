@@ -36,6 +36,11 @@ const chatSchema = mongoose.Schema(
       type: [{ type: String, required: true }],
       required: true,
     },
+    avatar: {
+      type: String,
+      default:
+        "http://res.cloudinary.com/drtqk4uaf/image/upload/v1711813461/bnsqohuak9luwzyarzss.png",
+    },
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );

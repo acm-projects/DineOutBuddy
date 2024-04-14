@@ -28,10 +28,7 @@ const GroupCard = ({ chat }) => {
     >
       <View style={styles.groupCard}>
         <View style={styles.imgContainer}>
-          <Image
-            style={styles.image}
-            source={require("../../assets/users/user-1.jpg")}
-          />
+          <Image style={styles.image} source={{ uri: chat.avatar }} />
         </View>
         <View style={styles.text}>
           <View style={styles.cardHeader}>

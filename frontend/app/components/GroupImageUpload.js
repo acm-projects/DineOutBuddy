@@ -5,7 +5,7 @@ import * as ImagePicker from "expo-image-picker";
 import client from "../api/client";
 import { useLogin } from "../../context/LoginProvider";
 
-const ImageUpload = () => {
+const GroupImageUpload = ({ chat }) => {
   const { profile } = useLogin();
   const [profileImage, setProfileImage] = useState("");
 
@@ -27,7 +27,7 @@ const ImageUpload = () => {
     }
   };
 
-  const uploadProfileImage = async () => {
+  const GroupImageUpload = async () => {
     const formData = new FormData();
     formData.append("profile", {
       name: new Date() + "_profile",
@@ -36,7 +36,7 @@ const ImageUpload = () => {
     });
 
     try {
-      const res = await client.post("/api/user/upload-profile", formData, {
+      const res = await client.post("/api/chats/upload-profile", formData, {
         headers: {
           Accept: "application/json",
           "Content-Type": "multipart/form-data",
@@ -55,8 +55,8 @@ const ImageUpload = () => {
       <View>
         <TouchableOpacity onPress={openImageLibrary} style={styles.uploadBtn}>
           <Image
-            source={{ uri: profile.avatar }}
-            style={{ width: "100%", height: "100%" }}
+            source={{ uri: chat.avatar }}
+            style={{ width: "100%", height: "100%", backgroundColor: "white" }}
           />
         </TouchableOpacity>
 
@@ -83,7 +83,7 @@ const ImageUpload = () => {
   );
 };
 
-export default ImageUpload;
+export default GroupImageUpload;
 
 const styles = StyleSheet.create({
   uploadBtn: {
