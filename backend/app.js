@@ -8,7 +8,6 @@ import aichatRoute from "./routes/aichat.js";
 import googleRoute from "./routes/google.js";
 import travelRoute from "./routes/travel.js";
 
-import { chats } from "./data/data.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
 
@@ -23,7 +22,7 @@ mongoose
     const io = new Server(httpServer, {
       pingTimeout: 60000,
       cors: {
-        origin: "http://10.122.139.198:8081",
+        origin: "http://192.168.50.72:8081",
       },
     });
 

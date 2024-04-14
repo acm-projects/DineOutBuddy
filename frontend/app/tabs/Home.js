@@ -1,11 +1,31 @@
 import React, { useRef, useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView, ImageBackgroundBase, ImageBackground, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Image,
+  ScrollView,
+  ImageBackgroundBase,
+  ImageBackground,
+  Dimensions,
+} from "react-native";
 import ForYou from "../components/ForYou";
 import { useLogin } from "../../context/LoginProvider";
 import Icon from "react-native-vector-icons/Ionicons";
-import { accentColor, darkColor, primaryColor, secondaryColor } from "../components/ComponentColors";
+import {
+  accentColor,
+  darkColor,
+  primaryColor,
+  secondaryColor,
+} from "../components/ComponentColors";
 import TopPick from "../components/TopPick";
-import fish from "../../assets/fish.png"
+import fish from "../../assets/fish.png";
+import {
+  AmericanRestaurants,
+  ItalianRestaurans,
+} from "../../data.js/Restaurantinfo";
+import RestaurantHomeWrapper from "../components/RestaurantHomeWrapper";
 
 export default function Home() {
   const { chats, fetchChats } = useLogin();
@@ -23,49 +43,49 @@ export default function Home() {
 
   const handleTopPickLeftScroll = () => {
     setTopScrollIndex(topPickScrollIndex - topPickScrollLength);
-    topPickRef.current.scrollTo({x: topPickScrollIndex, animated: true});
+    topPickRef.current.scrollTo({ x: topPickScrollIndex, animated: true });
   };
 
   const handleTopPickRightScroll = () => {
     setTopScrollIndex(topPickScrollIndex + topPickScrollLength);
-    topPickRef.current.scrollTo({x: topPickScrollIndex, animated: true});
+    topPickRef.current.scrollTo({ x: topPickScrollIndex, animated: true });
   };
 
   return (
     <View style={styles.container}>
-      <ScrollView 
-        style={styles.contentContainer} 
-        contentContainerStyle={{gap: 8}} 
+      <ScrollView
+        style={styles.contentContainer}
+        contentContainerStyle={{ gap: 8 }}
         nestedScrollEnabled={true}
       >
-        <View 
+        <View
           style={{
-            gap: 15, 
-            paddingVertical: 20, 
-            backgroundColor: primaryColor,            
+            gap: 15,
+            paddingVertical: 20,
+            backgroundColor: primaryColor,
             borderTopRightRadius: 20,
-            borderTopLeftRadius: 20
+            borderTopLeftRadius: 20,
           }}
         >
           <Text style={styles.header}>Top Picks in Your Area</Text>
-          
+
           <View style={styles.topPickContainer}>
             <TouchableOpacity onPress={handleTopPickLeftScroll}>
               <Icon name="chevron-back" size={30} color={darkColor} />
             </TouchableOpacity>
-            <View style={{flex: 1, borderRadius: 20}}>
-              <ScrollView 
-                contentContainerStyle={{gap: 22}} 
-                horizontal={true} 
-                ref={topPickRef} 
+            <View style={{ flex: 1, borderRadius: 20 }}>
+              <ScrollView
+                contentContainerStyle={{ gap: 22 }}
+                horizontal={true}
+                ref={topPickRef}
                 snapToInterval={topPickScrollLength}
                 showsHorizontalScrollIndicator={false}
               >
-                <TopPick/>
-                <TopPick/>
-                <TopPick/>
-                <TopPick/>
-                <TopPick/>
+                <TopPick />
+                <TopPick />
+                <TopPick />
+                <TopPick />
+                <TopPick />
               </ScrollView>
             </View>
             <TouchableOpacity onPress={handleTopPickRightScroll}>
@@ -78,6 +98,8 @@ export default function Home() {
           <ForYou key={chat._id} chat={chat} />
         ))}
 
+        <RestaurantHomeWrapper category={AmericanRestaurants} />
+        <RestaurantHomeWrapper category={ItalianRestaurans} />
       </ScrollView>
     </View>
   );
@@ -87,26 +109,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: accentColor,
-    paddingTop: 50
+    paddingTop: 50,
   },
   contentContainer: {
     backgroundColor: secondaryColor,
     height: Dimensions.get("window").height,
     borderTopRightRadius: 20,
-    borderTopLeftRadius: 20
+    borderTopLeftRadius: 20,
   },
   topPickContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginHorizontal: 8,
-    gap: 10
+    gap: 10,
   },
   header: {
     fontSize: 32,
     fontFamily: "Metropolis-Black",
     color: accentColor,
     paddingHorizontal: 32,
-//    width: "80%"
-  }
+    //    width: "80%"
+  },
 });
-

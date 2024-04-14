@@ -75,18 +75,16 @@ const SearchScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Hello");
-        console.log(preferenceString);
-        console.log(coordinates.latitude);
+        console.log(coordinates);
         const response = await fetch(
-          `http://10.122.139.198:8000/matchedRestaurants?lat=${
+          `http://192.168.50.72:8000/matchedRestaurants?lat=${
             coordinates.latitude
-          }&lng=${coordinates.longitude}&restrictions=${"chicken"}`
+          }&lng=${coordinates.longitude}&restrictions=${"Japanese"}`
         );
         //http://localhost:8000/matchedRestaurants?lat=32.7767&lng=-96.7970&restrictions=chicken
 
         const data = await response.json();
-        console.log(data + "hi");
+        console.log(data);
         setLoading(false);
         setRestaurants(data); // Assuming 'data' is the array of restaurants
       } catch (error) {

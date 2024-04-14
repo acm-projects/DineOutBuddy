@@ -24,7 +24,7 @@ const RestaurantScreen = ({ route }) => {
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `http://10.122.139.198:8000/restaurantDetails?placeId=${data.place_id}`
+          `http://192.168.50.72:8000/restaurantDetails?placeId=${data.place_id}`
         );
         const json = await response.json();
         setReviews(json.result.reviews || []);
@@ -37,7 +37,7 @@ const RestaurantScreen = ({ route }) => {
     const fetchRecommendedMenuItems = async () => {
       try {
         const response = await fetch(
-          `http://10.122.139.198:8000/aichatfilter?message=${
+          `http://192.168.50.72:8000/aichatfilter?message=${
             "allergies: peanut, " + data.menuString
           }`
         );

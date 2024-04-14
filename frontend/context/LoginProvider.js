@@ -32,6 +32,7 @@ const LoginProvider = ({ children }) => {
       try {
         const currLocation = await Location.getCurrentPositionAsync({});
         const { latitude, longitude } = currLocation.coords;
+        console.log(currLocation.coords);
         setCoordinates(currLocation.coords);
       } catch (error) {
         console.error(error.message);
