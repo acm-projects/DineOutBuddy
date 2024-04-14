@@ -79,14 +79,14 @@ const SearchScreen = ({ navigation }) => {
         console.log(preferenceString);
         console.log(coordinates.latitude);
         const response = await fetch(
-          `http://192.168.50.72:8000/matchedRestaurants?lat=${
+          `http://10.122.139.198:8000/matchedRestaurants?lat=${
             coordinates.latitude
           }&lng=${coordinates.longitude}&restrictions=${"chicken"}`
         );
         //http://localhost:8000/matchedRestaurants?lat=32.7767&lng=-96.7970&restrictions=chicken
 
         const data = await response.json();
-        console.log(data);
+        console.log(data + "hi");
         setLoading(false);
         setRestaurants(data); // Assuming 'data' is the array of restaurants
       } catch (error) {
