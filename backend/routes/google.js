@@ -102,6 +102,7 @@ router.get('/matchedRestaurants', async (req, res) => {
           lng: apiRestaurant.geometry.location.lng,
           vicinity: apiRestaurant.vicinity,
           rating: apiRestaurant.rating,
+          openNow: apiRestaurant.opening_hours?.open_now?.toString() ?? 'Unknown',
           price_level: apiRestaurant.price_level,
           category: closestMatch.category.split(','),
           user_ratings_total: apiRestaurant.user_ratings_total,
