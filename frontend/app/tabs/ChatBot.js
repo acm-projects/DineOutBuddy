@@ -1,46 +1,45 @@
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
-import {
-  FlatList,
-  Keyboard,
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
-import ChatHeader from "../components/ChatHeader";
-import { useNavigation } from "@react-navigation/native";
-import Icon from "@expo/vector-icons/FontAwesome";
-import client from "../api/client";
-import { useLogin } from "../../context/LoginProvider";
-import {
-  isLastMessage,
-  isSameSender,
-  isSameSenderMargin,
-  isSameUser,
-} from "../../config/ChatLogics";
-import io from "socket.io-client";
-import FeatherIcon from "react-native-vector-icons/Feather";
-
-var socket, selectedChatCompare;
+import React, { useState } from 'react';
+import { View, Text, TextInput, Pressable, Image, StyleSheet, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
+import { useLogin } from '../../context/LoginProvider';
 
 export default function ChatBotScreen() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const [socketConnected, setSocketConnected] = useState(false);
-  const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const navigation = useNavigation();
-  const { profile } = useLogin();
+  const { profile } = useLogin(); // Assuming profile includes user details
 
-  const fetchMessages = async () => {};
-
-  const sendMessage = async () => {};
+  const sendMessage = async () => {
+    if (newMessage.trim()) {
+        setIsTyping(true);
+        const messageToSend = newMessage;
+        setNewMessage(''); // Clear the input field immediately after sending
+        try {
+            const response = await fetch(`http://10.122.139.198:8000/aichat?message=${encodeURIComponent(messageToSend)}`, {
+                method: 'GET', // Specify the method, GET in this case
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+            if (response.ok) {
+                setMessages(prevMessages => [
+                    ...prevMessages,
+                    { content: messageToSend, sender: { _id: profile._id } }, // User's message
+                    { content: data.response, sender: { _id: 'bot' } } // Bot's response, assuming 'data.response' is the field where the bot's message is stored
+                ]);
+            } else {
+                console.error('Failed to fetch response:', data);
+            }
+            setIsTyping(false);
+        } catch (error) {
+            console.error('Failed to send message:', error);
+            setIsTyping(false);
+        }
+    }
+};
 
   return (
     <>
@@ -59,61 +58,28 @@ export default function ChatBotScreen() {
       </View>
       <KeyboardAvoidingView
         style={styles.wrapper}
-        enabled
-        behavior={Platform.OS === "ios" ? "padding" : null}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
       >
-        <View
-          style={[
-            styles.wrapper,
-            { paddingVertical: 15, paddingHorizontal: 10 },
-          ]}
-        >
-          <ScrollView style={styles.messageContainer}>
-            {/*messages.map((m, i) => (
-              <View key={m._id}>
-                {(isSameSender(messages, m, i, profile._id) ||
-                  isLastMessage(messages, i, profile._id)) && (
-                  <Text>From {m.sender.username} </Text> // {m.sender}
-                )}
-                <Text
-                  style={{
-                    backgroundColor: `${
-                      m.sender._id === profile._id ? "#C4DDEF" : "#F2F5F8"
-                    }`,
-                    borderRadius: 20,
-                    padding: 10,
-                    maxWidth: "40%",
-                    marginLeft: isSameSenderMargin(messages, m, i, profile._id),
-                    marginTop: isSameUser(messages, m, i, profile._id) ? 3 : 10,
-                  }}
-                >
-                  {m.content}
-                </Text>
+        <ScrollView style={styles.messageContainer} ref={ref => this.scrollView = ref}
+          onContentSizeChange={() => this.scrollView.scrollToEnd({ animated: true })}>
+          {messages.map((m, i) => (
+              <View key={i} style={styles.messageBox(m.sender._id === profile._id)}>
+                  <Text style={styles.messageText}>{m.content}</Text>
               </View>
-            ))*/}
-          </ScrollView>
-        </View>
-        {isTyping && <Text>Typing....</Text>}
-        <View style={styles.messageInputContainer}>
-          <Pressable
-            onPress={() => {
-              console.log("pressed");
-            }}
-            style={styles.cameraBtn}
-          >
-            <View>
-              <FeatherIcon name="camera" size={15} color="black"></FeatherIcon>
-            </View>
-          </Pressable>
+          ))}
+      </ScrollView>
+        {isTyping && <Text style={styles.typingText}>Typing...</Text>}
+        <View style={styles.inputContainer}>
           <TextInput
-            style={styles.messageInput}
-            placeholder="Enter your message"
+            style={styles.input}
+            placeholder="Type your message here..."
             value={newMessage}
+            onChangeText={setNewMessage}
+            onSubmitEditing={sendMessage}  // Trigger sending message on submit (optional)
           />
-          <Pressable onPress={sendMessage} style={styles.button}>
-            <View>
-              <FeatherIcon name="send" size={20} color="white"></FeatherIcon>
-            </View>
+          <Pressable onPress={sendMessage} style={styles.sendButton}>
+            <FeatherIcon name="send" size={24} color="white" />
           </Pressable>
         </View>
       </KeyboardAvoidingView>
@@ -211,4 +177,34 @@ const styles = StyleSheet.create({
     height: 30,
     borderRadius: 15,
   },
+  messageBox: isSelf => ({
+    backgroundColor: isSelf ? '#9fc5e8' : '#fff',
+    borderRadius: 20,
+    padding: 10,
+    marginVertical: 4,
+    alignSelf: isSelf ? 'flex-end' : 'flex-start'
+  }),
+  messageText: {
+    fontSize: 16,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    padding: 10,
+  },
+  input: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    marginRight: 10,
+  },
+  sendButton: {
+    padding: 10,
+    backgroundColor: '#007bff',
+    borderRadius: 50,
+  },
+  typingText: {
+    padding: 10,
+    fontStyle: 'italic',
+  }
 });
