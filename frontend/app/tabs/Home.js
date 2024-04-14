@@ -1,11 +1,19 @@
-import React from "react";
-import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView } from "react-native";
+import React, { useRef, useState } from "react";
+import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView, ImageBackgroundBase, ImageBackground, Dimensions } from "react-native";
 import ForYou from "../components/ForYou";
 import { useLogin } from "../../context/LoginProvider";
+import Icon from "react-native-vector-icons/Ionicons";
+import { accentColor, darkColor, primaryColor, secondaryColor } from "../components/ComponentColors";
+import TopPick from "../components/TopPick";
+import fish from "../../assets/fish.png"
 
 export default function Home() {
   const { chats, fetchChats } = useLogin();
   fetchChats();
+
+  const topPickScrollLength = Dimensions.get("window").width - 96 + 22; // -96 for horizontal padding, +22 for the gap between items
+  const [topPickScrollIndex, setTopScrollIndex] = useState(0);
+  const topPickRef = useRef(null);
 
   const handleClick = (type) => {
     console.log("Clicked", type);
@@ -13,53 +21,64 @@ export default function Home() {
     // navigation.navigate('Restaurant');
   };
 
+  const handleTopPickLeftScroll = () => {
+    setTopScrollIndex(topPickScrollIndex - topPickScrollLength);
+    topPickRef.current.scrollTo({x: topPickScrollIndex, animated: true});
+  };
+
+  const handleTopPickRightScroll = () => {
+    setTopScrollIndex(topPickScrollIndex + topPickScrollLength);
+    topPickRef.current.scrollTo({x: topPickScrollIndex, animated: true});
+  };
+
   return (
     <View style={styles.container}>
-      <View
-    style={{
-      borderBottomColor: 'skyblue',
-      borderBottomWidth: 80,
-      marginTop: -30,
-      marginBottom: 20,
-    }}
-  />
-  <Text style={styles.title}>Top Picks in Your Area</Text>
-  <ScrollView horizontal={true} style={{ marginBottom: 0 }}>
-    <TouchableOpacity
-        onPress={() => handleClick("fish")}
-        style={styles.topPickContainer}
+      <ScrollView 
+        style={styles.contentContainer} 
+        contentContainerStyle={{gap: 8}} 
+        nestedScrollEnabled={true}
       >
-        
-        <Image source={require("./fish.png")} style={styles.image} />
-        <Text style={styles.restaurantName}>Osaka Hibachi Sushi and Grill</Text>
-        <Text style={styles.rating}>4.3 (644) $$</Text>
-      </TouchableOpacity>
+        <View 
+          style={{
+            gap: 15, 
+            paddingVertical: 20, 
+            backgroundColor: primaryColor,            
+            borderTopRightRadius: 20,
+            borderTopLeftRadius: 20
+          }}
+        >
+          <Text style={styles.header}>Top Picks in Your Area</Text>
+          
+          <View style={styles.topPickContainer}>
+            <TouchableOpacity onPress={handleTopPickLeftScroll}>
+              <Icon name="chevron-back" size={30} color={darkColor} />
+            </TouchableOpacity>
+            <View style={{flex: 1, borderRadius: 20}}>
+              <ScrollView 
+                contentContainerStyle={{gap: 22}} 
+                horizontal={true} 
+                ref={topPickRef} 
+                snapToInterval={topPickScrollLength}
+                showsHorizontalScrollIndicator={false}
+              >
+                <TopPick/>
+                <TopPick/>
+                <TopPick/>
+                <TopPick/>
+                <TopPick/>
+              </ScrollView>
+            </View>
+            <TouchableOpacity onPress={handleTopPickRightScroll}>
+              <Icon name="chevron-forward" size={30} color={darkColor} />
+            </TouchableOpacity>
+          </View>
+        </View>
 
-      <TouchableOpacity
-        onPress={() => handleClick("fish")}
-        style={styles.topPickContainer}
-      >
-        
-        <Image source={require("./fish.png")} style={styles.image} />
-        <Text style={styles.restaurantName}>Osaka Hibachi Sushi and Grill</Text>
-        <Text style={styles.rating}>4.3 (644) $$</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => handleClick("fish")}
-        style={styles.topPickContainer}
-      >
-        
-        <Image source={require("./fish.png")} style={styles.image} />
-        <Text style={styles.restaurantName}>Osaka Hibachi Sushi and Grill</Text>
-        <Text style={styles.rating}>4.3 (644) $$</Text>
-      </TouchableOpacity>
-
-  </ScrollView>
-      
         {chats.map((chat, index) => (
-  <ForYou key={chat._id} chat={chat} style={{ marginBottom: 0, marginTop: 0 }} />
-))}
-      
+          <ForYou key={chat._id} chat={chat} />
+        ))}
+
+      </ScrollView>
     </View>
   );
 }
@@ -67,33 +86,27 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 0,
+    backgroundColor: accentColor,
+    paddingTop: 50
+  },
+  contentContainer: {
+    backgroundColor: secondaryColor,
+    height: Dimensions.get("window").height,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20
   },
   topPickContainer: {
-    // Add any styling you need for this container
-    marginBottom: -245,
-  },
-  text: {
-    // Your style for the "Top Picks in Your Area" text
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "blue",
-    marginTop: 0,
-    textAlign: "center",
-  },
-  image: {
-    // Your image style
+    flexDirection: "row",
     alignItems: "center",
+    marginHorizontal: 8,
+    gap: 10
   },
-  restaurantName: {
-    textAlign: "left",
-    // Any other styling you want
-  },
-  rating: {
-    fontWeight: "bold",
-    // Any other styling you want
-  },
+  header: {
+    fontSize: 32,
+    fontFamily: "Metropolis-Black",
+    color: accentColor,
+    paddingHorizontal: 32,
+//    width: "80%"
+  }
 });
 

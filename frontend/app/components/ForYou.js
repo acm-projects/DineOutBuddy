@@ -1,92 +1,95 @@
 import React from 'react';
 import { View, StyleSheet, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
-
+import { accentColor, darkColor, primaryColor } from './ComponentColors';
+import fish from "../../assets/fish.png"
 
 export default function ForYou({chat}) {
-    function handleClick(type) {
-        // Handle click event based on the type of image
+	function handlePress() {
+		console.log("Hello again");
+	}
 
-        console.log('Clicked:', type);
-        {/*
-        navigation.navigate('Restaurant');
-        */}
 
-    }
-    return (
-        <View style={styles.container}>
-            <Text style={styles.text}>For {chat.chatName}</Text>
-            
-             <ScrollView horizontal={true}>
-            <TouchableOpacity onPress={() => handleClick('fish')}>
-                    <Image source={require('./fish.png')} style={styles.image} />
-                    <Text style={{ textAlign: 'center' }}>Name</Text>
-            </TouchableOpacity>
+	return (
+		<View style={styles.container}>
+			<Text style={styles.title}>Group "{chat.chatName}" might like:</Text>
+			
+			<ScrollView 
+				horizontal={true} 
+				contentContainerStyle={styles.scrollViewContent}
+				showsHorizontalScrollIndicator={false}
+				snapToInterval={118}
+				decelerationRate={"fast"}
+			>
+				<TouchableOpacity onPress={handlePress}>
+					<Image source={fish} style={styles.image} />
+					<Text style={styles.nameText}>Torchy's Tacos</Text>
+				</TouchableOpacity>
+				
+				<TouchableOpacity onPress={handlePress}>
+					<Image source={fish} style={styles.image} />
+					<Text style={styles.nameText}>Name</Text>
+				</TouchableOpacity>
+				
+				<TouchableOpacity onPress={handlePress}>
+					<Image source={fish} style={styles.image} />
+					<Text style={styles.nameText}>Name</Text>
+				</TouchableOpacity>
+				
+				<TouchableOpacity onPress={handlePress}>
+					<Image source={fish} style={styles.image} />
+					<Text style={styles.nameText}>Name</Text>
+				</TouchableOpacity>
+				
+				<TouchableOpacity onPress={handlePress}>
+					<Image source={fish} style={styles.image} />
+					<Text style={styles.nameText}>Name</Text>
+				</TouchableOpacity>
 
-            <TouchableOpacity onPress={() => handleClick('fish')}>
-                    <Image source={require('./fish.png')} style={styles.image} />
-                    <Text style={{ textAlign: 'center' }}>Name</Text>
-            </TouchableOpacity>
+				<TouchableOpacity onPress={handlePress}>
+					<Image source={fish} style={styles.image} />
+					<Text style={styles.nameText}>Name</Text>
+				</TouchableOpacity>
 
-            <TouchableOpacity onPress={() => handleClick('fish')}>
-                    <Image source={require('./fish.png')} style={styles.image} />
-                    <Text style={{ textAlign: 'center' }}>Name</Text>
-            </TouchableOpacity>
+				<TouchableOpacity onPress={handlePress}>
+					<Image source={fish} style={styles.image} />
+					<Text style={styles.nameText}>Name</Text>
+				</TouchableOpacity>
+				
 
-            <TouchableOpacity onPress={() => handleClick('fish')}>
-                    <Image source={require('./fish.png')} style={styles.image} />
-                    <Text style={{ textAlign: 'center' }}>Name</Text>
-            </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => handleClick('fish')}>
-                    <Image source={require('./fish.png')} style={styles.image} />
-                    <Text style={{ textAlign: 'center' }}>Name</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => handleClick('fish')}>
-                    <Image source={require('./fish.png')} style={styles.image} />
-                    <Text style={{ textAlign: 'center' }}>Name</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => handleClick('fish')}>
-                    <Image source={require('./fish.png')} style={styles.image} />
-                    <Text style={{ textAlign: 'center' }}>Name</Text>
-            </TouchableOpacity>
-                
-
-            </ScrollView>
-            
-            
-        </View>
-    );
+			</ScrollView>
+			
+			
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
     container: {
-        marginBottom: 0,
-        marginTop: 0,
-        alignItems: 'flex-start', // Align items to the start of the container
-        flex: 1,
+        paddingVertical: 14,
+        alignItems: 'flex-start',
+        gap: 9,
+				backgroundColor: primaryColor
     },
-    text: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 10,
-        marginTop: 0, // Remove margin above the text
+    title: {
+        fontSize: 24,
+        fontFamily: "Metropolis-Bold",
+        color: darkColor,
+				paddingLeft: 16
     },
     scrollViewContent: {
-        flexDirection: 'row', // Arrange items horizontally
-        justifyContent: 'space-between', // Distribute items evenly along the main axis
-        alignItems: 'center', // Align items to the center vertically
-        flexGrow: 1,
-    },
-    imageContainer: {
-        marginRight: 10,
+			gap: 18,
+			paddingLeft: 16
     },
     image: {
-        width: 100,
-        height: 80,
+        width: 130,
+        height: 100,
+				borderRadius: 8
     },
-    imageText: {
+    nameText: {
         textAlign: 'center',
+        fontFamily: "Metropolis-Medium",
+        fontSize: 14,
+        color: darkColor
     },
 });
