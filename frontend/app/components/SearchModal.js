@@ -27,6 +27,7 @@ const SearchModal = ({
   cravings,
   handleChange,
   handleGroupChange,
+  fetchData,
 }) => {
   const { chats } = useLogin();
   const { modalVisible, setModalVisible } = useContext(GlobalContext);
@@ -78,7 +79,12 @@ const SearchModal = ({
         setModalVisible(!modalVisible);
       }}
     >
-      <View style={styles.centeredView}>
+      <TouchableOpacity
+        style={styles.centeredView}
+        onPress={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
         <View style={[styles.modalView]}>
           {groupsVisible ? (
             <View style={styles.groupModal}>
@@ -97,7 +103,7 @@ const SearchModal = ({
                           <View style={styles.imgContainer}>
                             <Image
                               style={styles.image}
-                              source={require("../../assets/users/user-1.jpg")}
+                              source={{ uri: chat.avatar }}
                             />
                           </View>
                           <View style={styles.text}>
@@ -244,7 +250,10 @@ const SearchModal = ({
               <View style={styles.buttonWrapper}>
                 <Pressable
                   style={styles.button}
-                  onPress={() => setModalVisible(false)}
+                  onPress={() => {
+                    setModalVisible(false);
+                    fetchData();
+                  }}
                 >
                   <View>
                     <Text style={styles.buttonText}>Save Changes</Text>
@@ -254,7 +263,7 @@ const SearchModal = ({
             </>
           )}
         </View>
-      </View>
+      </TouchableOpacity>
     </Modal>
   );
 };

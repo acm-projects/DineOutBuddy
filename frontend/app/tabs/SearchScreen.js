@@ -70,28 +70,29 @@ const SearchScreen = ({ navigation }) => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const preferenceString = preferences.join(" and ");
+  const cravingString = cravings.join(" or ");
+  console.log(cravingString);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      console.log(coordinates);
+      const response = await fetch(
+        `http://IPADDRESS:8000/matchedRestaurants?lat=${coordinates.latitude}&lng=${coordinates.longitude}&restrictions=${cravings}`
+      );
+      //http://localhost:8000/matchedRestaurants?lat=32.7767&lng=-96.7970&restrictions=chicken
+
+      const data = await response.json();
+      console.log(data);
+      setLoading(false);
+      setRestaurants(data); // Assuming 'data' is the array of restaurants
+    } catch (error) {
+      console.log(error);
+      console.log("Error in search");
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log(coordinates);
-        const response = await fetch(
-          `http://IPADDRESS:8000/matchedRestaurants?lat=${
-            coordinates.latitude
-          }&lng=${coordinates.longitude}&restrictions=${"Japanese"}`
-        );
-        //http://localhost:8000/matchedRestaurants?lat=32.7767&lng=-96.7970&restrictions=chicken
-
-        const data = await response.json();
-        console.log(data);
-        setLoading(false);
-        setRestaurants(data); // Assuming 'data' is the array of restaurants
-      } catch (error) {
-        console.log(error);
-        console.log("Error in search");
-      }
-    };
     fetchData();
   }, []); // Fetch data when component mounts
 
@@ -156,6 +157,15 @@ const SearchScreen = ({ navigation }) => {
                 />
                 <Callout>
                   <View>
+                    <Image
+                      style={{ width: 100, height: 100 }}
+                      source={{
+                        uri:
+                          "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
+                          restaurant.photo +
+                          "&key=AIzaSyDlu9r4NNFvcpgeb1ggv4BK0HyYEh5cl-c",
+                      }}
+                    />
                     <Text>{restaurant.name}</Text>
                   </View>
                 </Callout>
@@ -185,6 +195,7 @@ const SearchScreen = ({ navigation }) => {
             cravings={cravings}
             handleChange={handleChange}
             handleGroupChange={handleGroupChange}
+            fetchData={fetchData}
           />
         )}
       </View>

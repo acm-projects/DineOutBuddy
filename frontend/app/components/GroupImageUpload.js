@@ -32,21 +32,19 @@ const GroupImageUpload = ({ chat }) => {
     formData.append("profile", {
       name: new Date() + "_profile",
       uri: profileImage,
+
       type: "image/jpg",
     });
+    formData.append("chatID", chat.id);
 
     try {
-      const res = await client.post(
-        "/api/chat/upload-profile",
-        { formData: formData, chat: chat },
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "multipart/form-data",
-            authorization: `JWT ${profile.token}`,
-          },
-        }
-      );
+      const res = await client.post("/api/chat/upload-profile", formData, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+          authorization: `JWT ${profile.token}`,
+        },
+      });
 
       console.log(res.data);
     } catch (error) {

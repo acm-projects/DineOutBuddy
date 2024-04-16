@@ -18,6 +18,7 @@ import { useLogin } from "../../context/LoginProvider";
 import axios from "axios";
 import client from "../api/client";
 import UserCard from "./UserCard";
+import Tag from "./Tag";
 
 const NewGroupModal = () => {
   const { profile, chats, setChats } = useLogin();
@@ -160,24 +161,30 @@ const NewGroupModal = () => {
             onChangeText={(value) => handleSearch(value)}
             value={search}
           />
-          {selectedUsers.map((user) => (
-            <TouchableOpacity
-              key={user._id}
-              style={{
-                backgroundColor: "#C4DDEF",
-                marginBottom: 10,
-                borderWidth: 0.5,
-                borderRadius: 10,
-                paddingVertical: 3,
-                marginBottom: 10,
-              }}
-              onPress={() => {
-                handleDelete(user);
-              }}
-            >
-              <UserCard user={user} />
-            </TouchableOpacity>
-          ))}
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              gap: 4,
+              maxWidth: "100%",
+            }}
+          >
+            {selectedUsers.map((user) => (
+              <TouchableOpacity
+                key={user._id}
+                style={{
+                  marginBottom: 2,
+                  paddingVertical: 3,
+                }}
+                onPress={() => {
+                  handleDelete(user);
+                }}
+              >
+                <Tag content={user.fullname} />
+              </TouchableOpacity>
+            ))}
+          </View>
+
           {searchResult?.slice(0, 6).map((user) => (
             <TouchableOpacity
               key={user._id}

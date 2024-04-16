@@ -199,8 +199,8 @@ export const removeFromGroup = asyncHandler(async (req, res) => {
 
 export const uploadProfile = async (req, res) => {
   const { user } = req;
-  const { chat } = req.body;
-  console.log(chat);
+  const chatId = req.body.chatID;
+  console.log(chatId);
 
   if (!user)
     return res
@@ -209,13 +209,13 @@ export const uploadProfile = async (req, res) => {
 
   try {
     const result = await cloudinary.uploader.upload(req.file.path, {
-      public_id: `${chat._id}_profile`,
+      public_id: `${chatId}_profile`,
       width: 500,
       height: 500,
       crop: "fill",
     });
 
-    await Chat.findByIdAndUpdate(chat._id, { avatar: result.url });
+    await Chat.findByIdAndUpdate(chatId, { avatar: result.url });
     res
       .status(201)
       .json({ success: "true", message: "Your profile has updated" });

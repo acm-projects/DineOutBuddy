@@ -37,6 +37,7 @@ export default function Home({ navigation }) {
 
   useEffect(() => {
     fetchChats();
+    fetchData();
   }, []);
 
   const fetchData = async () => {
@@ -121,7 +122,6 @@ export default function Home({ navigation }) {
         </View>
 
         {chats.map((chat, index) => {
-          fetchData();
           return (
             <ForYou key={chat._id} chat={chat} restaurants={restaurants} />
           );

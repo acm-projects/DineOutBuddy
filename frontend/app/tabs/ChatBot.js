@@ -20,7 +20,12 @@ import {
 } from "../components/ComponentColors";
 
 export default function ChatBotScreen() {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    {
+      content: "Hello! My Name is Dino! How can I assist you today?",
+      sender: { _id: "bot" },
+    },
+  ]);
   const [newMessage, setNewMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const navigation = useNavigation();
@@ -69,7 +74,7 @@ export default function ChatBotScreen() {
             <View style={styles.imgContainer}>
               <Image
                 style={styles.image}
-                source={require("../../assets/users/user-1.jpg")}
+                source={require("../../assets/users/chatBot.png")}
               />
             </View>
             <Text style={styles.username}>DinoBuddy</Text>
@@ -93,7 +98,16 @@ export default function ChatBotScreen() {
               key={i}
               style={styles.messageBox(m.sender._id === profile._id)}
             >
-              <Text style={styles.messageText}>{m.content}</Text>
+              <Text
+                style={{
+                  color: `${
+                    m.sender._id === profile._id ? "#F7FAFD" : "#1D2235"
+                  }`,
+                  fontSize: 16,
+                }}
+              >
+                {m.content}
+              </Text>
             </View>
           ))}
         </ScrollView>
@@ -101,7 +115,7 @@ export default function ChatBotScreen() {
         <View style={styles.bottomBar}>
           <View style={styles.messageInputContainer}>
             <TextInput
-              style={styles.input}
+              style={styles.messageInput}
               placeholder="Type your message here..."
               value={newMessage}
               onChangeText={setNewMessage}
@@ -136,6 +150,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 20,
   },
   profile: {
     flexDirection: "row",
@@ -145,9 +160,9 @@ const styles = StyleSheet.create({
     flex: 4,
   },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
   },
   imgContainer: {
     elevation: 15,
@@ -172,23 +187,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F7FAFD",
     paddingHorizontal: 8,
-    marginBottom: 100,
+    marginBottom: 50,
   },
   messageInputContainer: {
     maxHeight: 50,
     width: "80%",
-    paddingHorizontal: 8,
     borderRadius: 50,
     borderColor: "#C4DDEF",
+
     backgroundColor: primaryColor,
     borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    marginBottom: 30,
+    marginBottom: 0,
   },
   messageInput: {
-    color: "white",
+    color: accentColor,
     padding: 15,
     flex: 1,
     borderRadius: 50,
@@ -202,16 +217,9 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     backgroundColor: accentColor,
   },
-  cameraBtn: {
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-  },
+
   messageBox: (isSelf) => ({
-    backgroundColor: isSelf ? "#9fc5e8" : "#fff",
+    backgroundColor: isSelf ? "#0093ED" : "#C4DDEF",
     borderRadius: 20,
     padding: 10,
     marginVertical: 4,
@@ -229,7 +237,6 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#fff",
     borderRadius: 20,
-    marginRight: 10,
   },
   sendButton: {
     padding: 10,
