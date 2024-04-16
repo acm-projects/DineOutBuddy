@@ -26,7 +26,7 @@ export default function RestaurantHomeWrapper({ category }) {
         horizontal={true}
         contentContainerStyle={styles.scrollViewContent}
         showsHorizontalScrollIndicator={false}
-        snapToInterval={245}
+        snapToInterval={118}
         decelerationRate={"fast"}
       >
         {category.restaurants.map((restaurant) => {
