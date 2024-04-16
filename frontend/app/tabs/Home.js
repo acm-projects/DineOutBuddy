@@ -80,46 +80,46 @@ export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        style={styles.contentContainer}
-        contentContainerStyle={{ gap: 8 }}
-        nestedScrollEnabled={true}
-      >
-        <View
-          style={{
-            gap: 15,
-            paddingVertical: 20,
-            backgroundColor: primaryColor,
-            borderTopRightRadius: 20,
-            borderTopLeftRadius: 20,
-          }}
+      <View style={styles.contentContainer}>
+        <ScrollView
+          contentContainerStyle={{ gap: 8 }}
+          nestedScrollEnabled={true}
         >
-          <Text style={styles.header}>Top Picks in Your Area</Text>
+          <View
+            style={{
+              gap: 15,
+              paddingVertical: 20,
+              backgroundColor: primaryColor,
+              borderTopRightRadius: 20,
+              borderTopLeftRadius: 20,
+            }}
+          >
+            <Text style={styles.header}>Top Picks in Your Area</Text>
 
-          <View style={styles.topPickContainer}>
-            <TouchableOpacity onPress={handleTopPickLeftScroll}>
-              <Icon name="chevron-back" size={30} color={darkColor} />
-            </TouchableOpacity>
-            <View style={{ flex: 1, borderRadius: 20 }}>
-              <ScrollView
-                contentContainerStyle={{ gap: 22 }}
-                horizontal={true}
-                ref={topPickRef}
-                snapToInterval={topPickScrollLength}
-                showsHorizontalScrollIndicator={false}
-              >
-                <TopPick />
-                <TopPick />
-                <TopPick />
-                <TopPick />
-                <TopPick />
-              </ScrollView>
+            <View style={styles.topPickContainer}>
+              <TouchableOpacity onPress={handleTopPickLeftScroll}>
+                <Icon name="chevron-back" size={30} color={darkColor} />
+              </TouchableOpacity>
+              <View style={{ flex: 1, borderRadius: 20 }}>
+                <ScrollView
+                  contentContainerStyle={{ gap: 22 }}
+                  horizontal={true}
+                  ref={topPickRef}
+                  snapToInterval={topPickScrollLength}
+                  showsHorizontalScrollIndicator={false}
+                >
+                  <TopPick />
+                  <TopPick />
+                  <TopPick />
+                  <TopPick />
+                  <TopPick />
+                </ScrollView>
+              </View>
+              <TouchableOpacity onPress={handleTopPickRightScroll}>
+                <Icon name="chevron-forward" size={30} color={darkColor} />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={handleTopPickRightScroll}>
-              <Icon name="chevron-forward" size={30} color={darkColor} />
-            </TouchableOpacity>
           </View>
-        </View>
 
         {chats.map((chat, index) => {
           return (
@@ -134,6 +134,7 @@ export default function Home({ navigation }) {
         <RestaurantHomeWrapper category={IndianRestaurans} />
         <RestaurantHomeWrapper category={ThaiRestaurans} />
       </ScrollView>
+      </View>
     </View>
   );
 }
@@ -149,6 +150,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
+    overflow: "hidden"
   },
   topPickContainer: {
     flexDirection: "row",

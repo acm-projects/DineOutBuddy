@@ -7,7 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { accentColor, darkColor, primaryColor } from "./ComponentColors";
+import { accentColor, darkColor, lavenderColor, primaryColor } from "./ComponentColors";
 import fish from "../../assets/fish.png";
 
 export default function RestaurantHomeWrapper({ category }) {
@@ -21,7 +21,7 @@ export default function RestaurantHomeWrapper({ category }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{category.Cuisine}:</Text>
+      <Text style={styles.title}>{category.Cuisine}</Text>
       <ScrollView
         horizontal={true}
         contentContainerStyle={styles.scrollViewContent}
@@ -31,7 +31,7 @@ export default function RestaurantHomeWrapper({ category }) {
       >
         {category.restaurants.map((restaurant) => {
           return (
-            <TouchableOpacity onPress={handlePress} key={restaurant.name}>
+            <TouchableOpacity onPress={handlePress} key={restaurant.name} style={styles.restaurantContainer}>
               <Image
                 source={{
                   uri:
@@ -41,7 +41,10 @@ export default function RestaurantHomeWrapper({ category }) {
                 }}
                 style={styles.image}
               />
-              <Text style={styles.nameText}>{restaurant.name}</Text>
+              <View>
+                <Text style={styles.nameText} numberOfLines={1}>{restaurant.name}</Text>
+                <Text style={styles.infoText}>4.5 ★ (233) | $$</Text>
+              </View>
             </TouchableOpacity>
           );
         })}
@@ -64,18 +67,26 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
   },
   scrollViewContent: {
-    gap: 18,
-    paddingLeft: 16,
+    gap: 25,
+    paddingHorizontal: 16,
+  },
+  restaurantContainer: {
+    width: 220,
+    gap: 6
   },
   image: {
-    width: 130,
-    height: 100,
+    width: 220,
+    height: 130,
     borderRadius: 8,
   },
   nameText: {
-    textAlign: "center",
-    fontFamily: "Metropolis-Medium",
-    fontSize: 14,
-    color: darkColor,
+    fontFamily: "Metropolis-SemiBold",
+    fontSize: 17,
+    color: darkColor
   },
+  infoText: {
+    fontFamily: "Metropolis-SemiBold",
+    fontSize: 14,
+    color: lavenderColor
+  }
 });

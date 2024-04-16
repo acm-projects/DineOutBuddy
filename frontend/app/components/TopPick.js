@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import fish from "../../assets/fish.png";
 import restaurantPic from "../../assets/restaurantPic.png";
-import { darkColor, primaryColor, secondaryColor } from "./ComponentColors";
+import { darkColor, lavenderColor, primaryColor, secondaryColor } from "./ComponentColors";
 import { useNavigation } from "@react-navigation/native";
 
 export default function TopPick(props) {
@@ -42,30 +42,30 @@ export default function TopPick(props) {
 }
 
 const styles = StyleSheet.create({
-  card: {
-    borderRadius: 20,
-    width: Dimensions.get("window").width - 96, // -96 bc 48*2 = 96, and 48 is basically the horizontal margin for these views
-    aspectRatio: 1.5,
-    flexDirection: "column-reverse",
-  },
-  cardFooter: {
-    backgroundColor: primaryColor,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    borderLeftWidth: 2,
-    borderRightWidth: 2,
-    borderBottomWidth: 2,
-    borderColor: secondaryColor,
-    paddingHorizontal: 20,
-  },
-  titleText: {
-    fontFamily: "Metropolis-Bold",
-    fontSize: 20,
-    color: darkColor,
-  },
-  subtitleText: {
-    fontFamily: "Metropolis-SemiBold",
-    fontSize: 16,
-    color: "#A2A6B5",
-  },
+	card: {
+		borderRadius: 20,
+		width: Dimensions.get("window").width - 96, // -96 bc 48*2 = 96, and 48 is basically the horizontal margin for these views
+		aspectRatio: 1.5,
+		flexDirection: "column-reverse"
+	},
+	cardFooter: {
+		backgroundColor: primaryColor,
+		borderBottomLeftRadius: 20,
+		borderBottomRightRadius: 20,
+		borderLeftWidth: 2,
+		borderRightWidth: 2,
+		borderBottomWidth: 2,
+		borderColor: secondaryColor,
+		paddingHorizontal: 20
+	},
+	titleText: {
+		fontFamily: "Metropolis-Bold",
+		fontSize: 20,
+		color: darkColor
+	},
+	subtitleText: {
+		fontFamily: "Metropolis-SemiBold",
+		fontSize: 16,
+		color: lavenderColor
+	}
 });
