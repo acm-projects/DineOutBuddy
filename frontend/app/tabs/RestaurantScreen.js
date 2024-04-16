@@ -12,23 +12,25 @@ import Icon from "react-native-vector-icons/Ionicons";
 import FoodCard from "../components/FoodCard";
 import RestaurantCard from "../components/RestaurantCard";
 import ReviewCard from "../components/ReviewCard";
+import Tag from "../components/Tag";
 
 const RestaurantScreen = ({ route }) => {
   const { data } = route.params;
   const [rating, setRating] = useState(data.rating);
   const [reviews, setReviews] = useState([]);
   const [recommendedMenuItems, setRecommendedMenuItems] = useState([]);
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
+    console.log(data);
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `http://10.176.219.164:8000/restaurantDetails?placeId=${data.place_id}`
+          `http://IPADDRESS:8000/restaurantDetails?placeId=${data.place_id}`
         );
         const json = await response.json();
         setReviews(json.result.reviews || []);
-        //console.log(json.result.reviews);
+        console.log(json.result.reviews);
       } catch (error) {
         console.error(error);
       }
@@ -37,7 +39,7 @@ const RestaurantScreen = ({ route }) => {
     const fetchRecommendedMenuItems = async () => {
       try {
         const response = await fetch(
-          `http://10.176.219.164:8000/aichatfilter?message=${
+          `http://IPADDRESS:8000/aichatfilter?message=${
             "allergies: peanut, " + data.menuString
           }`
         );
@@ -93,15 +95,9 @@ const RestaurantScreen = ({ route }) => {
           </Text>
         </View>
         <View style={styles.tagWrapper}>
-          <View style={styles.tag}>
-            <Text style={styles.tagText}>{data.category[0]}</Text>
-          </View>
-          <View style={styles.tag}>
-            <Text style={styles.tagText}>{data.category[1]}</Text>
-          </View>
-          <View style={styles.tag}>
-            <Text style={styles.tagText}>{data.category[2]}</Text>
-          </View>
+          {[...Array(data.category.length)].map((star, i) => {
+            return <Tag content={data.category[i]} key={i} />;
+          })}
         </View>
       </ImageBackground>
       <View style={styles.main}>
@@ -127,14 +123,12 @@ const RestaurantScreen = ({ route }) => {
             {[...Array(5)].map((star, i) => {
               currentValue = i + 1;
               return (
-                <>
-                  <Icon
-                    name={"star"}
-                    color={currentValue <= rating ? "#0093ED" : "black"}
-                    key={i}
-                    size={15}
-                  />
-                </>
+                <Icon
+                  name={"star"}
+                  color={currentValue <= rating ? "#0093ED" : "black"}
+                  key={i}
+                  size={15}
+                />
               );
             })}
           </View>

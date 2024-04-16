@@ -26,6 +26,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import PreferencesScreen from "../screens/PreferencesScreen";
 import CravingsScreen from "../screens/CravingsScreen";
 import ChatBotScreen from "../tabs/ChatBot";
+import OsakaRestaurantScreen from "../screens/OsakaRestaurantScreen";
 
 function MyTabBar({ state, descriptors, navigation }) {
   return (
@@ -127,7 +128,8 @@ const TabNavigator = () => {
         tabBarStyle: {
           height: 60,
           position: "absolute",
-          bottom: 16,
+
+          bottom: 0,
           right: 16,
           left: 16,
           borderRadius: 16,
@@ -171,6 +173,10 @@ const HomeNavigator = () => {
       <Stack.Screen component={PreferencesScreen} name="PreferencesScreen" />
       <Stack.Screen component={CravingsScreen} name="CravingsScreen" />
       <Stack.Screen component={RestaurantScreen} name="RestaurantScreen" />
+      <Stack.Screen
+        component={OsakaRestaurantScreen}
+        name="OsakaRestaurantScreen"
+      />
     </Stack.Navigator>
   );
 };

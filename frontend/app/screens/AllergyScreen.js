@@ -12,7 +12,7 @@ import { useLogin } from "../../context/LoginProvider";
 import client from "../api/client";
 
 const AllergyScreen = ({ navigation }) => {
-  const { profile } = useLogin();
+  const { profile, setProfile } = useLogin();
 
   const [allergies, setAllergies] = useState(profile.allergies);
 
@@ -52,6 +52,12 @@ const AllergyScreen = ({ navigation }) => {
         }
       );
       console.log(data);
+      setProfile((prev) => {
+        return {
+          ...prev,
+          allergies: data.allergies,
+        };
+      });
 
       navigation.navigate("PreferencesScreen");
     } catch (error) {

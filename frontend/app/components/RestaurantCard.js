@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import React from "react";
+import Tag from "./Tag";
 
 const RestaurantCard = ({ data, navigation }) => {
   const priceLevelToDollarSign = (level) => {
@@ -15,8 +16,13 @@ const RestaurantCard = ({ data, navigation }) => {
   //console.log(data.photos[0].photo_reference);
   let photoUrl =
     "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
-     data.photo +
+    data.photo +
     "&key=AIzaSyDlu9r4NNFvcpgeb1ggv4BK0HyYEh5cl-c";
+
+  const findTagCount = (count) => {
+    if (count > 4) return 4;
+    else return count;
+  };
 
   return (
     <Pressable
@@ -38,18 +44,13 @@ const RestaurantCard = ({ data, navigation }) => {
               {data.rating} (40) | {priceLevelToDollarSign(data.price_level)} |
               5.6 mi
             </Text>
+            <Text style={styles.infoText}>Open Now</Text>
           </View>
           <Text style={styles.subHeading}> Tags </Text>
           <View style={styles.tagWrapper}>
-            <View style={styles.tag}>
-              <Text style={styles.tagText}>{data.category[0]}</Text>
-            </View>
-            <View style={styles.tag}>
-              <Text style={styles.tagText}>{data.category[1]}</Text>
-            </View>
-            <View style={styles.tag}>
-              <Text style={styles.tagText}>{data.category[2]}</Text>
-            </View>
+            {[...Array(findTagCount(data.category.length))].map((star, i) => {
+              return <Tag content={data.category[i]} key={i} />;
+            })}
           </View>
         </View>
       </View>
@@ -84,6 +85,7 @@ const styles = StyleSheet.create({
   },
   tagWrapper: {
     flexDirection: "row",
+    flexWrap: "wrap",
     gap: 6,
   },
   tag: {

@@ -36,13 +36,17 @@ const GroupImageUpload = ({ chat }) => {
     });
 
     try {
-      const res = await client.post("/api/chats/upload-profile", formData, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data",
-          authorization: `JWT ${profile.token}`,
-        },
-      });
+      const res = await client.post(
+        "/api/chat/upload-profile",
+        { formData: formData, chat: chat },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "multipart/form-data",
+            authorization: `JWT ${profile.token}`,
+          },
+        }
+      );
 
       console.log(res.data);
     } catch (error) {
@@ -73,7 +77,7 @@ const GroupImageUpload = ({ chat }) => {
               color: "white",
               borderRadius: 8,
             }}
-            onPress={uploadProfileImage}
+            onPress={GroupImageUpload}
           >
             Upload
           </Text>

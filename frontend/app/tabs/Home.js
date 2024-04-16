@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -31,9 +31,31 @@ import {
 } from "../../data.js/Restaurantinfo";
 import RestaurantHomeWrapper from "../components/RestaurantHomeWrapper";
 
-export default function Home() {
-  const { chats, fetchChats } = useLogin();
-  fetchChats();
+export default function Home({ navigation }) {
+  const { chats, fetchChats, coordinates } = useLogin();
+  const [restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+    fetchChats();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      console.log(coordinates);
+      const response = await fetch(
+        `http://IPADDRESS:8000/matchedRestaurants?lat=${
+          coordinates.latitude
+        }&lng=${coordinates.longitude}&restrictions=${"Japanese"}`
+      );
+
+      const data = await response.json();
+      console.log(data);
+      setRestaurants(data); // Assuming 'data' is the array of restaurants
+    } catch (error) {
+      console.log(error);
+      console.log("Error in search");
+    }
+  };
 
   const topPickScrollLength = Dimensions.get("window").width - 96 + 22; // -96 for horizontal padding, +22 for the gap between items
   const [topPickScrollIndex, setTopScrollIndex] = useState(0);
@@ -98,9 +120,12 @@ export default function Home() {
           </View>
         </View>
 
-        {chats.map((chat, index) => (
-          <ForYou key={chat._id} chat={chat} />
-        ))}
+        {chats.map((chat, index) => {
+          fetchData();
+          return (
+            <ForYou key={chat._id} chat={chat} restaurants={restaurants} />
+          );
+        })}
 
         <RestaurantHomeWrapper category={AmericanRestaurants} />
         <RestaurantHomeWrapper category={ItalianRestaurans} />

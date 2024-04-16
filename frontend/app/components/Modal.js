@@ -78,17 +78,29 @@ const NewGroupModal = () => {
     try {
       let allAlergies = [];
       selectedUsers.map((user) => {
-        allAlergies = allAlergies.concat(user.allergies);
+        user.allergies.forEach((allergy) => {
+          if (!allAlergies.includes(allergy)) {
+            allAlergies.push(allergy);
+          }
+        });
       });
 
       let allPreferences = [];
       selectedUsers.map((user) => {
-        allPreferences = allPreferences.concat(user.preferences);
+        user.preferences.forEach((preference) => {
+          if (!allPreferences.includes(preference)) {
+            allPreferences.push(preference);
+          }
+        });
       });
 
       let allCravings = [];
       selectedUsers.map((user) => {
-        allCravings = allCravings.concat(user.cravings);
+        user.cravings.forEach((craving) => {
+          if (!allCravings.includes(craving)) {
+            allCravings.push(craving);
+          }
+        });
       });
 
       console.log(allAlergies);
@@ -166,7 +178,7 @@ const NewGroupModal = () => {
               <UserCard user={user} />
             </TouchableOpacity>
           ))}
-          {searchResult?.slice(0, 4).map((user) => (
+          {searchResult?.slice(0, 6).map((user) => (
             <TouchableOpacity
               key={user._id}
               style={{

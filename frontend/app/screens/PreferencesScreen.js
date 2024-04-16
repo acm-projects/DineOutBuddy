@@ -12,7 +12,7 @@ import { useLogin } from "../../context/LoginProvider";
 import client from "../api/client";
 
 const PreferencesScreen = ({ navigation }) => {
-  const { profile } = useLogin();
+  const { profile, setProfile } = useLogin();
 
   const [preferences, setPreferences] = useState([]);
 
@@ -49,6 +49,12 @@ const PreferencesScreen = ({ navigation }) => {
         }
       );
       console.log(data);
+      setProfile((prev) => {
+        return {
+          ...prev,
+          preferences: data.preferences,
+        };
+      });
       navigation.navigate("CravingsScreen");
     } catch (error) {
       console.log(error.message);

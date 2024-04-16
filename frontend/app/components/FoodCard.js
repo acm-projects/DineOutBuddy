@@ -1,25 +1,29 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
+import Tag from "./Tag";
 
-const FoodCard = ( {item} ) => {
+const FoodCard = ({ item }) => {
   return (
     <View style={styles.foodCard}>
-      <Image source={require("../../assets/restaurantPic.png")}></Image>
+      {item.uri ? (
+        <Image source={item.uri} style={styles.image}></Image>
+      ) : (
+        <Image
+          source={require("../../assets/restaurantPic.png")}
+          style={styles.image}
+        ></Image>
+      )}
+
       <View style={styles.cardContent}>
         <Text style={styles.cardTitle}>{item.name}</Text>
         <View style={styles.cardInfo}>
           <Text style={styles.cardText}>${item.price}</Text>
         </View>
         <View style={styles.tagWrapper}>
-          <View style={styles.tag}>
-            <Text style={styles.tagText}>Japanese</Text>
-          </View>
-          <View style={styles.tag}>
-            <Text style={styles.tagText}>Sushi</Text>
-          </View>
-          <View style={styles.tag}>
-            <Text style={styles.tagText}>Asian</Text>
-          </View>
+          {item.tags &&
+            [...Array(item.tags.length)].map((star, i) => {
+              return <Tag content={item.tags[i]} key={i} />;
+            })}
         </View>
       </View>
     </View>
@@ -31,11 +35,16 @@ export default FoodCard;
 const styles = StyleSheet.create({
   foodCard: {
     flexDirection: "row",
+    alignItems: "center",
     gap: 10,
+    maxWidth: "100%",
+    maxHeight: 150,
+    borderRadius: 20,
   },
   cardTitle: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "Metropolis-Bold",
+    maxWidth: "90%",
   },
   cardInfo: {
     flexDirection: "row",
@@ -48,6 +57,7 @@ const styles = StyleSheet.create({
   },
   tagWrapper: {
     flexDirection: "row",
+    flexWrap: "wrap",
     gap: 6,
   },
   tag: {
@@ -58,6 +68,14 @@ const styles = StyleSheet.create({
   },
   tagText: {
     color: "white",
-    fontSize: 10,
+    fontSize: 12,
+  },
+  image: {
+    width: "50%",
+    maxHeight: "100%",
+    borderRadius: 20,
+  },
+  cardContent: {
+    width: "50%",
   },
 });

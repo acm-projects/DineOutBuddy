@@ -217,9 +217,7 @@ const GroupProfileScreen = ({ route, navigation }) => {
           ))}
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("ChatScreen", {
-                chat: chat,
-              });
+              navigation.goBack();
             }}
             style={{ paddingHorizontal: 5 }}
           >

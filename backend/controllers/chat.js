@@ -198,9 +198,11 @@ export const removeFromGroup = asyncHandler(async (req, res) => {
 });
 
 export const uploadProfile = async (req, res) => {
-  const { chat } = req;
+  const { user } = req;
+  const { chat } = req.body;
+  console.log(chat);
 
-  if (!chat)
+  if (!user)
     return res
       .status(401)
       .json({ success: false, message: "unauthorized access" });

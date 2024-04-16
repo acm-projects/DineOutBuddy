@@ -25,6 +25,12 @@ import {
 } from "../../config/ChatLogics";
 import io from "socket.io-client";
 import FeatherIcon from "react-native-vector-icons/Feather";
+import AntIcon from "react-native-vector-icons/AntDesign";
+import {
+  primaryColor,
+  accentColor,
+  darkColor,
+} from "../components/ComponentColors";
 
 var socket, selectedChatCompare;
 
@@ -60,7 +66,7 @@ export default function Messagescreen({ route }) {
   }, [chat]);
 
   useEffect(() => {
-    socket = io("http://10.176.219.164:8000");
+    socket = io("http://IPADDRESS:8000");
     socket.emit("setup", profile);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
@@ -110,20 +116,25 @@ export default function Messagescreen({ route }) {
     <>
       <View style={styles.container}>
         <View style={styles.header}>
+          <View style={styles.options}>
+            <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                borderRadius: 45,
+                height: 50,
+                width: 50,
+                justifyContent: "center",
+                alignItems: "center",
+                margin: 0,
+                padding: 0,
+                borderColor: accentColor,
+              }}
+              onPress={() => navigation.goBack()}
+            >
+              <AntIcon name="arrowleft" size={20} color={accentColor} />
+            </TouchableOpacity>
+          </View>
           <View style={styles.profile}>
-            <View>
-              <TouchableOpacity
-                style={{ paddingHorizontal: 20 }}
-                onPress={() =>
-                  navigation.navigate("HomeTabs", {
-                    chat: chat,
-                  })
-                }
-              >
-                <FeatherIcon name="chevron-left" size={25} color={"black"} />
-              </TouchableOpacity>
-            </View>
-
             <View style={styles.imgContainer}>
               <Image style={styles.image} source={{ uri: chat.avatar }} />
             </View>
@@ -131,14 +142,24 @@ export default function Messagescreen({ route }) {
           </View>
           <View style={styles.options}>
             <TouchableOpacity
-              style={{ paddingHorizontal: 20 }}
+              style={{
+                borderWidth: 1,
+                borderRadius: 45,
+                height: 50,
+                width: 50,
+                justifyContent: "center",
+                alignItems: "center",
+                margin: 0,
+                padding: 0,
+                borderColor: accentColor,
+              }}
               onPress={() =>
                 navigation.navigate("GroupProfileScreen", {
                   chat: chat,
                 })
               }
             >
-              <Icon name="ellipsis-v" size={25} color={"black"} />
+              <Icon name="ellipsis-v" size={20} color={accentColor} />
             </TouchableOpacity>
           </View>
         </View>
@@ -195,42 +216,48 @@ export default function Messagescreen({ route }) {
           </ScrollView>
         </View>
         {isTyping && <Text>Typing....</Text>}
-        <View style={styles.messageInputContainer}>
-          <Pressable
-            onPress={() => {
-              console.log("pressed");
-            }}
-            style={styles.cameraBtn}
-          >
-            <View>
-              <FeatherIcon name="camera" size={15} color="black"></FeatherIcon>
-            </View>
-          </Pressable>
-          <TextInput
-            onChangeText={(messages) => {
-              setNewMessage(messages);
-              if (!socketConnected) return;
-              if (!typing) {
-                setTyping(true);
-                socket.emit("typing", chat._id);
-              }
-
-              let lastTypingTime = new Date().getTime();
-              var timerLength = 3000;
-              setTimeout(() => {
-                var timeNow = new Date().getTime();
-                var TimeDiff = timeNow - lastTypingTime;
-
-                if (TimeDiff >= timerLength && typing) {
-                  socket.emit("stop typing", chat._id);
-                  setTyping(false);
+        <View style={styles.bottomBar}>
+          <View style={styles.messageInputContainer}>
+            <TextInput
+              onChangeText={(messages) => {
+                setNewMessage(messages);
+                if (!socketConnected) return;
+                if (!typing) {
+                  setTyping(true);
+                  socket.emit("typing", chat._id);
                 }
-              }, timerLength);
-            }}
-            style={styles.messageInput}
-            placeholder="Enter your message"
-            value={newMessage}
-          />
+
+                let lastTypingTime = new Date().getTime();
+                var timerLength = 3000;
+                setTimeout(() => {
+                  var timeNow = new Date().getTime();
+                  var TimeDiff = timeNow - lastTypingTime;
+
+                  if (TimeDiff >= timerLength && typing) {
+                    socket.emit("stop typing", chat._id);
+                    setTyping(false);
+                  }
+                }, timerLength);
+              }}
+              style={styles.messageInput}
+              placeholder="Enter your message"
+              value={newMessage}
+            />
+            <Pressable
+              onPress={() => {
+                console.log("pressed");
+              }}
+              style={styles.cameraBtn}
+            >
+              <View>
+                <FeatherIcon
+                  name="camera"
+                  size={20}
+                  color={"#C4DDEF"}
+                ></FeatherIcon>
+              </View>
+            </Pressable>
+          </View>
           <Pressable onPress={sendMessage} style={styles.button}>
             <View>
               <FeatherIcon name="send" size={20} color="white"></FeatherIcon>
@@ -245,7 +272,7 @@ export default function Messagescreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    backgroundColor: "#F7FAFD",
+    backgroundColor: primaryColor,
     paddingTop: 50,
     paddingBottom: 10,
   },
@@ -255,7 +282,7 @@ const styles = StyleSheet.create({
   header: {
     maxHeight: 250,
     flex: 1,
-    paddingHorizontal: 8,
+    paddingHorizontal: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -264,7 +291,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderColor: "#fff",
-    flex: 4,
   },
   image: {
     width: 50,
@@ -284,12 +310,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  options: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
   wrapper: {
     flex: 1,
     backgroundColor: "#F7FAFD",
@@ -297,17 +317,19 @@ const styles = StyleSheet.create({
   },
   messageInputContainer: {
     maxHeight: 50,
-    width: "100%",
+    width: "80%",
     paddingHorizontal: 8,
     borderRadius: 50,
-    backgroundColor: "#C4DDEF",
+    borderColor: "#C4DDEF",
+    backgroundColor: primaryColor,
+    borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
     marginBottom: 30,
   },
   messageInput: {
-    color: "white",
+    color: accentColor,
     padding: 15,
     flex: 1,
     borderRadius: 50,
@@ -319,13 +341,19 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
+    backgroundColor: accentColor,
   },
   cameraBtn: {
-    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
     width: 30,
     height: 30,
     borderRadius: 15,
+  },
+  bottomBar: {
+    flexDirection: "row",
+    maxWidth: "100%",
+    justifyContent: "space-between",
+    padding: 20,
   },
 });

@@ -12,7 +12,7 @@ import { useLogin } from "../../context/LoginProvider";
 import client from "../api/client";
 
 const CravingsScreen = ({ navigation }) => {
-  const { profile } = useLogin();
+  const { profile, setProfile } = useLogin();
 
   const [cravings, setCravings] = useState(profile.cravings);
 
@@ -55,6 +55,12 @@ const CravingsScreen = ({ navigation }) => {
         }
       );
       console.log(data);
+      setProfile((prev) => {
+        return {
+          ...prev,
+          cravings: data.cravings,
+        };
+      });
       navigation.navigate("HomeTabs");
     } catch (error) {
       console.log(error.message);

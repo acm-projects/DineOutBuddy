@@ -4,7 +4,7 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
-  Image
+  Image,
 } from "react-native";
 import React, { isValidElement, useState } from "react";
 import FormContainer from "../components/FormContainer";
@@ -17,8 +17,12 @@ import client from "../api/client";
 import { StackActions } from "@react-navigation/native";
 import { useLogin } from "../../context/LoginProvider";
 import { signIn } from "../api/user";
-import { primaryColor, accentColor, darkColor } from "../components/ComponentColors";
-import BlueTextmark from "../../assets/BlueTextmark.png"
+import {
+  primaryColor,
+  accentColor,
+  darkColor,
+} from "../components/ComponentColors";
+import BlueTextmark from "../../assets/BlueTextmark.png";
 
 const validationSchema = Yup.object({
   fullname: Yup.string()
@@ -37,7 +41,7 @@ const validationSchema = Yup.object({
 });
 
 const SignupForm = ({ navigation }) => {
-  const { setIsLoggedIn, setProfile } = useLogin();
+  const { setIsLoggedIn, setProfile, getLocation } = useLogin();
 
   const userInfo = {
     fullname: "",
@@ -59,6 +63,7 @@ const SignupForm = ({ navigation }) => {
         console.log(signInRes.data.user);
         setProfile(signInRes.data.user);
         setIsLoggedIn(true);
+        getLocation();
         navigation.navigate("AllergyScreen");
       }
     }
@@ -70,7 +75,7 @@ const SignupForm = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image source={BlueTextmark} style={styles.logo}/>
+        <Image source={BlueTextmark} style={styles.logo} />
         <Text style={styles.splashText}>Food, Friends, Fun</Text>
       </View>
       <FormContainer>
@@ -124,13 +129,13 @@ const SignupForm = ({ navigation }) => {
                   label=""
                   placeholder="Password"
                 />
-                <View style={{height: 44-8}}/>
+                <View style={{ height: 44 - 8 }} />
                 <FormSubmitBtn
                   submitting={isSubmitting}
                   onPress={handleSubmit}
                   title="Sign Up"
                 />
-                <View style={{height: 44}}/>
+                <View style={{ height: 44 }} />
                 <View
                   style={{
                     justifyContent: "center",
@@ -138,7 +143,9 @@ const SignupForm = ({ navigation }) => {
                     flexDirection: "row",
                   }}
                 >
-                  <Text style={styles.plainText}>Already have an account? </Text>
+                  <Text style={styles.plainText}>
+                    Already have an account?{" "}
+                  </Text>
                   <TouchableOpacity
                     onPress={() => navigation.navigate("LoginForm")}
                     underlayColor={"white"}
@@ -163,33 +170,33 @@ export default SignupForm;
 const styles = StyleSheet.create({
   container: {
     height: Dimensions.get("window").height,
-    backgroundColor: primaryColor
+    backgroundColor: primaryColor,
   },
   imageContainer: {
     marginTop: 80,
     marginBottom: 50,
     justifyContent: "flex-end",
     alignItems: "center",
-    alignContent: "center"
-  },  
+    alignContent: "center",
+  },
   plainText: {
     fontSize: 16,
     fontFamily: "Metropolis-Regular",
-    color: darkColor
+    color: darkColor,
   },
   linkText: {
     fontSize: 16,
     fontFamily: "Metropolis-Medium",
-    color: accentColor
+    color: accentColor,
   },
-    splashText: {
+  splashText: {
     fontFamily: "HeyComic",
     fontSize: 22,
-    color: accentColor
+    color: accentColor,
   },
-    logo: {
+  logo: {
     width: Dimensions.get("window").width - 60,
-    height: (Dimensions.get("window").width - 60)/3.2, // 3.2 is the aspect ratio of the image
-    resizeMode: "center"
-  }
+    height: (Dimensions.get("window").width - 60) / 3.2, // 3.2 is the aspect ratio of the image
+    resizeMode: "center",
+  },
 });

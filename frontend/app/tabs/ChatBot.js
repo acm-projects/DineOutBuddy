@@ -13,6 +13,11 @@ import {
 import FeatherIcon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import { useLogin } from "../../context/LoginProvider";
+import {
+  primaryColor,
+  accentColor,
+  darkColor,
+} from "../components/ComponentColors";
 
 export default function ChatBotScreen() {
   const [messages, setMessages] = useState([]);
@@ -28,7 +33,7 @@ export default function ChatBotScreen() {
       setNewMessage(""); // Clear the input field immediately after sending
       try {
         const response = await fetch(
-          `http://10.176.219.164:8000/aichat?message=${encodeURIComponent(
+          `http://IPADDRESS:8000/aichat?message=${encodeURIComponent(
             messageToSend
           )}`,
           {
@@ -93,16 +98,18 @@ export default function ChatBotScreen() {
           ))}
         </ScrollView>
         {isTyping && <Text style={styles.typingText}>Typing...</Text>}
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Type your message here..."
-            value={newMessage}
-            onChangeText={setNewMessage}
-            onSubmitEditing={sendMessage} // Trigger sending message on submit (optional)
-          />
-          <Pressable onPress={sendMessage} style={styles.sendButton}>
-            <FeatherIcon name="send" size={24} color="white" />
+        <View style={styles.bottomBar}>
+          <View style={styles.messageInputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Type your message here..."
+              value={newMessage}
+              onChangeText={setNewMessage}
+              onSubmitEditing={sendMessage} // Trigger sending message on submit (optional)
+            />
+          </View>
+          <Pressable onPress={sendMessage} style={styles.button}>
+            <FeatherIcon name="send" size={20} color="white" />
           </Pressable>
         </View>
       </KeyboardAvoidingView>
@@ -169,10 +176,12 @@ const styles = StyleSheet.create({
   },
   messageInputContainer: {
     maxHeight: 50,
-    width: "100%",
+    width: "80%",
     paddingHorizontal: 8,
     borderRadius: 50,
-    backgroundColor: "#C4DDEF",
+    borderColor: "#C4DDEF",
+    backgroundColor: primaryColor,
+    borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
@@ -191,6 +200,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
+    backgroundColor: accentColor,
   },
   cameraBtn: {
     backgroundColor: "white",
@@ -229,5 +239,11 @@ const styles = StyleSheet.create({
   typingText: {
     padding: 10,
     fontStyle: "italic",
+  },
+  bottomBar: {
+    flexDirection: "row",
+    maxWidth: "100%",
+    justifyContent: "space-between",
+    padding: 20,
   },
 });

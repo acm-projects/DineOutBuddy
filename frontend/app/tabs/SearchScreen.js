@@ -77,7 +77,7 @@ const SearchScreen = ({ navigation }) => {
       try {
         console.log(coordinates);
         const response = await fetch(
-          `http://10.176.219.164:8000/matchedRestaurants?lat=${
+          `http://IPADDRESS:8000/matchedRestaurants?lat=${
             coordinates.latitude
           }&lng=${coordinates.longitude}&restrictions=${"Japanese"}`
         );
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   navbar: {
     flexDirection: "row",
-    alignItems: "flex-start",
+    alignItems: "center",
     gap: 10,
   },
   map: {
