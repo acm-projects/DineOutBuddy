@@ -24,7 +24,7 @@ export default function ForYou({ chat, restaurants }) {
         horizontal={true}
         contentContainerStyle={styles.scrollViewContent}
         showsHorizontalScrollIndicator={false}
-        snapToInterval={118}
+        snapToInterval={220 + 25}
         decelerationRate={"fast"}
       >
         {restaurants.map((restaurant) => {
