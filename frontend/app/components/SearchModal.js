@@ -28,9 +28,10 @@ const SearchModal = ({
   handleChange,
   handleGroupChange,
   fetchData,
+  setModalVisible,
+  modalVisible,
 }) => {
   const { chats } = useLogin();
-  const { modalVisible, setModalVisible } = useContext(GlobalContext);
   const [groupsVisible, setGroupVisible] = useState(false);
 
   const allAllergies = [

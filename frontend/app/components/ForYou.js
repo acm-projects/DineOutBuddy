@@ -7,7 +7,12 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { accentColor, darkColor, lavenderColor, primaryColor } from "./ComponentColors";
+import {
+  accentColor,
+  darkColor,
+  lavenderColor,
+  primaryColor,
+} from "./ComponentColors";
 import fish from "../../assets/fish.png";
 
 export default function ForYou({ chat, restaurants }) {
@@ -15,6 +20,14 @@ export default function ForYou({ chat, restaurants }) {
     console.log("Hello again");
   }
 
+  const priceLevelToDollarSign = (level) => {
+    const levels = {
+      1: "$",
+      2: "$$",
+      3: "$$$",
+    };
+    return levels[level] || "?";
+  };
 
   return (
     <View style={styles.container}>
@@ -29,7 +42,11 @@ export default function ForYou({ chat, restaurants }) {
       >
         {restaurants.map((restaurant) => {
           return (
-            <TouchableOpacity onPress={handlePress} key={restaurant.name} style={styles.restaurantContainer}>
+            <TouchableOpacity
+              onPress={handlePress}
+              key={restaurant.name}
+              style={styles.restaurantContainer}
+            >
               <Image
                 source={{
                   uri:
@@ -39,19 +56,30 @@ export default function ForYou({ chat, restaurants }) {
                 }}
                 style={styles.image}
               />
-							<View>
-								<Text style={styles.nameText} numberOfLines={1}>Torchyeeeeeeeeeeeeeee's Tacos</Text>
-								<Text style={styles.infoText}>4.5 ★ (233) | $$</Text>
-							</View>
+              <View>
+                <Text style={styles.nameText} numberOfLines={1}>
+                  {restaurant.name}
+                </Text>
+                <Text style={styles.infoText}>
+                  {restaurant.rating} ★ ({restaurant.user_ratings_total})|{" "}
+                  {priceLevelToDollarSign(restaurant.price_level)} |{" "}
+                  {restaurant.openNow ? "Open Now" : "Closed"}
+                </Text>
+              </View>
             </TouchableOpacity>
           );
         })}
-        <TouchableOpacity onPress={handlePress} style={styles.restaurantContainer}>
+        <TouchableOpacity
+          onPress={handlePress}
+          style={styles.restaurantContainer}
+        >
           <Image source={fish} style={styles.image} />
-						<View>
-							<Text style={styles.nameText} numberOfLines={1}>Torchy's Tacos</Text>
-							<Text style={styles.infoText}>4.5 ★ (233) | $$</Text>
-						</View>
+          <View>
+            <Text style={styles.nameText} numberOfLines={1}>
+              Torchy's Tacos
+            </Text>
+            <Text style={styles.infoText}>4.5 ★ (233) | $$</Text>
+          </View>
         </TouchableOpacity>
       </ScrollView>
     </View>
@@ -77,7 +105,7 @@ const styles = StyleSheet.create({
   },
   restaurantContainer: {
     width: 220,
-    gap: 6
+    gap: 6,
   },
   image: {
     width: 220,
@@ -87,11 +115,11 @@ const styles = StyleSheet.create({
   nameText: {
     fontFamily: "Metropolis-SemiBold",
     fontSize: 18,
-    color: darkColor
+    color: darkColor,
   },
   infoText: {
     fontFamily: "Metropolis-SemiBold",
     fontSize: 14,
-    color: lavenderColor
-  }
+    color: lavenderColor,
+  },
 });

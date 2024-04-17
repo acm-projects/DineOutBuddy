@@ -41,7 +41,9 @@ const MessagesScreen = ({ navigation }) => {
 
   useEffect(() => {
     console.log("Fetching Chats");
+
     fetchChats();
+    console.log(chats);
   }, []);
   return (
     <View style={styles.container}>
@@ -53,12 +55,35 @@ const MessagesScreen = ({ navigation }) => {
           </Pressable>
         </View>
       </View>
-      <View style={styles.groupWrapper}>
-        {chats
-          ? chats.map((chat) => {
-              return <GroupCard chat={chat} key={chat._id} />;
-            })
-          : null}
+      <View
+        style={[
+          chats.length == 0 ? styles.noGroupWrapper : styles.groupWrapper,
+        ]}
+      >
+        {chats.length == 0 ? (
+          <TouchableOpacity
+            onPress={() => setModalVisible(true)}
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Icon name={"plus"} color={"#C4DDEF"} size={80} />
+            <Text
+              style={{
+                color: "#C4DDEF",
+                fontSize: 20,
+                fontFamily: "Metropolis-SemiBold",
+              }}
+            >
+              Tap to create or join a new Group{" "}
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          chats.map((chat) => {
+            return <GroupCard chat={chat} key={chat._id} />;
+          })
+        )}
       </View>
       {modalVisible && <NewGroupModal />}
     </View>
@@ -72,6 +97,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: primaryColor,
     paddingHorizontal: 16,
+    paddingBottom: 100,
     gap: 20,
   },
   header: {
@@ -93,5 +119,17 @@ const styles = StyleSheet.create({
   groupWrapper: {
     flex: 1,
     flexDirection: "column",
+
+    borderRadius: 20,
+  },
+  noGroupWrapper: {
+    flex: 1,
+    flexDirection: "column",
+    borderWidth: 4,
+    borderRadius: 20,
+    borderColor: "#EDF2F4",
+    borderStyle: "dashed",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

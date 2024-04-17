@@ -34,7 +34,7 @@ import RestaurantHomeWrapper from "../components/RestaurantHomeWrapper";
 export default function Home({ navigation }) {
   const { chats, fetchChats, coordinates } = useLogin();
   const [restaurants, setRestaurants] = useState([
-  {
+    {
       category: ["Sushi", " Chinese", "Asian Fusion"],
       distance: 20.90984372125962,
       id: "48375",
@@ -48,7 +48,8 @@ export default function Home({ navigation }) {
       rating: 4.2,
       user_ratings_total: 546,
       vicinity: "1310 W Campbell Rd #114, Richardson",
-    },]);
+    },
+  ]);
 
   useEffect(() => {
     fetchChats();
@@ -59,9 +60,7 @@ export default function Home({ navigation }) {
     try {
       console.log(coordinates);
       const response = await fetch(
-        `http://10.176.217.84:8000/matchedRestaurants?lat=${
-          "32.7767"
-        }&lng=${"-96.7970"}&restrictions=${"Japanese"}`
+        `http://IPADDRESS:8000/matchedRestaurants?lat=${"32.7767"}&lng=${"-96.7970"}&restrictions=${"Japanese"}`
       );
 
       const data = await response.json();
@@ -136,19 +135,19 @@ export default function Home({ navigation }) {
             </View>
           </View>
 
-        {chats.map((chat, index) => {
-          return (
-            <ForYou key={chat._id} chat={chat} restaurants={restaurants} />
-          );
-        })}
+          {chats.map((chat, index) => {
+            return (
+              <ForYou key={chat._id} chat={chat} restaurants={restaurants} />
+            );
+          })}
 
-        <RestaurantHomeWrapper category={AmericanRestaurants} />
-        <RestaurantHomeWrapper category={ItalianRestaurans} />
-        <RestaurantHomeWrapper category={JapaneseResturant} />
-        <RestaurantHomeWrapper category={MexicanRestaurans} />
-        <RestaurantHomeWrapper category={IndianRestaurans} />
-        <RestaurantHomeWrapper category={ThaiRestaurans} />
-      </ScrollView>
+          <RestaurantHomeWrapper category={AmericanRestaurants} />
+          <RestaurantHomeWrapper category={ItalianRestaurans} />
+          <RestaurantHomeWrapper category={JapaneseResturant} />
+          <RestaurantHomeWrapper category={MexicanRestaurans} />
+          <RestaurantHomeWrapper category={IndianRestaurans} />
+          <RestaurantHomeWrapper category={ThaiRestaurans} />
+        </ScrollView>
       </View>
     </View>
   );
@@ -165,7 +164,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   topPickContainer: {
     flexDirection: "row",
