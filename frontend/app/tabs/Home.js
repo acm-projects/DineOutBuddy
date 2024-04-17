@@ -33,7 +33,22 @@ import RestaurantHomeWrapper from "../components/RestaurantHomeWrapper";
 
 export default function Home({ navigation }) {
   const { chats, fetchChats, coordinates } = useLogin();
-  const [restaurants, setRestaurants] = useState([]);
+  const [restaurants, setRestaurants] = useState([
+  {
+      category: ["Sushi", " Chinese", "Asian Fusion"],
+      distance: 20.90984372125962,
+      id: "48375",
+      lat: 32.9791096,
+      lng: -96.764983,
+      name: "Akaya Sushi, Izakaya & Ramen",
+      openNow: "true",
+      photo:
+        "ATplDJZbt8HgYVazJAYt_kimYday-oPN3I_hge7ndXvwLYbWrrsyGzzNfSl53MK9NQeETAdldqxkSrtM4fti5c7nTwYNm7guBYbtimrYtK8ye7bear1KC4e4_Z3z_ejBJijtGVtBqr7sC7esFQHP64oHuDE1LPOFCDUcPo3En_WX_6q_GGky",
+      place_id: "ChIJJwloXPEhTIYRboIzP_nrWi8",
+      rating: 4.2,
+      user_ratings_total: 546,
+      vicinity: "1310 W Campbell Rd #114, Richardson",
+    },]);
 
   useEffect(() => {
     fetchChats();
@@ -44,9 +59,9 @@ export default function Home({ navigation }) {
     try {
       console.log(coordinates);
       const response = await fetch(
-        `http://IPADDRESS:8000/matchedRestaurants?lat=${
-          coordinates.latitude
-        }&lng=${coordinates.longitude}&restrictions=${"Japanese"}`
+        `http://10.176.217.84:8000/matchedRestaurants?lat=${
+          "32.7767"
+        }&lng=${"-96.7970"}&restrictions=${"Japanese"}`
       );
 
       const data = await response.json();
