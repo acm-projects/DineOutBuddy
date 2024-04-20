@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Metropolis-Bold",
     maxWidth: "90%",
+    marginBottom: 5,
   },
   cardInfo: {
     flexDirection: "row",

@@ -34,7 +34,10 @@ const RestaurantCard = ({ data, navigation }) => {
       }}
     >
       <View style={styles.main}>
-        <Image style={{ width: 100, height: 100 }} source={{ uri: photoUrl }} />
+        <Image
+          style={{ width: 100, height: 100, borderRadius: 10 }}
+          source={{ uri: photoUrl }}
+        />
         <View style={styles.content}>
           <Text style={styles.title}>{data.name}</Text>
           <View style={styles.info}>

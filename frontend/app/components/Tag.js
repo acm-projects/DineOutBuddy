@@ -84,7 +84,7 @@ const Tag = ({ content }) => {
       style={{
         backgroundColor: bgColor,
         paddingVertical: 3,
-        paddingHorizontal: 5,
+        paddingHorizontal: 7,
         borderRadius: 10,
       }}
     >
@@ -99,11 +99,12 @@ const styles = StyleSheet.create({
   tag: {
     backgroundColor: "#2287D0",
     paddingVertical: 3,
-    paddingHorizontal: 5,
+    paddingHorizontal: 7,
     borderRadius: 10,
   },
   tagText: {
     color: "white",
-    fontSize: 13,
+    fontFamily: "Metropolis-Medium",
+    fontSize: 14,
   },
 });

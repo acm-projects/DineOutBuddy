@@ -19,7 +19,7 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 const OsakaRestaurantScreen = ({ route, navigation }) => {
   const [rating, setRating] = useState(4.5);
   const [seeReviews, setSeeReviews] = useState(2);
-  const [seeMenu, setSeeMenu] = useState(4);
+  const [seeMenu, setSeeMenu] = useState(3);
 
   const priceLevelToDollarSign = (level) => {
     const levels = {
@@ -61,6 +61,54 @@ const OsakaRestaurantScreen = ({ route, navigation }) => {
       price: "15.95",
       tags: ["Deep Fried", "Crabmeat", "Avocado"],
       uri: require("../../assets/food/LasVegasRoll.png"),
+    },
+    {
+      name: "Chase Tiger Roll",
+      price: "20.95",
+      tags: ["Raw", "Lobster", "Eel Tempura", "King Crab"],
+      uri: require("../../assets/food/ChaseTigerRoll.png"),
+    },
+    {
+      name: "Black Dragon Roll",
+      price: "16.95",
+      tags: ["Cooked", "Shrimp Tempura", "Eel"],
+      uri: require("../../assets/food/BlackDragonRoll.png"),
+    },
+    {
+      name: "Sakura Roll",
+      price: "16.95",
+      tags: ["Kani", "Cheese", "Avocado"],
+      uri: require("../../assets/food/SakuraRoll.png"),
+    },
+    {
+      name: "Sweet Heart Roll",
+      price: "15.95",
+      tags: ["Tuna", "Avocado", "Spicy Mayo"],
+      uri: require("../../assets/food/SweetHeartRoll.png"),
+    },
+    {
+      name: "Lobster Fantasy Roll",
+      price: "18.95",
+      tags: ["Tempura Lobster", "Crabmeat", "Avocado"],
+      uri: require("../../assets/food/LobsterFantasyRoll.png"),
+    },
+    {
+      name: "Phoenix Roll",
+      price: "15.95",
+      tags: ["Shrimp Tempura", "Avocado", "Spicy Tuna"],
+      uri: require("../../assets/food/PhoenixRoll.png"),
+    },
+    {
+      name: "DFW Roll",
+      price: "14.95",
+      tags: ["Spicy Salmon", "Cucumber", "Avocado", "Pepper Tuna"],
+      uri: require("../../assets/food/DFWRoll.png"),
+    },
+    {
+      name: "Ichiban Roll",
+      price: "18.95",
+      tags: ["Tempura Salmon", "Tuna", "Salmon", "Avocado"],
+      uri: require("../../assets/food/IchibanRoll.png"),
     },
   ];
 
@@ -303,25 +351,20 @@ const OsakaRestaurantScreen = ({ route, navigation }) => {
       <View style={styles.main}>
         <Text style={styles.subHeading}>Recommended Menu Items</Text>
         <View style={styles.cardWrapper}>
-          {recommendedMenuItems.map((menuItem, index) => (
+          {recommendedMenuItems.slice(0, seeMenu).map((menuItem, index) => (
             <FoodCard key={index} item={menuItem} />
           ))}
         </View>
-        <Text style={styles.subHeading}>All Menu Items</Text>
-        <View style={styles.cardWrapper}>
-          {menuItems.slice(0, seeMenu).map((menuItem, index) => (
-            <FoodCard key={index} item={menuItem} />
-          ))}
-        </View>
+
         <TouchableOpacity
           style={styles.menuBtn}
           onPress={() => {
-            if (seeMenu == 4) setSeeMenu(8);
-            else setSeeMenu(4);
+            if (seeMenu == 3) setSeeMenu(8);
+            else setSeeMenu(3);
           }}
         >
           <Text style={styles.menuBtnText}>
-            {seeReviews == 5 ? "Show less" : "See Full Menu"}
+            {seeMenu == 8 ? "Show less" : "See Full Menu"}
           </Text>
         </TouchableOpacity>
         <Text style={styles.subHeading}>Reviews</Text>
@@ -385,7 +428,7 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 190,
-    paddingTop: 100,
+    paddingTop: 110,
     paddingHorizontal: 16,
     marginBottom: 20,
     position: "relative",
@@ -403,7 +446,7 @@ const styles = StyleSheet.create({
   title: {
     color: "white",
     fontSize: 24,
-    fontFamily: "Metropolis-Bold",
+    fontFamily: "Metropolis-ExtraBold",
   },
   info: {
     flexDirection: "row",
@@ -413,6 +456,8 @@ const styles = StyleSheet.create({
   },
   infoText: {
     color: "white",
+    fontFamily: "Metropolis-Medium",
+    fontSize: 16,
   },
   tagWrapper: {
     flexDirection: "row",
