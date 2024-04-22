@@ -165,17 +165,16 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   imgContainer: {
-    elevation: 15,
     width: 50,
     height: 50,
     borderRadius: 25,
-    shadowColor: "black",
   },
   username: {
-    marginLeft: 15,
+    marginLeft: 20,
     color: "black",
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: "Metropolis-Bold",
+    marginTop: 5
   },
   options: {
     flex: 1,
@@ -227,6 +226,7 @@ const styles = StyleSheet.create({
   }),
   messageText: {
     fontSize: 16,
+    fontFamily: "Metropolis-Medium"
   },
   inputContainer: {
     flexDirection: "row",

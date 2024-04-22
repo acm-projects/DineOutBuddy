@@ -249,12 +249,12 @@ const styles = StyleSheet.create({
   title: {
     color: "#0093ED",
     fontSize: 30,
-    fontWeight: "bold",
+    fontFamily: "Metropolis-Bold",
     marginBottom: 15,
   },
   textStyle: {
     color: "white",
-    fontWeight: "bold",
+    fontFamily: "Metropolis-Bold",
     textAlign: "center",
   },
   modalText: {
@@ -264,13 +264,15 @@ const styles = StyleSheet.create({
   loginInput: {
     borderRadius: 50,
     padding: 8,
+    paddingLeft: 20,
     backgroundColor: "#C4DDEF",
+    fontFamily: "Metropolis-Medium",
     marginBottom: 10,
   },
 
   button: {
     backgroundColor: "#0093ED",
-    padding: 15,
+    padding: 10,
     marginVertical: 10,
     elevation: 1,
     borderRadius: 50,
