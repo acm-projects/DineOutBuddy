@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
 		borderRightWidth: 2,
 		borderBottomWidth: 2,
 		borderColor: secondaryColor,
-		paddingHorizontal: 20
+		paddingHorizontal: 20,
+		paddingVertical: 8
 	},
 	titleText: {
 		fontFamily: "Metropolis-Bold",

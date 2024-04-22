@@ -443,7 +443,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: primaryColor,
-    fontSize: 32,
+    fontSize: 38,
     fontFamily: "Metropolis-ExtraBold",
     width: "80%"
   },

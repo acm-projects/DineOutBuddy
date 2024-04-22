@@ -78,6 +78,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Metropolis-SemiBold"
   },
+  content: {
+    justifyContent: "center"
+  },
   info: {
     flexDirection: "row",
     alignItems: "center",
