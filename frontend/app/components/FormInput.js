@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import React from "react";
-import {primaryColor, inputColor, accentColor} from "./ComponentColors.js"
+import {primaryColor, inputColor, accentColor, lavenderColor, darkColor} from "./ComponentColors.js"
 
 export default function FormInput(props) {
   const { placeholder, label, error } = props;
@@ -15,7 +15,7 @@ export default function FormInput(props) {
         <Text style={styles.label}>{label}</Text>
         {error && <Text style={styles.errorText}>{error}</Text>}
       </View>
-      <TextInput {...props} style={styles.input} placeholder={placeholder} placeholderTextColor={primaryColor} color={primaryColor}/>
+      <TextInput {...props} style={styles.input} placeholder={placeholder} placeholderTextColor={primaryColor} color={darkColor}/>
     </View>
   );
 }

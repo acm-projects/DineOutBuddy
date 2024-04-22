@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import React from "react";
 import Tag from "./Tag";
+import { lavenderColor } from "./ComponentColors";
 
 const RestaurantCard = ({ data, navigation }) => {
   const priceLevelToDollarSign = (level) => {
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "Metropolis-SemiBold"
   },
   info: {
     flexDirection: "row",
@@ -84,7 +85,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   infoText: {
-    color: "#A2A6B5",
+    color: lavenderColor,
+    fontFamily: "Metropolis-Medium"
   },
   tagWrapper: {
     flexDirection: "row",

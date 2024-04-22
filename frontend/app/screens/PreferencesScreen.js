@@ -10,6 +10,7 @@ import CheckBox from "react-native-check-box";
 import React, { useState } from "react";
 import { useLogin } from "../../context/LoginProvider";
 import client from "../api/client";
+import { accentColor, lavenderColor, primaryColor } from "../components/ComponentColors";
 
 const PreferencesScreen = ({ navigation }) => {
   const { profile, setProfile } = useLogin();
@@ -21,7 +22,7 @@ const PreferencesScreen = ({ navigation }) => {
     "Halal",
     "Vegan",
     "Kosher",
-    "Pescantarianism",
+    "Pescatarianism",
     "Keto",
   ];
 
@@ -93,6 +94,7 @@ const PreferencesScreen = ({ navigation }) => {
           </TouchableOpacity>
         ))}
       </View>
+      <View style={{flex: 1}}/>
       <View style={styles.navigationWrapper}>
         <Pressable onPress={handleSubmit} style={styles.button}>
           <View>
@@ -123,37 +125,39 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 75,
+    paddingTop: 75,
+    paddingBottom: 30,
     backgroundColor: "#F7FAFD",
   },
   blurb: {
-    color: "#9DA7CD",
+    color: lavenderColor,
     fontSize: 16,
-    maxWidth: "50%",
+    fontFamily: "Metropolis-Medium",
+    maxWidth: "70%",
     marginBottom: 16,
   },
   title: {
-    color: "#0093ED",
+    color: accentColor,
     fontSize: 32,
-    fontWeight: "bold",
+    fontFamily: "Metropolis-Black",
     marginBottom: 32,
   },
   button: {
     height: 40,
-    backgroundColor: "#0093ED",
+    backgroundColor: accentColor,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
     marginBottom: 15,
   },
   buttonText: {
-    color: "white",
+    color: primaryColor,
+    fontFamily: "Metropolis-Medium"
   },
   cardWrapper: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 15,
-    marginBottom: 250,
+    gap: 15
   },
   card: {
     minWidth: 60,
@@ -161,7 +165,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     borderWidth: 2,
-    borderColor: "#0093ED",
+    borderColor: accentColor,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -170,7 +174,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   exitText: {
-    color: "#9DA7CD",
+    color: lavenderColor,
     textAlign: "center",
+    fontFamily: "Metropolis-Medium"
   },
 });

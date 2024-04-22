@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import Tag from "./Tag";
+import { lavenderColor } from "./ComponentColors";
 
 const FoodCard = ({ item }) => {
   return (
@@ -36,16 +37,15 @@ const styles = StyleSheet.create({
   foodCard: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: 20,
     maxWidth: "100%",
     maxHeight: 150,
     borderRadius: 20,
   },
   cardTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: "Metropolis-Bold",
     maxWidth: "90%",
-    marginBottom: 5,
   },
   cardInfo: {
     flexDirection: "row",
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   cardText: {
-    color: "#A2A6B5",
+    color: lavenderColor,
   },
   tagWrapper: {
     flexDirection: "row",
@@ -72,11 +72,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   image: {
-    width: "50%",
+    width: "40%",
     maxHeight: "100%",
     borderRadius: 20,
   },
   cardContent: {
-    width: "50%",
+    width: "60%",
   },
 });

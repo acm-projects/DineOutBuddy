@@ -15,6 +15,7 @@ import RestaurantCard from "../components/RestaurantCard";
 import ReviewCard from "../components/ReviewCard";
 import Tag from "../components/Tag";
 import FeatherIcon from "react-native-vector-icons/Feather";
+import { accentColor, primaryColor } from "../components/ComponentColors";
 
 const OsakaRestaurantScreen = ({ route, navigation }) => {
   const [rating, setRating] = useState(4.5);
@@ -318,34 +319,31 @@ const OsakaRestaurantScreen = ({ route, navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <ImageBackground style={styles.header} source={{ uri: photoUrl }}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
-          style={{
-            position: "absolute",
-            left: 16,
-            top: 60,
-            zIndex: 1111,
-          }}
-        >
-          <FeatherIcon name="chevron-left" size={25} color={"white"} />
-        </TouchableOpacity>
+      <ImageBackground source={{ uri: photoUrl }}>
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            <FeatherIcon name="arrow-left" size={32} color={"white"}/>
+          </TouchableOpacity>
+          <View style={{height: 20}}/>
+          <Text style={styles.title}>{data.name}</Text>
+          <View style={styles.info}>
+            <Icon name="star" size={12} color={primaryColor} />
 
-        <Text style={styles.title}>{data.name}</Text>
-        <View style={styles.info}>
-          <Icon name="star" size={10} color={"#A2A6B5"} />
-
-          <Text style={styles.infoText}>
-            {data.rating} ({data.user_ratings_total}) |{" "}
-            {priceLevelToDollarSign(data.price_level)} | 5.6 mi
-          </Text>
-        </View>
-        <View style={styles.tagWrapper}>
-          {[...Array(data.category.length)].map((star, i) => {
-            return <Tag content={data.category[i]} key={i} />;
-          })}
+            <Text style={styles.infoText}>
+              {data.rating} ({data.user_ratings_total}) |{" "}
+              {priceLevelToDollarSign(data.price_level)} | 5.6 mi
+            </Text>
+          </View>
+          <View style={{height: 10}}/>
+          <View style={styles.tagWrapper}>
+            {[...Array(data.category.length)].map((star, i) => {
+              return <Tag content={data.category[i]} key={i} />;
+            })}
+          </View>
         </View>
       </ImageBackground>
       <View style={styles.main}>
@@ -427,11 +425,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    height: 190,
-    paddingTop: 110,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    paddingTop: 40,
     paddingHorizontal: 16,
-    marginBottom: 20,
-    position: "relative",
+    paddingBottom: 20,
   },
   main: {
     flexDirection: "column",
@@ -439,14 +436,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   subHeading: {
-    color: "#0093ED",
-    fontSize: 24,
-    fontFamily: "Metropolis-Bold",
-  },
-  title: {
-    color: "white",
+    paddingTop: 20,
+    color: accentColor,
     fontSize: 24,
     fontFamily: "Metropolis-ExtraBold",
+  },
+  title: {
+    color: primaryColor,
+    fontSize: 32,
+    fontFamily: "Metropolis-ExtraBold",
+    width: "80%"
   },
   info: {
     flexDirection: "row",
@@ -455,7 +454,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   infoText: {
-    color: "white",
+    color: primaryColor,
     fontFamily: "Metropolis-Medium",
     fontSize: 16,
   },

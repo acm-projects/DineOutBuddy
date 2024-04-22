@@ -79,11 +79,9 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   imgContainer: {
-    elevation: 15,
     width: 60,
     height: 60,
     borderRadius: 30,
-    shadowColor: "black",
   },
   name: {
     fontSize: 15,

@@ -13,6 +13,7 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useLogin } from "../../context/LoginProvider";
+import { primaryColor } from "../components/ComponentColors";
 
 const IndividualProfile = ({ navigation }) => {
   const { profile, setIsLoggedIn } = useLogin();
@@ -122,7 +123,7 @@ const IndividualProfile = ({ navigation }) => {
             <FeatherIcon size={24} name="chevron-right" />
           </View>
         </View>
-        <View style={[styles.optionContainer, { backgroundColor: "white" }]}>
+        <View style={[styles.optionContainer, { backgroundColor: primaryColor }]}>
           <TouchableOpacity
             style={styles.option}
             onPress={() => setIsLoggedIn(false)}
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
     height: 130,
     borderRadius: 65,
     borderWidth: 13,
-    borderColor: "white",
+    borderColor: primaryColor,
   },
   optionWrapper: {
     paddingHorizontal: 16,

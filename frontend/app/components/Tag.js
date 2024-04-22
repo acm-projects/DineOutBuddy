@@ -83,9 +83,9 @@ const Tag = ({ content }) => {
     <View
       style={{
         backgroundColor: bgColor,
-        paddingVertical: 3,
-        paddingHorizontal: 7,
-        borderRadius: 10,
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        borderRadius: 15,
       }}
     >
       <Text style={styles.tagText}>{content.trim()}</Text>

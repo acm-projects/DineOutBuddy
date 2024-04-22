@@ -61,7 +61,7 @@ export default function ForYou({ chat, restaurants }) {
                   {restaurant.name}
                 </Text>
                 <Text style={styles.infoText}>
-                  {restaurant.rating} ★ ({restaurant.user_ratings_total})|{" "}
+                  {restaurant.rating} ★ ({restaurant.user_ratings_total}) |{" "}
                   {priceLevelToDollarSign(restaurant.price_level)} |{" "}
                   {restaurant.openNow ? "Open Now" : "Closed"}
                 </Text>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "Metropolis-Bold",
     color: darkColor,
-    paddingLeft: 16,
+    paddingHorizontal: 16,
   },
   scrollViewContent: {
     gap: 25,

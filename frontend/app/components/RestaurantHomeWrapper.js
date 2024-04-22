@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "Metropolis-Bold",
     color: darkColor,
-    paddingLeft: 16,
+    paddingHorizontal: 16,
   },
   scrollViewContent: {
     gap: 25,

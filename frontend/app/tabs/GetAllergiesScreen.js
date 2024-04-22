@@ -3,6 +3,8 @@ import { View, TouchableOpacity } from "react-native";
 import { accentColor } from "../components/ComponentColors";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import PreferencesScreen from "../screens/PreferencesScreen";
+import AllergyScreen from "../screens/AllergyScreen";
+import CravingsScreen from "../screens/CravingsScreen";
 
 const Stack = createNativeStackNavigator();
 
